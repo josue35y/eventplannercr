@@ -361,3 +361,27 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Archivos generados por Visual Studio y Rider
+bin/
+obj/
+.vscode/
+.idea/
+*.vs
+*.cache
+*.db
+
+# Configuración específica de Rider
+*.iml
+out/
+
+# Dependencias de NuGet
+packages/
+
+# Configuración del entorno
+.env
+secrets.json
+
+# Archivos de depuración
+*.exp
+*.idb
