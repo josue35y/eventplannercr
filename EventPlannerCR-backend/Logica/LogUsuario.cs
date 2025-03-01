@@ -68,8 +68,7 @@ namespace EventPlannerCR_backend.Logica
                     }
 
                     //
-                    int? idUsuario = 0;
-                    int? idBD = 0;
+                    int? idBd = 0;
                     int? idError = 0;
                     string errorDescripcion = null;
 
@@ -94,22 +93,21 @@ namespace EventPlannerCR_backend.Logica
                                 req.usuario.Password,
                                 req.usuario.Vehiculo,
 
-                                ref idBD,
+                                ref idBd,
                                 ref idError,
                                 ref errorDescripcion);
                         }
 
 
-                        if (idBD >= 1)
+                        if (idBd >= 1)
                         {
                             res.resultado = true;
+                            error.ErrorCode = idError ?? 0;
+                        }
 
-                        }
-                        else
-                        {
-                            error.Message = errorDescripcion; //MALA Practica.
-                            res.error.Add(error);
-                        }
+                        //MALA Practica.
+                        error.Message = errorDescripcion;
+                        res.error.Add(error);
                     }
 
                 }
