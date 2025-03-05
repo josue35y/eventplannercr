@@ -81,7 +81,7 @@ namespace EventPlannerCR_backend.Logica
                                 ref idError,
                                 ref errorDescripcion);
                         }
-                        if (idBD <= 1)
+                        if (idBD >= 1)
                         {
                             res.resultado = true;
                         }

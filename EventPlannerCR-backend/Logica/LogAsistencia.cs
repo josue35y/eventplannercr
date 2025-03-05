@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Logica
-{
+{   
     public class LogAsistencia
     {
         public ResInsertarAsistencia insertar(ReqInsertarAsistencia req)
@@ -72,7 +72,7 @@ namespace EventPlannerCR_backend.Logica
                                 ref idError,
                                 ref errorDescripcion);
                         }
-                        if (idBD <= 1)
+                        if (idBD >= 1)
                         {
                             res.resultado = true;
                         }
