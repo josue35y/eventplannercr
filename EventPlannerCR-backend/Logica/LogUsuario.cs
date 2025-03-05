@@ -23,10 +23,14 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req == null)
                 {
-
                     error.ErrorCode = (int)enumErrores.requestNulo;
                     error.Message = "Req Null";
                     res.error.Add(error);
+
+                    //Enviar error a bitacora:
+                    //object LogObject = RegistrarBitacora("LogUsuario", "insertar", "Error", "400", "El request es nulo", null, null);
+
+
                 }
                 else
                 {
@@ -136,18 +140,18 @@ namespace EventPlannerCR_backend.Logica
 
 
         #region laFactoria!
-        private Usuario FactoryUsuario(SP_InsertarUsuarioResult tc)
-        {
-            //
-            Usuario usuario = new Usuario();
-            usuario.Nombre = tc.NOMBRE;
-            usuario.Apellidos = tc.APELLIDOS;
-            usuario.Correo = tc.CORREO_ELECTRONICO;
-            usuario.FechaRegistro = tc.FECHA_REGISTRO.AddHours(-6);
+        //private Usuario FactoryUsuario(SP_InsertarUsuarioResult tc)
+        //{
+        //    //
+        //    Usuario usuario = new Usuario();
+        //    usuario.Nombre = tc.NOMBRE;
+        //    usuario.Apellidos = tc.APELLIDOS;
+        //    usuario.Correo = tc.CORREO_ELECTRONICO;
+        //    usuario.FechaRegistro = tc.FECHA_REGISTRO.AddHours(-6);
 
 
-            return usuario;
-        }
+        //    return usuario;
+        //}
         #endregion
 
         #region helpers

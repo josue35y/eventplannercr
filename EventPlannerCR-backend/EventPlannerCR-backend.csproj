@@ -53,10 +53,17 @@
     <Compile Include="Entidades\Entity\Sesion.cs" />
     <Compile Include="Entidades\Entity\Usuario.cs" />
     <Compile Include="Entidades\Enum\enumErrores.cs" />
+    <Compile Include="Entidades\Request\ReqInsertarAsistencia.cs" />
     <Compile Include="Entidades\Request\ReqBase.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
+    <Compile Include="Entidades\Request\ReqInsertarCarpool.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
+    <Compile Include="Entidades\Response\ResInsertarAsistencia.cs" />
+    <Compile Include="Entidades\Response\ResInsertarCarpool.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
+    <Compile Include="Logica\LogAsistencia.cs" />
+    <Compile Include="Logica\LogBitacora.cs" />
+    <Compile Include="Logica\LogCarpool.cs" />
     <Compile Include="Logica\LogUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -71,6 +71,36 @@ namespace EventPlannerCR_AccesoDatos
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(11)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarBitacora")]
+		public int SP_InsertarBitacora([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Clase", DbType="NVarChar(100)")] string clase, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Metodo", DbType="NVarChar(100)")] string metodo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tipo", DbType="NVarChar(100)")] string tipo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Error_ID", DbType="NVarChar(50)")] string error_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="NVarChar(MAX)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Request", DbType="NVarChar(MAX)")] string request, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Response", DbType="NVarChar(MAX)")] string response, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idBD, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(255)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), clase, metodo, tipo, error_ID, descripcion, request, response, idBD, idError, errorDescripcion);
+			idBD = ((System.Nullable<int>)(result.GetParameterValue(7)));
+			idError = ((System.Nullable<int>)(result.GetParameterValue(8)));
+			errorDescripcion = ((string)(result.GetParameterValue(9)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarCarpool")]
+		public int SP_InsertarCarpool([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CamposDisponibles", DbType="Int")] System.Nullable<int> camposDisponibles, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Provincia", DbType="Int")] System.Nullable<int> provincia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Canton", DbType="Int")] System.Nullable<int> canton, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Distrito", DbType="Int")] System.Nullable<int> distrito, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, camposDisponibles, provincia, canton, distrito, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(7)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarAsistencia")]
+		public int SP_InsertarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FkCarpool", DbType="Int")] System.Nullable<int> fkCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, idEvento, status, fkCarpool, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(4)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(6)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 }
 #pragma warning restore 1591

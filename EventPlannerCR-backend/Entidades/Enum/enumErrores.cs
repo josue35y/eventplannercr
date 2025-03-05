@@ -22,7 +22,14 @@ namespace EventPlannerCR_backend.Entidades
         correoIncorrecto = 6,
         passwordInvalido = 7,
         idFaltante = 8,
-        sessionCerrada = 9
+        sessionCerrada = 9,
+
+        camposDisponiblesFaltante = 10,
+        provinciaFaltante = 11,
+        cantonFaltante = 12,
+        distritoFaltante = 13,
+
+
 
     }
 }
