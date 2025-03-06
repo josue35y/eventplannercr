@@ -37,37 +37,37 @@ namespace EventPlannerCR_backend.Logica
                     if (String.IsNullOrEmpty(req.usuario.Nombre))  //(req .usuario.nombre == null || req.usuario.nombre == "")
                     {
                         error.ErrorCode = (int)enumErrores.nombreFaltante;
-                        error.Message = "Nombre vacio";
+                        error.Message = "Nombre vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Apellidos))
                     {
                         error.ErrorCode = (int)enumErrores.apellidoFaltante;
-                        error.Message = "Apellido vacio";
+                        error.Message = "Apellido vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Correo))
                     {
                         error.ErrorCode = (int)enumErrores.correoFaltante;
-                        error.Message = "Correo vacio";
+                        error.Message = "Correo vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Correo)) // CAMBIAR POR CO
                     {
                         error.ErrorCode = (int)enumErrores.correoFaltante;
-                        error.Message = "Correo vacio";
+                        error.Message = "Correo vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Password))
                     {
                         error.ErrorCode = (int)enumErrores.passwordFaltante;
-                        error.Message = "Password vacio";
+                        error.Message = "Password vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Password))
                     {
                         error.ErrorCode = (int)enumErrores.passwordFaltante;
-                        error.Message = "Password vacio";
+                        error.Message = "Password vacío";
                         res.error.Add(error);
                     }
 
