@@ -26,7 +26,7 @@ namespace EventPlannerCR_backend.Logica
                     error.ErrorCode = (int)enumErrores.requestNulo;
                     error.Message = "Req Null";
                     res.error.Add(error);
-
+                    // TODO:
                     //Enviar error a bitacora:
                     //object LogObject = RegistrarBitacora("LogUsuario", "insertar", "Error", "400", "El request es nulo", null, null);
 

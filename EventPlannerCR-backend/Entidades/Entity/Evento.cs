@@ -14,6 +14,9 @@ namespace EventPlannerCR_backend.Entidades
         public DateTime FechaFinal {  get; set; }
         public string Lugar { get; set; }
         public string Descripcion { get; set; }
-
+        public string Clima { get; set; }
+        public double lat { get; set; }
+        public double lon { get; set; }
+        public int diasFaltantes { get; set; }
     }
 }
