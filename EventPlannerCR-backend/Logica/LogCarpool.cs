@@ -103,7 +103,7 @@ namespace EventPlannerCR_backend.Logica
         }
 
 
-        //buscar
+        //buscar culo
 
         //borrar
 
