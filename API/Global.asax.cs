@@ -12,6 +12,7 @@ namespace API
     public class WebApiApplication : HttpApplication
     {
         private static Timer _timer;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -19,7 +20,7 @@ namespace API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
+
             // Configurar la tarea en segundo plano cada 
             _timer = new Timer(900000);
             _timer.Elapsed += EjecutarTarea;
@@ -28,12 +29,12 @@ namespace API
 
             _timer.Start();
         }
-        
+
         private void EjecutarTarea(object sender, ElapsedEventArgs e)
         {
             // Buscar eventos cercanos
-            LogEvento evento = new LogEvento(); 
-            evento.BuscarEventosCercanos();
+            LogEvento evento = new LogEvento();
+            evento.ActualizarClima(evento.BuscarEventosCercanos());
         }
     }
 }

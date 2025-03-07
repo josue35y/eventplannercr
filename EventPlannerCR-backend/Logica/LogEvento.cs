@@ -29,13 +29,13 @@ namespace EventPlannerCR_backend.Logica
                         res.Eventos.Add(this.FactoriaEvento(unTipo));
                     }
                 }
-                
-                GuardarClimaEvento(res);
+
                 res.resultado = res.Eventos.Count != 0;
             }
             catch (Exception ex)
             {
-                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
+                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
+                    enumErrores.excepcionBaseDatos.ToString(),
                     ex.Message, null, res.ToString());
                 error.Message = ex.Message;
                 error.ErrorCode = (int)enumErrores.excepcionBaseDatos;
@@ -46,26 +46,36 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #region Guardar Clima Evento
-        private void GuardarClimaEvento(ResEventosCercanos res)
+
+        public void ActualizarClima(ResEventosCercanos res)
         {
-            foreach (Evento evento in res.Eventos)
+            int? idBd = 0;
+            int? idError = 0;
+            string errorDescripcion = null;
+            if (res.resultado = true)
             {
-                int idBD = 0;
-                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                try
                 {
-                    // if (evento != null)
-                        // linq.SP_Actualizar_Clima(
-                        // evento.idEvento,
-                        // evento.Clima,
-                        // idBD
-                        // );
+                    foreach (Evento evento in res.Eventos)
+                    {
+                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        {
+                            linq.SP_Actualizar_Clima(evento.idEvento, evento.Clima, ref idBd, ref idError,
+                                ref errorDescripcion);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogBitacora.RegistrarBitacora("LogEvento", "ActualizarClima", "WARNING",
+                        enumErrores.excepcionBaseDatos.ToString(),
+                        ex.Message, null, res.ToString());
                 }
             }
         }
-        
 
         #endregion
-        
+
 
         #region Factoria Evento Cercano
 
@@ -83,9 +93,7 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #endregion
-        
 
         #endregion
-        
     }
 }
