@@ -97,6 +97,10 @@
       <Project>{56e22ebb-1e7a-4d46-b7eb-5acc2de88009}</Project>
       <Name>EventPlannerCR-AccesoDatos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventPlannerCR-Gateway\EventPlannerCR-Gateway.csproj">
+      <Project>{b5e126c8-618e-4691-9c16-db5c68493f76}</Project>
+      <Name>EventPlannerCR-Gateway</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,15 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-backend", "EventPlannerCR-backend\EventPlannerCR-backend.csproj", "{E9655575-6E10-4690-A1B6-9828F0959B60}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5E126C8-618E-4691-9C16-DB5C68493F76} = {B5E126C8-618E-4691-9C16-DB5C68493F76}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-AccesoDatos", "EventPlannerCR-AccesoDatos\EventPlannerCR-AccesoDatos.csproj", "{56E22EBB-1E7A-4D46-B7EB-5ACC2DE88009}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-API", "API\EventPlannerCR-API.csproj", "{4C131B1E-8EC0-4393-BE65-9038622088DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-Gateway", "EventPlannerCR-Gateway\EventPlannerCR-Gateway.csproj", "{B5E126C8-618E-4691-9C16-DB5C68493F76}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E9655575-6E10-4690-A1B6-9828F0959B60} = {E9655575-6E10-4690-A1B6-9828F0959B60}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

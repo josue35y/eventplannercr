@@ -9,7 +9,7 @@ namespace EventPlannerCR_Gateway.Controllers
 {
     public class EventoController
     {
-        static async Task ConsultarEventosCercanos(OpenWeatherForecastRequest req)
+        public async Task ConsultarEventosCercanos(OpenWeatherForecastRequest req)
         {
             ResConsultarEventosCercanos res = new ResConsultarEventosCercanos();
             

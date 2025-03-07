@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EventPlannerCR_AccesoDatos;
 using EventPlannerCR_backend.Entidades;
+using EventPlannerCR_Gateway.Controllers;
 
 namespace EventPlannerCR_backend.Logica
 {
@@ -29,8 +30,11 @@ namespace EventPlannerCR_backend.Logica
                         res.Eventos.Add(this.FactoriaEvento(unTipo));
                     }
                 }
-
+                
                 res.resultado = res.Eventos.Count != 0;
+
+                EventoController eventoController = new EventoController();
+                eventoController.ConsultarEventosCercanos(res.Eventos);
             }
             catch (Exception ex)
             {
