@@ -105,6 +105,7 @@ namespace EventPlannerCR_backend.Logica
 
         //buscar culo
 
+
         //borrar
 
         //editar

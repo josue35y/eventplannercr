@@ -58,4 +58,17 @@
       <Column Name="DiasParaEvento" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SP_BuscarCarpoolPorEvento" Method="SP_BuscarCarpoolPorEvento">
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <ElementType Name="SP_BuscarCarpoolPorEventoResult">
+      <Column Name="IdCarpool" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CamposDisponibles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Canton" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distrito" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>
