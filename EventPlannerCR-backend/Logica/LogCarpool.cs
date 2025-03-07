@@ -103,12 +103,187 @@ namespace EventPlannerCR_backend.Logica
         }
 
 
-        //buscar culo
+        //buscar por evnento
 
+        #region mi version
+        //public ResObtenerCarpoolPorEvento listar(ReqObtenerCarpoolPorEvento req)
+        //{
+        //    ResObtenerCarpoolPorEvento res = new ResObtenerCarpoolPorEvento();
+        //    res.error = new List<Error>();
+        //    Error error = new Error();
+
+        //    try
+        //    {
+        //        if (req.Sesion.Estado == (int)enumEstadoSesion.cerrada)
+        //        {
+        //            error.ErrorCode = (int)enumErrores.sessionCerrada;
+        //            error.Message = "Sesion expirada";
+
+        //            res.error.Add(error);
+        //        }
+        //        else
+        //        {
+
+        //            if (req == null)
+        //            {
+        //                error.ErrorCode = (int)enumErrores.requestNulo;
+        //                error.Message = "Req Null";
+        //                res.error.Add(error);
+        //            }
+        //            else
+        //            {
+        //                if (req.idEvento < 0) //revisar si puede ser null
+        //                {
+        //                    error.ErrorCode = (int)enumErrores.idFaltante;
+        //                    error.Message = "ID de evento faltante o incorrecto";
+        //                    res.error.Add(error);
+        //                }
+
+
+        //                if (res.error.Any())
+        //                {
+        //                    res.resultado = false;
+        //                }
+
+        //                List<SP_BuscarCarpoolPorEventoResult> listaCarpoolPorEventoBD = new List<SP_BuscarCarpoolPorEventoResult>();
+        //                int? idError = 0;
+        //                string errorDescripcion = null;
+
+        //                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+        //                {
+        //                    linq.SP_BuscarCarpoolPorEvento(
+        //                        req.idEvento,
+        //                        ref idError,
+        //                        ref errorDescripcion
+        //                    );
+        //                    listaCarpoolPorEventoBD = linq.SP_BuscarCarpoolPorEvento(
+        //                        req.idEvento,
+        //                        ref idError,
+        //                        ref errorDescripcion).ToList();
+        //                }
+
+        //                res.CarpoolList = new List<Carpool>();
+        //                foreach (SP_BuscarCarpoolPorEventoResult unCarpoolPorEvento in listaCarpoolPorEventoBD)
+        //                {
+        //                    res.CarpoolList.Add(this.factoryCarpool(unCarpoolPorEvento));
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        error.ErrorCode = (int)enumErrores.excepcionLogica;
+        //        error.Message = ex.Message.ToString();
+        //        res.error.Add(error);
+        //    }
+        //    return res;
+        //}
+        #endregion
+
+        public ResObtenerCarpoolPorEvento listar(ReqObtenerCarpoolPorEvento req)
+        {
+            ResObtenerCarpoolPorEvento res = new ResObtenerCarpoolPorEvento();
+            res.error = new List<Error>();
+            Error error = new Error();
+
+            try
+            {
+                if (req.Sesion.Estado == (int)enumEstadoSesion.cerrada)
+                {
+                    error.ErrorCode = (int)enumErrores.sessionCerrada;
+                    error.Message = "Sesión expirada";
+                    res.error.Add(error);
+                    res.resultado = false;
+                    return res;  // Salimos temprano
+                }
+
+                if (req == null)
+                {
+                    error.ErrorCode = (int)enumErrores.requestNulo;
+                    error.Message = "El request es nulo";
+                    res.error.Add(error);
+                    res.resultado = false;
+                    return res; // Salimos temprano
+                }
+
+                if (req.idEvento < 0) // Puede haber validaciones adicionales
+                {
+                    error.ErrorCode = (int)enumErrores.idFaltante;
+                    error.Message = "ID de evento faltante o incorrecto";
+                    res.error.Add(error);
+                    res.resultado = false;
+                    return res; // Salimos temprano
+                }
+
+                // Variables para manejar la respuesta del SP
+                int? idError = 0;
+                string errorDescripcion = null;
+                List<SP_BuscarCarpoolPorEventoResult> listaCarpoolPorEventoBD;
+
+                // Llamada al SP usando LINQ
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    listaCarpoolPorEventoBD = linq.SP_BuscarCarpoolPorEvento(
+                        req.idEvento,
+                        ref idError,
+                        ref errorDescripcion
+                    ).ToList();
+                }
+
+                // Si el SP devuelve error, lo manejamos
+                if (idError != null && idError > 0)
+                {
+                    error.ErrorCode = idError.Value;
+                    error.Message = errorDescripcion;
+                    res.error.Add(error);
+                    res.resultado = false;
+                    return res;
+                }
+
+                // Convertimos los resultados del SP en objetos Carpool
+                res.CarpoolList = listaCarpoolPorEventoBD.Select(factoryCarpool).ToList();
+                res.resultado = true;
+            }
+            catch (Exception ex)
+            {
+                error.ErrorCode = (int)enumErrores.excepcionLogica;
+                error.Message = ex.Message;
+                res.error.Add(error);
+                res.resultado = false;
+            }
+
+            return res;
+        }
 
         //borrar
 
         //editar
+
+        #region laFactoriaa!!
+        private Carpool factoryCarpool(SP_BuscarCarpoolPorEventoResult tc)
+        {
+            //Carpool carpool = new Carpool();
+
+            //carpool.idCarpool = tc.IdCarpool;
+            //carpool.Evento.idEvento = tc.IdEvento;
+            //carpool.CamposDisponibles = tc.CamposDisponibles;
+            //carpool.Provincia = tc.Provincia;
+            //carpool.Canton = tc.Canton;
+            //carpool.Distrito = tc.Distrito;
+
+            //return carpool;
+            return new Carpool
+            {
+                idCarpool = tc.IdCarpool,
+                //Evento = new Evento { idEvento = tc.IdEvento }, 
+                CamposDisponibles = tc.CamposDisponibles,
+                Provincia = tc.Provincia,
+                Canton = tc.Canton,
+                Distrito = tc.Distrito
+            };
+        }
+
+        #endregion
 
     }
 }

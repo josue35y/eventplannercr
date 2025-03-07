@@ -7,11 +7,18 @@ namespace API.Controllers
     {
         [HttpPost]
         [Route("api/carpool/insertar")]
-
         public ResInsertarCarpool insertar(ReqInsertarCarpool req)
         {
             return new LogCarpool().insertar(req);
         }
+
+        [HttpPost]
+        [Route("api/carpool/capoolporevento")]
+        public ResObtenerCarpoolPorEvento listar(ReqObtenerCarpoolPorEvento req)
+        {
+            return new LogCarpool().listar(req);
+        }
+
 
     }
 }
