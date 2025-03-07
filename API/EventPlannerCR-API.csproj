@@ -312,6 +312,10 @@
       <Project>{e9655575-6e10-4690-a1b6-9828f0959b60}</Project>
       <Name>EventPlannerCR-backend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventPlannerCR-Gateway\EventPlannerCR-Gateway.csproj">
+      <Project>{b5e126c8-618e-4691-9c16-db5c68493f76}</Project>
+      <Name>EventPlannerCR-Gateway</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

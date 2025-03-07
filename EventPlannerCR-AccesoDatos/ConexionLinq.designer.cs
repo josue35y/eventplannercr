@@ -108,6 +108,16 @@ namespace EventPlannerCR_AccesoDatos
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<SP_EventosCercanosResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Actualizar_Clima")]
+		public int SP_Actualizar_Clima([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDEVENTO", DbType="Int")] System.Nullable<int> iDEVENTO, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CLIMA", DbType="NVarChar(MAX)")] string cLIMA, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idBD, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(255)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDEVENTO, cLIMA, idBD, idError, errorDescripcion);
+			idBD = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			idError = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			errorDescripcion = ((string)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_EventosCercanosResult

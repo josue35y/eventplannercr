@@ -5,6 +5,7 @@ using System.Web.Routing;
 using System;
 using System.Timers;
 using System.Web;
+using EventPlannerCR_backend.Logica;
 
 namespace API
 {
@@ -30,8 +31,9 @@ namespace API
         
         private void EjecutarTarea(object sender, ElapsedEventArgs e)
         {
-            // TODO Llamar a: gateway/evento/consultar
-            Console.WriteLine($"Tarea ejecutada en: {DateTime.Now}");
+            // Buscar eventos cercanos
+            LogEvento evento = new LogEvento(); 
+            evento.BuscarEventosCercanos();
         }
     }
 }

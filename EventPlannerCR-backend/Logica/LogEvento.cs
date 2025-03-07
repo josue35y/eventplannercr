@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using EventPlannerCR_AccesoDatos;
@@ -11,7 +10,7 @@ namespace EventPlannerCR_backend.Logica
     {
         #region Timer task para buscar los eventos cercanos
 
-        public ResEventosCercanos BuscarEventosCercanos(ReqEventosCercanos req)
+        public ResEventosCercanos BuscarEventosCercanos()
         {
             ResEventosCercanos res = new ResEventosCercanos
             {
@@ -30,12 +29,14 @@ namespace EventPlannerCR_backend.Logica
                         res.Eventos.Add(this.FactoriaEvento(unTipo));
                     }
                 }
+                
+                GuardarClimaEvento(res);
                 res.resultado = res.Eventos.Count != 0;
             }
             catch (Exception ex)
             {
                 LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
-                    ex.Message, req.ToString(), res.ToString());
+                    ex.Message, null, res.ToString());
                 error.Message = ex.Message;
                 error.ErrorCode = (int)enumErrores.excepcionBaseDatos;
                 res.error.Add(error);
@@ -43,6 +44,28 @@ namespace EventPlannerCR_backend.Logica
 
             return res;
         }
+
+        #region Guardar Clima Evento
+        private void GuardarClimaEvento(ResEventosCercanos res)
+        {
+            foreach (Evento evento in res.Eventos)
+            {
+                int idBD = 0;
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    // if (evento != null)
+                        // linq.SP_Actualizar_Clima(
+                        // evento.idEvento,
+                        // evento.Clima,
+                        // idBD
+                        // );
+                }
+            }
+        }
+        
+
+        #endregion
+        
 
         #region Factoria Evento Cercano
 
@@ -63,5 +86,6 @@ namespace EventPlannerCR_backend.Logica
         
 
         #endregion
+        
     }
 }
