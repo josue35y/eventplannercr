@@ -314,10 +314,6 @@
     <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventPlannerCR-backend\EventPlannerCR-backend.csproj">
-      <Project>{e9655575-6e10-4690-a1b6-9828f0959b60}</Project>
-      <Name>EventPlannerCR-backend</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
