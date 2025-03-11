@@ -6,7 +6,7 @@ namespace API.Controllers
     public class CarpoolController : ApiController
     {
         [HttpPost]
-        [Route("api/carpool/insertar")]
+        [Route("api/carpool/Insertar")]
         public ResInsertarCarpool insertar(ReqInsertarCarpool req)
         {
             return new LogCarpool().insertar(req);

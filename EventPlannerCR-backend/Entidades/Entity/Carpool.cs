@@ -14,6 +14,7 @@ namespace EventPlannerCR_backend.Entidades
         public int Provincia { get; set; }
         public int Canton {  get; set; }
         public int Distrito { get; set; }
-        
+        public int idUsuario { get; set; }
+
     }
 }

@@ -9,12 +9,17 @@ namespace API.Controllers
     {
 
         [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("api/asistencia/insertar")]
-
+        [System.Web.Http.Route("api/asistencia/Insertar")]
         public ResInsertarAsistencia insertar(ReqInsertarAsistencia req)
         {
-            return new LogAsistencia().insertar(req);
+            return new LogAsistencia().Insertar(req);
         }
 
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/asistencia/Buscar")]
+        public ResBuscarAsistencia buscarAsistencia(ReqBuscarAsistencia req)
+        {
+            return new LogAsistencia().Buscar(req);
+        }
     }
 }

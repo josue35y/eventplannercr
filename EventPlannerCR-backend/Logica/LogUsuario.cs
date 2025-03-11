@@ -23,12 +23,12 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req == null)
                 {
-                    error.ErrorCode = (int)enumErrores.requestNulo;
+                    error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
                     res.error.Add(error);
                     // TODO:
                     //Enviar error a bitacora:
-                    //object LogObject = RegistrarBitacora("LogUsuario", "insertar", "Error", "400", "El request es nulo", null, null);
+                    //object LogObject = RegistrarBitacora("LogUsuario", "Insertar", "Error", "400", "El request es nulo", null, null);
 
 
                 }
@@ -36,37 +36,37 @@ namespace EventPlannerCR_backend.Logica
                 {
                     if (String.IsNullOrEmpty(req.usuario.Nombre))  //(req .usuario.nombre == null || req.usuario.nombre == "")
                     {
-                        error.ErrorCode = (int)enumErrores.nombreFaltante;
+                        error.ErrorCode = enumErrores.nombreFaltante;
                         error.Message = "Nombre vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Apellidos))
                     {
-                        error.ErrorCode = (int)enumErrores.apellidoFaltante;
+                        error.ErrorCode = enumErrores.apellidoFaltante;
                         error.Message = "Apellido vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Correo))
                     {
-                        error.ErrorCode = (int)enumErrores.correoFaltante;
+                        error.ErrorCode = enumErrores.correoFaltante;
                         error.Message = "Correo vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Correo)) // CAMBIAR POR CO
                     {
-                        error.ErrorCode = (int)enumErrores.correoFaltante;
+                        error.ErrorCode = enumErrores.correoFaltante;
                         error.Message = "Correo vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Password))
                     {
-                        error.ErrorCode = (int)enumErrores.passwordFaltante;
+                        error.ErrorCode = enumErrores.passwordFaltante;
                         error.Message = "Password vacío";
                         res.error.Add(error);
                     }
                     if (String.IsNullOrEmpty(req.usuario.Password))
                     {
-                        error.ErrorCode = (int)enumErrores.passwordFaltante;
+                        error.ErrorCode = enumErrores.passwordFaltante;
                         error.Message = "Password vacío";
                         res.error.Add(error);
                     }
@@ -106,7 +106,7 @@ namespace EventPlannerCR_backend.Logica
                         if (idBd >= 1)
                         {
                             res.resultado = true;
-                            error.ErrorCode = idError ?? 0;
+                            error.ErrorCode = (enumErrores)idError;
                         }
 
                         //MALA Practica.
@@ -119,7 +119,7 @@ namespace EventPlannerCR_backend.Logica
             }
             catch (Exception ex)
             {
-                error.ErrorCode = (int)enumErrores.excepcionLogica; //CAMBIAR
+                error.ErrorCode = enumErrores.excepcionLogica; //CAMBIAR
                 error.Message = ex.ToString();
                 res.error.Add(error);
 

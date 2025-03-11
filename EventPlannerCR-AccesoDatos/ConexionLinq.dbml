@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EventPlanner" Class="ConexionLinqDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;User ID=master" SettingsObjectName="EventPlannerCR_AccesoDatos.Properties.Settings" SettingsPropertyName="EventPlannerConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;Persist Security Info=True;User ID=master;Encrypt=True" SettingsObjectName="EventPlannerCR_AccesoDatos.Properties.Settings" SettingsPropertyName="EventPlannerConnectionString1" Provider="System.Data.SqlClient" />
   <Function Name="dbo.SP_InsertarUsuario" Method="SP_InsertarUsuario">
     <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
     <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
@@ -28,27 +28,6 @@
     <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(255)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_InsertarCarpool" Method="SP_InsertarCarpool">
-    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CamposDisponibles" Parameter="camposDisponibles" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Provincia" Parameter="provincia" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Canton" Parameter="canton" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Distrito" Parameter="distrito" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SP_InsertarAsistencia" Method="SP_InsertarAsistencia">
-    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Status" Parameter="status" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="FkCarpool" Parameter="fkCarpool" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
     <ElementType Name="SP_EventosCercanosResult">
       <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -69,6 +48,55 @@
       <Column Name="Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Canton" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Distrito" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_InsertarCarpool" Method="SP_InsertarCarpool">
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CamposDisponibles" Parameter="camposDisponibles" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Provincia" Parameter="provincia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Canton" Parameter="canton" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Distrito" Parameter="distrito" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BuscarAsistenciaAV" Method="SP_BuscarAsistenciaAV">
+    <Parameter Name="Atributo" Parameter="atributo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RefID" Parameter="refID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idError" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <ElementType Name="SP_BuscarAsistenciaAVResult">
+      <Column Name="IdAsistencia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FkCarpool" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_InsertarAsistencia" Method="SP_InsertarAsistencia">
+    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FkCarpool" Parameter="fkCarpool" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BuscarAsistenciaAV2" Method="SP_BuscarAsistenciaAV2">
+    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FkCarpool" Parameter="fkCarpool" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idError" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <ElementType Name="SP_BuscarAsistenciaAV2Result">
+      <Column Name="IdAsistencia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FkCarpool" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

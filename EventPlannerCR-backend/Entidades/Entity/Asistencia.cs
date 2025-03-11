@@ -13,5 +13,11 @@ namespace EventPlannerCR_backend.Entidades
         public Evento Evento { get; set; }
         public bool Status { get; set; }
         public Carpool Carpool { get; set; }
+
+
+        public Asistencia()
+        {
+            Carpool = null; 
+        }
     }
 }
