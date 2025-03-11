@@ -35,6 +35,9 @@
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -98,7 +101,7 @@
       <Name>EventPlannerCR-AccesoDatos</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventPlannerCR-Gateway\EventPlannerCR-Gateway.csproj">
-      <Project>{b5e126c8-618e-4691-9c16-db5c68493f76}</Project>
+      <Project>{6d96732c-fcc2-4ddb-a62b-5a3a874048e8}</Project>
       <Name>EventPlannerCR-Gateway</Name>
     </ProjectReference>
   </ItemGroup>

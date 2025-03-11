@@ -4,6 +4,9 @@ using System.Linq;
 using EventPlannerCR_AccesoDatos;
 using EventPlannerCR_backend.Entidades;
 using EventPlannerCR_Gateway.Controllers;
+using EventPlannerCR_Gateway.Models.Request;
+using EventPlannerCR_Gateway.Models.Response;
+using Newtonsoft.Json;
 
 namespace EventPlannerCR_backend.Logica
 {
@@ -11,7 +14,7 @@ namespace EventPlannerCR_backend.Logica
     {
         #region Timer task para buscar los eventos cercanos
 
-        public ResEventosCercanos BuscarEventosCercanos()
+        public void BuscarEventosCercanos()
         {
             ResEventosCercanos res = new ResEventosCercanos
             {
@@ -32,9 +35,21 @@ namespace EventPlannerCR_backend.Logica
                 }
                 
                 res.resultado = res.Eventos.Count != 0;
-
-                EventoController eventoController = new EventoController();
-                eventoController.ConsultarEventosCercanos(res.Eventos);
+                if (res.resultado)
+                {
+                    // Se construye el objeto tipo OpenWeather
+                    foreach (Evento resEvento in res.Eventos)
+                    {
+                        OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
+                        {
+                            lat = resEvento.lat,
+                            lon = resEvento.lon,
+                            cnt = resEvento.diasFaltantes
+                        };
+                        EventoController eventoController = new EventoController();
+                        ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -45,29 +60,25 @@ namespace EventPlannerCR_backend.Logica
                 error.ErrorCode = (int)enumErrores.excepcionBaseDatos;
                 res.error.Add(error);
             }
-
-            return res;
         }
 
         #region Guardar Clima Evento
 
-        public void ActualizarClima(ResEventosCercanos res)
+        private void ActualizarClima(OpenWeatherForecastResponse res, Evento evento)
         {
             int? idBd = 0;
             int? idError = 0;
             string errorDescripcion = null;
-            if (res.resultado = true)
+            if (res.cod == "200")
             {
                 try
                 {
-                    foreach (Evento evento in res.Eventos)
-                    {
+                    string jsonRes = JsonConvert.SerializeObject(res);
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
-                            linq.SP_Actualizar_Clima(evento.idEvento, evento.Clima, ref idBd, ref idError,
+                            linq.SP_Actualizar_Clima(evento.idEvento, jsonRes, ref idBd, ref idError,
                                 ref errorDescripcion);
                         }
-                    }
                 }
                 catch (Exception ex)
                 {

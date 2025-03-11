@@ -1,8 +1,8 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System;
 using System.Timers;
 using System.Web;
 using EventPlannerCR_backend.Logica;
@@ -22,7 +22,7 @@ namespace API
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Configurar la tarea en segundo plano cada 
-            _timer = new Timer(900000);
+            _timer = new Timer(180000);
             _timer.Elapsed += EjecutarTarea;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -34,7 +34,8 @@ namespace API
         {
             // Buscar eventos cercanos
             LogEvento evento = new LogEvento();
-            evento.ActualizarClima(evento.BuscarEventosCercanos());
+            evento.BuscarEventosCercanos();
+            Console.WriteLine("Salió de la tarea");
         }
     }
 }
