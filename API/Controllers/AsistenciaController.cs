@@ -16,10 +16,16 @@ namespace API.Controllers
         }
 
         [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("api/asistencia/Buscar")]
-        public ResBuscarAsistencia buscarAsistencia(ReqBuscarAsistencia req)
+        [System.Web.Http.Route("api/asistencia/buscarusuario")]
+        public ResBuscarAsistenciaUsuario BuscarAsistenciaUsuario(ReqBuscarAsistenciaUsuario req)
         {
-            return new LogAsistencia().Buscar(req);
+            return new LogAsistencia().BuscarAsistenciaUsuario (req);
+        }
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/asistencia/buscarevento")]
+        public ResBuscarAsistenciaEvento BuscarAsistenciaEvento(ReqBuscarAsistenciaEvento req)
+        {
+            return new LogAsistencia().BuscarAsistenciaEvento(req);
         }
     }
 }

@@ -62,19 +62,6 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_BuscarAsistenciaAV" Method="SP_BuscarAsistenciaAV">
-    <Parameter Name="Atributo" Parameter="atributo" Type="System.Int32" DbType="Int" />
-    <Parameter Name="RefID" Parameter="refID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idError" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <ElementType Name="SP_BuscarAsistenciaAVResult">
-      <Column Name="IdAsistencia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="FkCarpool" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SP_InsertarAsistencia" Method="SP_InsertarAsistencia">
     <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
     <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
@@ -85,18 +72,27 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_BuscarAsistenciaAV2" Method="SP_BuscarAsistenciaAV2">
-    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
+  <Function Name="dbo.SP_BuscarAsistenciaPorEvento" Method="SP_BuscarAsistenciaPorEvento">
     <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
-    <Parameter Name="FkCarpool" Parameter="fkCarpool" Type="System.Int32" DbType="Int" />
     <Parameter Name="idError" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <ElementType Name="SP_BuscarAsistenciaAV2Result">
-      <Column Name="IdAsistencia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="FkCarpool" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    <ElementType Name="SP_BuscarAsistenciaPorEventoResult">
+      <Column Name="Usuario" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="Transporte" Type="System.String" DbType="NVarChar(111)" CanBeNull="true" />
+      <Column Name="FechaDeConfirmacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Estado" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_BuscarAsistenciaPorUsuario" Method="SP_BuscarAsistenciaPorUsuario">
+    <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idError" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <ElementType Name="SP_BuscarAsistenciaPorUsuarioResult">
+      <Column Name="NombreCompleto" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FechaDeEvento" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Lugar" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaDeConfirmacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

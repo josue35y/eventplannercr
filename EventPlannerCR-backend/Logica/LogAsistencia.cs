@@ -98,81 +98,157 @@ namespace EventPlannerCR_backend.Logica
         #endregion
 
         #region BUSCAR
-        public ResBuscarAsistencia Buscar(ReqBuscarAsistencia req)
+       
+
+        public ResBuscarAsistenciaUsuario BuscarAsistenciaUsuario(ReqBuscarAsistenciaUsuario req)
         {
-            ResBuscarAsistencia res = new ResBuscarAsistencia();
+            ResBuscarAsistenciaUsuario res = new ResBuscarAsistenciaUsuario();
             res.error = new List<Error>();
+            Error error = new Error();
+
+            int? ErrorId = 0;
+            string ErrorDescripcion = null;
+
+            List<SP_BuscarAsistenciaPorUsuarioResult> listaAsistenciaUsuarioBD;
 
             try
             {
                 if (req == null)
                 {
-                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req Null"));
-                    return res;
+                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
                 }
                 else
                 {
-                    if (req.Asistencia.Usuario == null)
+                    if (req.idUsuario <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "El objeto Usuario dentro de Asistencia es nulo."));
-                        req.Asistencia.Usuario = new Usuario { idUsuario = 0 };
+                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
                     }
-                    if (req.Asistencia.Evento == null)
+                    if (res.error.Any())
                     {
-                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "El objeto Evento dentro de Asistencia es nulo."));
-                        req.Asistencia.Evento = new Evento { idEvento = 0 };
+                        res.resultado = false;
+                        return res;
                     }
-                    if (req.Asistencia.Carpool == null)
+                    else
                     {
-                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "El objeto Carpool dentro de Asistencia es nulo."));
-                        req.Asistencia.Carpool = new Carpool{ idCarpool = 0 };
+                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        {
+
+                            listaAsistenciaUsuarioBD = linq.SP_BuscarAsistenciaPorUsuario(
+                                req.idUsuario, 
+                                ref ErrorId, 
+                                ref ErrorDescripcion).ToList();
+                        }
+                        if (listaAsistenciaUsuarioBD == null || !listaAsistenciaUsuarioBD.Any())
+                        {
+                            res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
+                            res.resultado = false;
+                            return res;
+                        }
+                        if (ErrorId != null && ErrorId > 0)
+                        {
+                            res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
+                            res.resultado = false;
+                            return res;
+                        }
+                        else
+                        {
+                            res.ListaAsistenciaUsuario = listaAsistenciaUsuarioBD
+                           .Select(tc =>
+                           {
+                               try
+                               {
+                                   return FactoryBuscarAsistenciaUsuario(tc);
+                               }
+                               catch (Exception innerEx)
+                               {
+                                   res.error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
+                                   return null;
+                               }
+                           })
+                           .Where(a => a != null)
+                           .ToList();
+                        }
+                        res.resultado = true;
                     }
                 }
-                int? IdUsuario = req.Asistencia.Usuario?.idUsuario;
-                int? IdEvento = req.Asistencia.Evento?.idEvento;
-                int? FkCarpool = req.Asistencia.Carpool?.idCarpool;
-                int? idError = 0;
-                string errorDescripcion = null;
-                List<SP_BuscarAsistenciaAV2Result> listaAsistenciaBD;
-                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+            }
+            catch (Exception ex)
+            {
+                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+            }
+            return res;
+        }
+        public ResBuscarAsistenciaEvento BuscarAsistenciaEvento(ReqBuscarAsistenciaEvento req)
+        {
+            ResBuscarAsistenciaEvento res = new ResBuscarAsistenciaEvento();
+            res.error = new List<Error>();
+            Error error = new Error();
+
+            int? ErrorId = 0;
+            string ErrorDescripcion = null;
+
+            List<SP_BuscarAsistenciaPorEventoResult> listaAsistenciaEventoBD;
+
+            try
+            {
+                if (req == null)
                 {
-                    listaAsistenciaBD = linq.SP_BuscarAsistenciaAV2(
-                        IdUsuario, IdEvento, FkCarpool,
-                        ref idError,
-                        ref errorDescripcion
-                    ).ToList();
-                }
-                if (idError != null && idError > 0)
-                {
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorDescripcion));
-                    res.resultado = false;
-                    return res;
+                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
                 }
                 else
                 {
-                    res.ListaAsistencia = listaAsistenciaBD
-                   .Select(tc =>
-                   {
-                       try
-                       {
-                           return factoryAsistencia(tc);
-                       }
-                       catch (Exception innerEx)
-                       {
-                           res.error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
-                           return null;
-                       }
-                   })
-                   .Where(a => a != null)
-                   .ToList();
+                    if (req.idEvento <= 0)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante o invalido."));
+                    }
+                    if (res.error.Any())
+                    {
+                        res.resultado = false;
+                        return res;
+                    }
+                    else
+                    {
+                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        {
+
+                            listaAsistenciaEventoBD = linq.SP_BuscarAsistenciaPorEvento(
+                                req.idEvento,
+                                ref ErrorId,
+                                ref ErrorDescripcion).ToList();
+                        }
+                        if (listaAsistenciaEventoBD == null || !listaAsistenciaEventoBD.Any())
+                        {
+                            res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
+                            res.resultado = false;
+                            return res;
+                        }
+                        if (ErrorId != null && ErrorId > 0)
+                        {
+                            res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
+                            res.resultado = false;
+                            return res;
+                        }
+                        else
+                        {
+                            res.ListaAsistenciaEvento = listaAsistenciaEventoBD
+                           .Select(tc =>
+                           {
+                               try
+                               {
+                                   return FactoryBuscarAsistenciaEvento(tc);
+                               }
+                               catch (Exception innerEx)
+                               {
+                                   res.error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
+                                   return null;
+                               }
+                           })
+                           .Where(a => a != null)
+                           .ToList();
+                        }
+                        res.resultado = true;
+                    }
                 }
-                if (listaAsistenciaBD == null || !listaAsistenciaBD.Any())
-                {
-                    res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
-                    res.resultado = false;
-                    return res;
-                }
-                res.resultado = true;
             }
             catch (Exception ex)
             {
@@ -202,45 +278,36 @@ namespace EventPlannerCR_backend.Logica
 
 
         #region laFactoriaa!!
-        public static Asistencia factoryAsistencia(SP_BuscarAsistenciaAV2Result tc)
+        public static ResBuscarAsistenciaUsuario.ResBuscarAsistenciaUsuario_Modelo FactoryBuscarAsistenciaUsuario(SP_BuscarAsistenciaPorUsuarioResult tc)
         {
             if (tc == null)
             {
-                Error.generarError(enumErrores.requestIncompleto, "El resultado de SP_BuscarAsistenciaAVResult es nulo.");
+                Error.generarError(enumErrores.requestIncompleto, "El resultado de SP_BuscarAsistenciaUsuario es nulo.");
             }
 
-            if (tc.FkCarpool == null)
+            return new ResBuscarAsistenciaUsuario.ResBuscarAsistenciaUsuario_Modelo
             {
-                return new Asistencia
-                {
-                    idAsistencia = tc.IdAsistencia,
-                    Status = tc.Status,
-                    Usuario = tc.IdUsuario != 0
-                        ? new Usuario { idUsuario = tc.IdUsuario }
-                        : null,
-                    Evento = tc.IdEvento != 0
-                        ? new Evento { idEvento = tc.IdEvento }
-                        : null,
-                    Carpool = null,
-                };
-            }
-            else
+                NombreCompleto = tc.NombreCompleto,
+                DescripcionEvento = tc.Descripcion,
+                FechaEvento = tc.FechaDeEvento,
+                LugarEvento = tc.Lugar,
+                ConfirmacionAsistencia = (DateTime)tc.FechaDeConfirmacion,
+            };
+        }
+        public static ResBuscarAsistenciaEvento.ResBuscarAsistenciaEvento_Modelo FactoryBuscarAsistenciaEvento(SP_BuscarAsistenciaPorEventoResult tc)
+        {
+            if (tc == null)
             {
-                return new Asistencia
-                {
-                    idAsistencia = tc.IdAsistencia,
-                    Status = tc.Status,
-                    Usuario = tc.IdUsuario != 0
-                        ? new Usuario { idUsuario = tc.IdUsuario }
-                        : null,
-                    Evento = tc.IdEvento != 0
-                        ? new Evento { idEvento = tc.IdEvento }
-                        : null,
-                    Carpool = tc.FkCarpool != 0
-                        ? new Carpool { idCarpool = (int)tc.FkCarpool }
-                        : null,
-                };
+                Error.generarError(enumErrores.requestIncompleto, "El resultado de SP_BuscarAsistenciaEvento es nulo.");
             }
+
+            return new ResBuscarAsistenciaEvento.ResBuscarAsistenciaEvento_Modelo
+            {
+                NombreCompleto = tc.Usuario,
+                Trasnporte = tc.Transporte,
+                ConfirmacionAsistencia = (DateTime)tc.FechaDeConfirmacion,
+                Estado = tc.Estado,
+            };
         }
         #endregion
     }

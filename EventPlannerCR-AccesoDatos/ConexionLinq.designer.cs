@@ -108,15 +108,6 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaAV")]
-		public ISingleResult<SP_BuscarAsistenciaAVResult> SP_BuscarAsistenciaAV([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Atributo", DbType="Int")] System.Nullable<int> atributo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RefID", DbType="Int")] System.Nullable<int> refID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), atributo, refID, idError, errorDescripcion);
-			idError = ((System.Nullable<int>)(result.GetParameterValue(2)));
-			errorDescripcion = ((string)(result.GetParameterValue(3)));
-			return ((ISingleResult<SP_BuscarAsistenciaAVResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarAsistencia")]
 		public int SP_InsertarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FkCarpool", DbType="Int")] System.Nullable<int> fkCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
 		{
@@ -127,13 +118,22 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaAV2")]
-		public ISingleResult<SP_BuscarAsistenciaAV2Result> SP_BuscarAsistenciaAV2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FkCarpool", DbType="Int")] System.Nullable<int> fkCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaPorEvento")]
+		public ISingleResult<SP_BuscarAsistenciaPorEventoResult> SP_BuscarAsistenciaPorEvento([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, idEvento, fkCarpool, idError, errorDescripcion);
-			idError = ((System.Nullable<int>)(result.GetParameterValue(3)));
-			errorDescripcion = ((string)(result.GetParameterValue(4)));
-			return ((ISingleResult<SP_BuscarAsistenciaAV2Result>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			errorDescripcion = ((string)(result.GetParameterValue(2)));
+			return ((ISingleResult<SP_BuscarAsistenciaPorEventoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaPorUsuario")]
+		public ISingleResult<SP_BuscarAsistenciaPorUsuarioResult> SP_BuscarAsistenciaPorUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			errorDescripcion = ((string)(result.GetParameterValue(2)));
+			return ((ISingleResult<SP_BuscarAsistenciaPorUsuarioResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -351,197 +351,179 @@ namespace EventPlannerCR_AccesoDatos
 		}
 	}
 	
-	public partial class SP_BuscarAsistenciaAVResult
+	public partial class SP_BuscarAsistenciaPorEventoResult
 	{
 		
-		private int _IdAsistencia;
+		private string _Usuario;
 		
-		private int _IdUsuario;
+		private string _Transporte;
 		
-		private int _IdEvento;
+		private System.Nullable<System.DateTime> _FechaDeConfirmacion;
 		
-		private bool _Status;
+		private string _Estado;
 		
-		private System.Nullable<int> _FkCarpool;
-		
-		public SP_BuscarAsistenciaAVResult()
+		public SP_BuscarAsistenciaPorEventoResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
-		public int IdAsistencia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string Usuario
 		{
 			get
 			{
-				return this._IdAsistencia;
+				return this._Usuario;
 			}
 			set
 			{
-				if ((this._IdAsistencia != value))
+				if ((this._Usuario != value))
 				{
-					this._IdAsistencia = value;
+					this._Usuario = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transporte", DbType="NVarChar(111)")]
+		public string Transporte
 		{
 			get
 			{
-				return this._IdUsuario;
+				return this._Transporte;
 			}
 			set
 			{
-				if ((this._IdUsuario != value))
+				if ((this._Transporte != value))
 				{
-					this._IdUsuario = value;
+					this._Transporte = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvento", DbType="Int NOT NULL")]
-		public int IdEvento
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaDeConfirmacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaDeConfirmacion
 		{
 			get
 			{
-				return this._IdEvento;
+				return this._FechaDeConfirmacion;
 			}
 			set
 			{
-				if ((this._IdEvento != value))
+				if ((this._FechaDeConfirmacion != value))
 				{
-					this._IdEvento = value;
+					this._FechaDeConfirmacion = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit NOT NULL")]
-		public bool Status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string Estado
 		{
 			get
 			{
-				return this._Status;
+				return this._Estado;
 			}
 			set
 			{
-				if ((this._Status != value))
+				if ((this._Estado != value))
 				{
-					this._Status = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FkCarpool", DbType="Int")]
-		public System.Nullable<int> FkCarpool
-		{
-			get
-			{
-				return this._FkCarpool;
-			}
-			set
-			{
-				if ((this._FkCarpool != value))
-				{
-					this._FkCarpool = value;
+					this._Estado = value;
 				}
 			}
 		}
 	}
 	
-	public partial class SP_BuscarAsistenciaAV2Result
+	public partial class SP_BuscarAsistenciaPorUsuarioResult
 	{
 		
-		private int _IdAsistencia;
+		private string _NombreCompleto;
 		
-		private int _IdUsuario;
+		private string _Descripcion;
 		
-		private int _IdEvento;
+		private System.DateTime _FechaDeEvento;
 		
-		private bool _Status;
+		private string _Lugar;
 		
-		private System.Nullable<int> _FkCarpool;
+		private System.Nullable<System.DateTime> _FechaDeConfirmacion;
 		
-		public SP_BuscarAsistenciaAV2Result()
+		public SP_BuscarAsistenciaPorUsuarioResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
-		public int IdAsistencia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompleto", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string NombreCompleto
 		{
 			get
 			{
-				return this._IdAsistencia;
+				return this._NombreCompleto;
 			}
 			set
 			{
-				if ((this._IdAsistencia != value))
+				if ((this._NombreCompleto != value))
 				{
-					this._IdAsistencia = value;
+					this._NombreCompleto = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="NVarChar(MAX)")]
+		public string Descripcion
 		{
 			get
 			{
-				return this._IdUsuario;
+				return this._Descripcion;
 			}
 			set
 			{
-				if ((this._IdUsuario != value))
+				if ((this._Descripcion != value))
 				{
-					this._IdUsuario = value;
+					this._Descripcion = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvento", DbType="Int NOT NULL")]
-		public int IdEvento
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaDeEvento", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaDeEvento
 		{
 			get
 			{
-				return this._IdEvento;
+				return this._FechaDeEvento;
 			}
 			set
 			{
-				if ((this._IdEvento != value))
+				if ((this._FechaDeEvento != value))
 				{
-					this._IdEvento = value;
+					this._FechaDeEvento = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit NOT NULL")]
-		public bool Status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lugar", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Lugar
 		{
 			get
 			{
-				return this._Status;
+				return this._Lugar;
 			}
 			set
 			{
-				if ((this._Status != value))
+				if ((this._Lugar != value))
 				{
-					this._Status = value;
+					this._Lugar = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FkCarpool", DbType="Int")]
-		public System.Nullable<int> FkCarpool
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaDeConfirmacion", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaDeConfirmacion
 		{
 			get
 			{
-				return this._FkCarpool;
+				return this._FechaDeConfirmacion;
 			}
 			set
 			{
-				if ((this._FkCarpool != value))
+				if ((this._FechaDeConfirmacion != value))
 				{
-					this._FkCarpool = value;
+					this._FechaDeConfirmacion = value;
 				}
 			}
 		}
