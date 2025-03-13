@@ -78,6 +78,7 @@
     <Compile Include="Entidades\Enum\enumErrores.cs" />
     <Compile Include="Entidades\Request\ReqBuscarAsistenciaEvento.cs" />
     <Compile Include="Entidades\Request\ReqBuscarAsistenciaUsuario.cs" />
+    <Compile Include="Entidades\Request\ReqEditarAsistencia.cs" />
     <Compile Include="Entidades\Request\ReqEventosCercanos.cs" />
     <Compile Include="Entidades\Request\ReqInsertarAsistencia.cs" />
     <Compile Include="Entidades\Request\ReqBase.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Entidades\Response\ResBase.cs" />
     <Compile Include="Entidades\Response\ResBuscarAsistenciaEvento.cs" />
     <Compile Include="Entidades\Response\ResBuscarAsistenciaUsuario.cs" />
+    <Compile Include="Entidades\Response\ResEditarAsistencia.cs" />
     <Compile Include="Entidades\Response\ResEventosCercanos.cs" />
     <Compile Include="Entidades\Response\ResInsertarAsistencia.cs" />
     <Compile Include="Entidades\Response\ResInsertarCarpool.cs" />

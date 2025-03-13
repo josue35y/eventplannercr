@@ -104,15 +104,14 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBuscarAsistenciaUsuario res = new ResBuscarAsistenciaUsuario();
             res.error = new List<Error>();
-            Error error = new Error();
-
-            int? ErrorId = 0;
-            string ErrorDescripcion = null;
-
-            List<SP_BuscarAsistenciaPorUsuarioResult> listaAsistenciaUsuarioBD;
 
             try
             {
+                int? ErrorId = 0;
+                string ErrorDescripcion = null;
+
+                List<SP_BuscarAsistenciaPorUsuarioResult> listaAsistenciaUsuarioBD;
+
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
@@ -182,15 +181,14 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBuscarAsistenciaEvento res = new ResBuscarAsistenciaEvento();
             res.error = new List<Error>();
-            Error error = new Error();
-
-            int? ErrorId = 0;
-            string ErrorDescripcion = null;
-
-            List<SP_BuscarAsistenciaPorEventoResult> listaAsistenciaEventoBD;
 
             try
             {
+                int? ErrorId = 0;
+                string ErrorDescripcion = null;
+
+                List<SP_BuscarAsistenciaPorEventoResult> listaAsistenciaEventoBD;
+
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
@@ -258,24 +256,82 @@ namespace EventPlannerCR_backend.Logica
         }
         #endregion
 
+        #region EDITAR
+        
+        public ResEditarAsistencia Editar(ReqEditarAsistencia req)
+        {
+
+            ResEditarAsistencia res = new ResEditarAsistencia();
+            res.error = new List<Error>();
+            _ = new Error();
+
+            int? ErrorId = 0;
+            string ErrorDescripcion = null;
+
+            try
+            {
+                if (req == null)
+                {
+                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.resultado = false;
+                    return res;
+                }
+                else 
+                {
+                    if (req.idAsistencia <= 0 || req.idAsistencia == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
+                        res.resultado = false;
+                        return res;
+                    }
+                    else
+                    {
+
+                        if (req.Status == false)
+                        {
+                            //Si el usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
+                            req.idCarpool = null;
+                        }
 
 
+                        SP_EditarAsistenciaResult AsistenciaBD;
+                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        {
+                            var resultado = linq.SP_EditarAsistencia(
+                                req.idAsistencia,
+                                req.Status,
+                                req.idCarpool,
+                                ref ErrorId,
+                                ref ErrorDescripcion
+                            );
+
+                            AsistenciaBD = resultado.FirstOrDefault();  
+                        }
+                        if (AsistenciaBD != null)
+                        {
+                            res.resultado = true;
+                            res = FactoryEditarAsistencia(AsistenciaBD);
+                        }
+                        else
+                        {
+                            res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
+                        }
+                    }                                  
+                }
+            }
+            catch(Exception ex)
+            {
+                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+            }
+            return res;
+        }
+
+        #endregion
 
         #region BORRAR
         //borrar
 
         #endregion
-
-
-
-
-        #region EDITAR
-        //editar
-
-        #endregion
-
-
-
 
         #region laFactoriaa!!
         public static ResBuscarAsistenciaUsuario.ResBuscarAsistenciaUsuario_Modelo FactoryBuscarAsistenciaUsuario(SP_BuscarAsistenciaPorUsuarioResult tc)
@@ -287,11 +343,15 @@ namespace EventPlannerCR_backend.Logica
 
             return new ResBuscarAsistenciaUsuario.ResBuscarAsistenciaUsuario_Modelo
             {
+                idAsistencia = tc.IdAsistencia,
                 NombreCompleto = tc.NombreCompleto,
-                DescripcionEvento = tc.Descripcion,
-                FechaEvento = tc.FechaDeEvento,
-                LugarEvento = tc.Lugar,
-                ConfirmacionAsistencia = (DateTime)tc.FechaDeConfirmacion,
+                NombreEvento = tc.NombreEvento,
+                DescripcionEvento = tc.DescripcionEvento,
+                FechaEvento = tc.FechaEvento,
+                LugarEvento = tc.LugarEvento,
+                Trasnporte = tc.Transporte,
+                Estado = tc.Estado,
+                ConfirmacionAsistencia = (DateTime)tc.ConfirmacionAsistencia,
             };
         }
         public static ResBuscarAsistenciaEvento.ResBuscarAsistenciaEvento_Modelo FactoryBuscarAsistenciaEvento(SP_BuscarAsistenciaPorEventoResult tc)
@@ -303,12 +363,33 @@ namespace EventPlannerCR_backend.Logica
 
             return new ResBuscarAsistenciaEvento.ResBuscarAsistenciaEvento_Modelo
             {
+                idAsistencia = tc.IdAsistencia,
                 NombreCompleto = tc.Usuario,
                 Trasnporte = tc.Transporte,
                 ConfirmacionAsistencia = (DateTime)tc.FechaDeConfirmacion,
                 Estado = tc.Estado,
             };
         }
+        public static ResEditarAsistencia FactoryEditarAsistencia(SP_EditarAsistenciaResult tc)
+        {
+            if (tc == null)
+            {
+                Error.generarError(enumErrores.requestIncompleto, "El resultado de SP_EditarAsistencia es nulo.");
+            }
+            return new ResEditarAsistencia
+            {
+                idAsistencia = tc.IdAsistencia,
+                NombreCompleto = tc.NombreCompleto,
+                NombreEvento = tc.NombreEvento,
+                DescripcionEvento = tc.DescripcionEvento,
+                FechaEvento = tc.FechaEvento,
+                LugarEvento = tc.LugarEvento,
+                Trasnporte = tc.Transporte, 
+                Estado = tc.Estado,
+                ConfirmacionAsistencia = (DateTime)tc.ConfirmacionAsistencia,
+            };
+        }
+
         #endregion
     }
 }

@@ -13,6 +13,7 @@ namespace EventPlannerCR_backend.Entidades
 
         public class ResBuscarAsistenciaEvento_Modelo
         {
+            public int idAsistencia { get; set; }
             public String NombreCompleto {get; set;}
             public String Trasnporte { get; set; }
             public DateTime ConfirmacionAsistencia { get; set; }

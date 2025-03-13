@@ -146,21 +146,22 @@ namespace EventPlannerCR_backend.Logica
                 res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.Message));
                 res.resultado = false;
             }
-
             return res;
         }
 
-        //borrar
-
         //editar
 
+        //borrar
+
         #region laFactoriaa!!
-        private Carpool factoryCarpool(SP_BuscarCarpoolPorEventoResult tc)
+        private Carpool factoryCarpool(SP_BuscarCarpoolPorEventoResult tc/*, ReqObtenerCarpoolPorEvento req*/)
         {
             return new Carpool
             {
                 idCarpool = tc.IdCarpool,
-                //Evento = new Evento { idEvento = tc.IdEvento }, 
+                Evento = new Evento { idEvento = tc.IdEvento/*,
+                    Nombre = req.idEvento
+                */},
                 CamposDisponibles = tc.CamposDisponibles,
                 Provincia = tc.Provincia,
                 Canton = tc.Canton,

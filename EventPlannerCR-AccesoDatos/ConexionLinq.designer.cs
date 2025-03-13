@@ -135,6 +135,15 @@ namespace EventPlannerCR_AccesoDatos
 			errorDescripcion = ((string)(result.GetParameterValue(2)));
 			return ((ISingleResult<SP_BuscarAsistenciaPorUsuarioResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EditarAsistencia")]
+		public ISingleResult<SP_EditarAsistenciaResult> SP_EditarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdAsistencia", DbType="Int")] System.Nullable<int> idAsistencia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdCarpool", DbType="Int")] System.Nullable<int> idCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idAsistencia, status, idCarpool, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			errorDescripcion = ((string)(result.GetParameterValue(4)));
+			return ((ISingleResult<SP_EditarAsistenciaResult>)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_EventosCercanosResult
@@ -354,6 +363,8 @@ namespace EventPlannerCR_AccesoDatos
 	public partial class SP_BuscarAsistenciaPorEventoResult
 	{
 		
+		private int _IdAsistencia;
+		
 		private string _Usuario;
 		
 		private string _Transporte;
@@ -364,6 +375,22 @@ namespace EventPlannerCR_AccesoDatos
 		
 		public SP_BuscarAsistenciaPorEventoResult()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
+		public int IdAsistencia
+		{
+			get
+			{
+				return this._IdAsistencia;
+			}
+			set
+			{
+				if ((this._IdAsistencia != value))
+				{
+					this._IdAsistencia = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
@@ -434,18 +461,42 @@ namespace EventPlannerCR_AccesoDatos
 	public partial class SP_BuscarAsistenciaPorUsuarioResult
 	{
 		
+		private int _IdAsistencia;
+		
 		private string _NombreCompleto;
 		
-		private string _Descripcion;
+		private string _NombreEvento;
 		
-		private System.DateTime _FechaDeEvento;
+		private string _DescripcionEvento;
 		
-		private string _Lugar;
+		private System.DateTime _FechaEvento;
 		
-		private System.Nullable<System.DateTime> _FechaDeConfirmacion;
+		private string _LugarEvento;
+		
+		private string _Transporte;
+		
+		private string _Estado;
+		
+		private System.DateTime _ConfirmacionAsistencia;
 		
 		public SP_BuscarAsistenciaPorUsuarioResult()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
+		public int IdAsistencia
+		{
+			get
+			{
+				return this._IdAsistencia;
+			}
+			set
+			{
+				if ((this._IdAsistencia != value))
+				{
+					this._IdAsistencia = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompleto", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
@@ -464,66 +515,284 @@ namespace EventPlannerCR_AccesoDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="NVarChar(MAX)")]
-		public string Descripcion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreEvento", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NombreEvento
 		{
 			get
 			{
-				return this._Descripcion;
+				return this._NombreEvento;
 			}
 			set
 			{
-				if ((this._Descripcion != value))
+				if ((this._NombreEvento != value))
 				{
-					this._Descripcion = value;
+					this._NombreEvento = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaDeEvento", DbType="DateTime NOT NULL")]
-		public System.DateTime FechaDeEvento
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DescripcionEvento", DbType="NVarChar(MAX)")]
+		public string DescripcionEvento
 		{
 			get
 			{
-				return this._FechaDeEvento;
+				return this._DescripcionEvento;
 			}
 			set
 			{
-				if ((this._FechaDeEvento != value))
+				if ((this._DescripcionEvento != value))
 				{
-					this._FechaDeEvento = value;
+					this._DescripcionEvento = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lugar", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Lugar
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaEvento", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaEvento
 		{
 			get
 			{
-				return this._Lugar;
+				return this._FechaEvento;
 			}
 			set
 			{
-				if ((this._Lugar != value))
+				if ((this._FechaEvento != value))
 				{
-					this._Lugar = value;
+					this._FechaEvento = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaDeConfirmacion", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaDeConfirmacion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LugarEvento", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string LugarEvento
 		{
 			get
 			{
-				return this._FechaDeConfirmacion;
+				return this._LugarEvento;
 			}
 			set
 			{
-				if ((this._FechaDeConfirmacion != value))
+				if ((this._LugarEvento != value))
 				{
-					this._FechaDeConfirmacion = value;
+					this._LugarEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transporte", DbType="NVarChar(111)")]
+		public string Transporte
+		{
+			get
+			{
+				return this._Transporte;
+			}
+			set
+			{
+				if ((this._Transporte != value))
+				{
+					this._Transporte = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this._Estado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmacionAsistencia", DbType="DateTime NOT NULL")]
+		public System.DateTime ConfirmacionAsistencia
+		{
+			get
+			{
+				return this._ConfirmacionAsistencia;
+			}
+			set
+			{
+				if ((this._ConfirmacionAsistencia != value))
+				{
+					this._ConfirmacionAsistencia = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_EditarAsistenciaResult
+	{
+		
+		private int _IdAsistencia;
+		
+		private string _NombreCompleto;
+		
+		private string _NombreEvento;
+		
+		private string _DescripcionEvento;
+		
+		private System.DateTime _FechaEvento;
+		
+		private string _LugarEvento;
+		
+		private string _Transporte;
+		
+		private string _Estado;
+		
+		private System.DateTime _ConfirmacionAsistencia;
+		
+		public SP_EditarAsistenciaResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
+		public int IdAsistencia
+		{
+			get
+			{
+				return this._IdAsistencia;
+			}
+			set
+			{
+				if ((this._IdAsistencia != value))
+				{
+					this._IdAsistencia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompleto", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string NombreCompleto
+		{
+			get
+			{
+				return this._NombreCompleto;
+			}
+			set
+			{
+				if ((this._NombreCompleto != value))
+				{
+					this._NombreCompleto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreEvento", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NombreEvento
+		{
+			get
+			{
+				return this._NombreEvento;
+			}
+			set
+			{
+				if ((this._NombreEvento != value))
+				{
+					this._NombreEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DescripcionEvento", DbType="NVarChar(MAX)")]
+		public string DescripcionEvento
+		{
+			get
+			{
+				return this._DescripcionEvento;
+			}
+			set
+			{
+				if ((this._DescripcionEvento != value))
+				{
+					this._DescripcionEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaEvento", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaEvento
+		{
+			get
+			{
+				return this._FechaEvento;
+			}
+			set
+			{
+				if ((this._FechaEvento != value))
+				{
+					this._FechaEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LugarEvento", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string LugarEvento
+		{
+			get
+			{
+				return this._LugarEvento;
+			}
+			set
+			{
+				if ((this._LugarEvento != value))
+				{
+					this._LugarEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transporte", DbType="NVarChar(111)")]
+		public string Transporte
+		{
+			get
+			{
+				return this._Transporte;
+			}
+			set
+			{
+				if ((this._Transporte != value))
+				{
+					this._Transporte = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this._Estado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmacionAsistencia", DbType="DateTime NOT NULL")]
+		public System.DateTime ConfirmacionAsistencia
+		{
+			get
+			{
+				return this._ConfirmacionAsistencia;
+			}
+			set
+			{
+				if ((this._ConfirmacionAsistencia != value))
+				{
+					this._ConfirmacionAsistencia = value;
 				}
 			}
 		}

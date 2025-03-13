@@ -27,5 +27,12 @@ namespace API.Controllers
         {
             return new LogAsistencia().BuscarAsistenciaEvento(req);
         }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/asistencia/editar")]
+        public ResEditarAsistencia Modificar(ReqEditarAsistencia req)
+        {
+            return new LogAsistencia().Editar(req);
+        }
     }
 }
