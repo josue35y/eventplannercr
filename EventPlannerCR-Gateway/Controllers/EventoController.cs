@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using EventPlannerCR_Gateway.Models;
 using EventPlannerCR_Gateway.Models.Request;
 using EventPlannerCR_Gateway.Models.Response;
 using Newtonsoft.Json;
@@ -24,7 +27,22 @@ namespace EventPlannerCR_Gateway.Controllers
                     
                     var forecast = JsonConvert.DeserializeObject<OpenWeatherForecastResponse>(contenido);
 
-                    res = forecast;
+                    if (forecast != null && forecast.list.Any())
+                    {
+                        var ultimoDato = forecast.list.Last();
+
+                        if (ultimoDato != null)
+                        {
+                            res = new OpenWeatherForecastResponse
+                            {
+                                cod = forecast.cod,
+                                message = forecast.message,
+                                cnt = 1,
+                                list = new List<WeatherData> { ultimoDato },
+                                city = forecast.city
+                            };
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
