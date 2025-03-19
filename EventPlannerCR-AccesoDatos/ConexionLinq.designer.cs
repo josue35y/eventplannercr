@@ -89,23 +89,49 @@ namespace EventPlannerCR_AccesoDatos
 			return ((ISingleResult<SP_EventosCercanosResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarCarpoolPorEvento")]
-		public ISingleResult<SP_BuscarCarpoolPorEventoResult> SP_BuscarCarpoolPorEvento([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaPorUsuario")]
+		public ISingleResult<SP_BuscarAsistenciaPorUsuarioResult> SP_BuscarAsistenciaPorUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			errorDescripcion = ((string)(result.GetParameterValue(2)));
+			return ((ISingleResult<SP_BuscarAsistenciaPorUsuarioResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BorrarAsistencia")]
+		public int SP_BorrarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdAsistencia", DbType="Int")] System.Nullable<int> idAsistencia, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idAsistencia, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			errorDescripcion = ((string)(result.GetParameterValue(2)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EditarAsistencia")]
+		public ISingleResult<SP_EditarAsistenciaResult> SP_EditarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdAsistencia", DbType="Int")] System.Nullable<int> idAsistencia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdCarpool", DbType="Int")] System.Nullable<int> idCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idAsistencia, status, idCarpool, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			errorDescripcion = ((string)(result.GetParameterValue(4)));
+			return ((ISingleResult<SP_EditarAsistenciaResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarUsuariosPorCarpool")]
+		public ISingleResult<SP_BuscarUsuariosPorCarpoolResult> SP_BuscarUsuariosPorCarpool([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdCarpool", DbType="Int")] System.Nullable<int> idCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idCarpool, eRRORID, eRRORDESCRIPCION);
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(2)));
+			return ((ISingleResult<SP_BuscarUsuariosPorCarpoolResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarCarpoolPorEvento2")]
+		public ISingleResult<SP_BuscarCarpoolPorEvento2Result> SP_BuscarCarpoolPorEvento2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, eRRORID, eRRORDESCRIPCION);
 			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(1)));
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(2)));
-			return ((ISingleResult<SP_BuscarCarpoolPorEventoResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarCarpool")]
-		public int SP_InsertarCarpool([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CamposDisponibles", DbType="Int")] System.Nullable<int> camposDisponibles, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Provincia", DbType="Int")] System.Nullable<int> provincia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Canton", DbType="Int")] System.Nullable<int> canton, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Distrito", DbType="Int")] System.Nullable<int> distrito, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, camposDisponibles, provincia, canton, distrito, idUsuario, iDRETURN, eRRORID, eRRORDESCRIPCION);
-			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(6)));
-			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(7)));
-			eRRORDESCRIPCION = ((string)(result.GetParameterValue(8)));
-			return ((int)(result.ReturnValue));
+			return ((ISingleResult<SP_BuscarCarpoolPorEvento2Result>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarAsistencia")]
@@ -118,6 +144,16 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarCarpool")]
+		public int SP_InsertarCarpool([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CamposDisponibles", DbType="Int")] System.Nullable<int> camposDisponibles, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Provincia", DbType="Int")] System.Nullable<int> provincia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Canton", DbType="Int")] System.Nullable<int> canton, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Distrito", DbType="Int")] System.Nullable<int> distrito, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NotasCarpool", DbType="VarChar(MAX)")] string notasCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, camposDisponibles, provincia, canton, distrito, idUsuario, notasCarpool, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(7)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(8)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(9)));
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaPorEvento")]
 		public ISingleResult<SP_BuscarAsistenciaPorEventoResult> SP_BuscarAsistenciaPorEvento([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
 		{
@@ -127,22 +163,22 @@ namespace EventPlannerCR_AccesoDatos
 			return ((ISingleResult<SP_BuscarAsistenciaPorEventoResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarAsistenciaPorUsuario")]
-		public ISingleResult<SP_BuscarAsistenciaPorUsuarioResult> SP_BuscarAsistenciaPorUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarCarpoolPorUsuario2")]
+		public ISingleResult<SP_BuscarCarpoolPorUsuario2Result> SP_BuscarCarpoolPorUsuario2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, idError, errorDescripcion);
-			idError = ((System.Nullable<int>)(result.GetParameterValue(1)));
-			errorDescripcion = ((string)(result.GetParameterValue(2)));
-			return ((ISingleResult<SP_BuscarAsistenciaPorUsuarioResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, eRRORID, eRRORDESCRIPCION);
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(2)));
+			return ((ISingleResult<SP_BuscarCarpoolPorUsuario2Result>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EditarAsistencia")]
-		public ISingleResult<SP_EditarAsistenciaResult> SP_EditarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdAsistencia", DbType="Int")] System.Nullable<int> idAsistencia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdCarpool", DbType="Int")] System.Nullable<int> idCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EditarCarpool")]
+		public int SP_EditarCarpool([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUsuarioOcupante, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NotasCarpool", DbType="NVarChar(MAX)")] string notasCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Provincia", DbType="Int")] System.Nullable<int> provincia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Canton", DbType="Int")] System.Nullable<int> canton, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Distrito", DbType="Int")] System.Nullable<int> distrito, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="HoraSalida", DbType="DateTime")] System.Nullable<System.DateTime> horaSalida, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idCarpool_Nuevo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ErrorID", DbType="Int")] ref System.Nullable<int> errorID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ErrorDescripcion", DbType="NVarChar(MAX)")] ref string errorDescripcion)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idAsistencia, status, idCarpool, idError, errorDescripcion);
-			idError = ((System.Nullable<int>)(result.GetParameterValue(3)));
-			errorDescripcion = ((string)(result.GetParameterValue(4)));
-			return ((ISingleResult<SP_EditarAsistenciaResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUsuario, idEvento, idUsuarioOcupante, notasCarpool, provincia, canton, distrito, horaSalida, idCarpool_Nuevo, errorID, errorDescripcion);
+			errorID = ((System.Nullable<int>)(result.GetParameterValue(9)));
+			errorDescripcion = ((string)(result.GetParameterValue(10)));
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -239,220 +275,6 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._DiasParaEvento != value))
 				{
 					this._DiasParaEvento = value;
-				}
-			}
-		}
-	}
-	
-	public partial class SP_BuscarCarpoolPorEventoResult
-	{
-		
-		private int _IdCarpool;
-		
-		private int _IdEvento;
-		
-		private int _CamposDisponibles;
-		
-		private int _Provincia;
-		
-		private int _Canton;
-		
-		private int _Distrito;
-		
-		public SP_BuscarCarpoolPorEventoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCarpool", DbType="Int NOT NULL")]
-		public int IdCarpool
-		{
-			get
-			{
-				return this._IdCarpool;
-			}
-			set
-			{
-				if ((this._IdCarpool != value))
-				{
-					this._IdCarpool = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvento", DbType="Int NOT NULL")]
-		public int IdEvento
-		{
-			get
-			{
-				return this._IdEvento;
-			}
-			set
-			{
-				if ((this._IdEvento != value))
-				{
-					this._IdEvento = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CamposDisponibles", DbType="Int NOT NULL")]
-		public int CamposDisponibles
-		{
-			get
-			{
-				return this._CamposDisponibles;
-			}
-			set
-			{
-				if ((this._CamposDisponibles != value))
-				{
-					this._CamposDisponibles = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Provincia", DbType="Int NOT NULL")]
-		public int Provincia
-		{
-			get
-			{
-				return this._Provincia;
-			}
-			set
-			{
-				if ((this._Provincia != value))
-				{
-					this._Provincia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Canton", DbType="Int NOT NULL")]
-		public int Canton
-		{
-			get
-			{
-				return this._Canton;
-			}
-			set
-			{
-				if ((this._Canton != value))
-				{
-					this._Canton = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Distrito", DbType="Int NOT NULL")]
-		public int Distrito
-		{
-			get
-			{
-				return this._Distrito;
-			}
-			set
-			{
-				if ((this._Distrito != value))
-				{
-					this._Distrito = value;
-				}
-			}
-		}
-	}
-	
-	public partial class SP_BuscarAsistenciaPorEventoResult
-	{
-		
-		private int _IdAsistencia;
-		
-		private string _Usuario;
-		
-		private string _Transporte;
-		
-		private System.Nullable<System.DateTime> _FechaDeConfirmacion;
-		
-		private string _Estado;
-		
-		public SP_BuscarAsistenciaPorEventoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
-		public int IdAsistencia
-		{
-			get
-			{
-				return this._IdAsistencia;
-			}
-			set
-			{
-				if ((this._IdAsistencia != value))
-				{
-					this._IdAsistencia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
-		public string Usuario
-		{
-			get
-			{
-				return this._Usuario;
-			}
-			set
-			{
-				if ((this._Usuario != value))
-				{
-					this._Usuario = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transporte", DbType="NVarChar(111)")]
-		public string Transporte
-		{
-			get
-			{
-				return this._Transporte;
-			}
-			set
-			{
-				if ((this._Transporte != value))
-				{
-					this._Transporte = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaDeConfirmacion", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaDeConfirmacion
-		{
-			get
-			{
-				return this._FechaDeConfirmacion;
-			}
-			set
-			{
-				if ((this._FechaDeConfirmacion != value))
-				{
-					this._FechaDeConfirmacion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string Estado
-		{
-			get
-			{
-				return this._Estado;
-			}
-			set
-			{
-				if ((this._Estado != value))
-				{
-					this._Estado = value;
 				}
 			}
 		}
@@ -793,6 +615,578 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._ConfirmacionAsistencia != value))
 				{
 					this._ConfirmacionAsistencia = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_BuscarUsuariosPorCarpoolResult
+	{
+		
+		private int _IdUsuario;
+		
+		private string _NombreApellido;
+		
+		public SP_BuscarUsuariosPorCarpoolResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this._IdUsuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreApellido", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string NombreApellido
+		{
+			get
+			{
+				return this._NombreApellido;
+			}
+			set
+			{
+				if ((this._NombreApellido != value))
+				{
+					this._NombreApellido = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_BuscarCarpoolPorEvento2Result
+	{
+		
+		private int _IdCarpool;
+		
+		private string _NombreCompletoDueno;
+		
+		private string _CamposDisponibles;
+		
+		private string _NombreEvento;
+		
+		private string _DireccionOrigen;
+		
+		private string _DireccionDestino;
+		
+		private System.DateTime _HoraSalida;
+		
+		private string _NotasCarpool;
+		
+		public SP_BuscarCarpoolPorEvento2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCarpool", DbType="Int NOT NULL")]
+		public int IdCarpool
+		{
+			get
+			{
+				return this._IdCarpool;
+			}
+			set
+			{
+				if ((this._IdCarpool != value))
+				{
+					this._IdCarpool = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompletoDueno", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string NombreCompletoDueno
+		{
+			get
+			{
+				return this._NombreCompletoDueno;
+			}
+			set
+			{
+				if ((this._NombreCompletoDueno != value))
+				{
+					this._NombreCompletoDueno = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CamposDisponibles", DbType="VarChar(61)")]
+		public string CamposDisponibles
+		{
+			get
+			{
+				return this._CamposDisponibles;
+			}
+			set
+			{
+				if ((this._CamposDisponibles != value))
+				{
+					this._CamposDisponibles = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreEvento", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NombreEvento
+		{
+			get
+			{
+				return this._NombreEvento;
+			}
+			set
+			{
+				if ((this._NombreEvento != value))
+				{
+					this._NombreEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DireccionOrigen", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string DireccionOrigen
+		{
+			get
+			{
+				return this._DireccionOrigen;
+			}
+			set
+			{
+				if ((this._DireccionOrigen != value))
+				{
+					this._DireccionOrigen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DireccionDestino", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string DireccionDestino
+		{
+			get
+			{
+				return this._DireccionDestino;
+			}
+			set
+			{
+				if ((this._DireccionDestino != value))
+				{
+					this._DireccionDestino = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraSalida", DbType="DateTime NOT NULL")]
+		public System.DateTime HoraSalida
+		{
+			get
+			{
+				return this._HoraSalida;
+			}
+			set
+			{
+				if ((this._HoraSalida != value))
+				{
+					this._HoraSalida = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotasCarpool", DbType="VarChar(1)")]
+		public string NotasCarpool
+		{
+			get
+			{
+				return this._NotasCarpool;
+			}
+			set
+			{
+				if ((this._NotasCarpool != value))
+				{
+					this._NotasCarpool = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_BuscarAsistenciaPorEventoResult
+	{
+		
+		private int _IdAsistencia;
+		
+		private string _NombreCompleto;
+		
+		private string _NombreEvento;
+		
+		private string _DescripcionEvento;
+		
+		private System.DateTime _FechaEvento;
+		
+		private string _LugarEvento;
+		
+		private string _Transporte;
+		
+		private string _Estado;
+		
+		private System.DateTime _ConfirmacionAsistencia;
+		
+		public SP_BuscarAsistenciaPorEventoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAsistencia", DbType="Int NOT NULL")]
+		public int IdAsistencia
+		{
+			get
+			{
+				return this._IdAsistencia;
+			}
+			set
+			{
+				if ((this._IdAsistencia != value))
+				{
+					this._IdAsistencia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompleto", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string NombreCompleto
+		{
+			get
+			{
+				return this._NombreCompleto;
+			}
+			set
+			{
+				if ((this._NombreCompleto != value))
+				{
+					this._NombreCompleto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreEvento", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NombreEvento
+		{
+			get
+			{
+				return this._NombreEvento;
+			}
+			set
+			{
+				if ((this._NombreEvento != value))
+				{
+					this._NombreEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DescripcionEvento", DbType="NVarChar(MAX)")]
+		public string DescripcionEvento
+		{
+			get
+			{
+				return this._DescripcionEvento;
+			}
+			set
+			{
+				if ((this._DescripcionEvento != value))
+				{
+					this._DescripcionEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaEvento", DbType="DateTime NOT NULL")]
+		public System.DateTime FechaEvento
+		{
+			get
+			{
+				return this._FechaEvento;
+			}
+			set
+			{
+				if ((this._FechaEvento != value))
+				{
+					this._FechaEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LugarEvento", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string LugarEvento
+		{
+			get
+			{
+				return this._LugarEvento;
+			}
+			set
+			{
+				if ((this._LugarEvento != value))
+				{
+					this._LugarEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transporte", DbType="NVarChar(111)")]
+		public string Transporte
+		{
+			get
+			{
+				return this._Transporte;
+			}
+			set
+			{
+				if ((this._Transporte != value))
+				{
+					this._Transporte = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this._Estado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmacionAsistencia", DbType="DateTime NOT NULL")]
+		public System.DateTime ConfirmacionAsistencia
+		{
+			get
+			{
+				return this._ConfirmacionAsistencia;
+			}
+			set
+			{
+				if ((this._ConfirmacionAsistencia != value))
+				{
+					this._ConfirmacionAsistencia = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_BuscarCarpoolPorUsuario2Result
+	{
+		
+		private int _IdCarpool;
+		
+		private int _IdEvento;
+		
+		private string _NombreEvento;
+		
+		private int _CamposDisponibles;
+		
+		private string _DireccionOrigen;
+		
+		private string _DireccionDestino;
+		
+		private System.DateTime _HoraSalida;
+		
+		private string _NotasCarpool;
+		
+		private System.Nullable<int> _CamposRestantes;
+		
+		private string _NombreCompletoDueno;
+		
+		private string _CarpoolUsuarios;
+		
+		public SP_BuscarCarpoolPorUsuario2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCarpool", DbType="Int NOT NULL")]
+		public int IdCarpool
+		{
+			get
+			{
+				return this._IdCarpool;
+			}
+			set
+			{
+				if ((this._IdCarpool != value))
+				{
+					this._IdCarpool = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvento", DbType="Int NOT NULL")]
+		public int IdEvento
+		{
+			get
+			{
+				return this._IdEvento;
+			}
+			set
+			{
+				if ((this._IdEvento != value))
+				{
+					this._IdEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreEvento", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NombreEvento
+		{
+			get
+			{
+				return this._NombreEvento;
+			}
+			set
+			{
+				if ((this._NombreEvento != value))
+				{
+					this._NombreEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CamposDisponibles", DbType="Int NOT NULL")]
+		public int CamposDisponibles
+		{
+			get
+			{
+				return this._CamposDisponibles;
+			}
+			set
+			{
+				if ((this._CamposDisponibles != value))
+				{
+					this._CamposDisponibles = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DireccionOrigen", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string DireccionOrigen
+		{
+			get
+			{
+				return this._DireccionOrigen;
+			}
+			set
+			{
+				if ((this._DireccionOrigen != value))
+				{
+					this._DireccionOrigen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DireccionDestino", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string DireccionDestino
+		{
+			get
+			{
+				return this._DireccionDestino;
+			}
+			set
+			{
+				if ((this._DireccionDestino != value))
+				{
+					this._DireccionDestino = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraSalida", DbType="DateTime NOT NULL")]
+		public System.DateTime HoraSalida
+		{
+			get
+			{
+				return this._HoraSalida;
+			}
+			set
+			{
+				if ((this._HoraSalida != value))
+				{
+					this._HoraSalida = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotasCarpool", DbType="VarChar(1)")]
+		public string NotasCarpool
+		{
+			get
+			{
+				return this._NotasCarpool;
+			}
+			set
+			{
+				if ((this._NotasCarpool != value))
+				{
+					this._NotasCarpool = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CamposRestantes", DbType="Int")]
+		public System.Nullable<int> CamposRestantes
+		{
+			get
+			{
+				return this._CamposRestantes;
+			}
+			set
+			{
+				if ((this._CamposRestantes != value))
+				{
+					this._CamposRestantes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompletoDueno", DbType="NVarChar(201) NOT NULL", CanBeNull=false)]
+		public string NombreCompletoDueno
+		{
+			get
+			{
+				return this._NombreCompletoDueno;
+			}
+			set
+			{
+				if ((this._NombreCompletoDueno != value))
+				{
+					this._NombreCompletoDueno = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CarpoolUsuarios", DbType="NVarChar(MAX)")]
+		public string CarpoolUsuarios
+		{
+			get
+			{
+				return this._CarpoolUsuarios;
+			}
+			set
+			{
+				if ((this._CarpoolUsuarios != value))
+				{
+					this._CarpoolUsuarios = value;
 				}
 			}
 		}

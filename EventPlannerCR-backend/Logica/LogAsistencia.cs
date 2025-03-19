@@ -98,8 +98,6 @@ namespace EventPlannerCR_backend.Logica
         #endregion
 
         #region BUSCAR
-       
-
         public ResBuscarAsistenciaUsuario BuscarAsistenciaUsuario(ReqBuscarAsistenciaUsuario req)
         {
             ResBuscarAsistenciaUsuario res = new ResBuscarAsistenciaUsuario();
@@ -257,19 +255,102 @@ namespace EventPlannerCR_backend.Logica
         #endregion
 
         #region EDITAR
-        
         public ResEditarAsistencia Editar(ReqEditarAsistencia req)
         {
 
             ResEditarAsistencia res = new ResEditarAsistencia();
             res.error = new List<Error>();
-            _ = new Error();
-
-            int? ErrorId = 0;
-            string ErrorDescripcion = null;
 
             try
             {
+                int? ErrorId = 0;
+                string ErrorDescripcion = null;
+
+                if (req == null)
+                {
+                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.resultado = false;
+                    return res;
+                }
+                else 
+                {
+                    if (req.idAsistencia <= 0 || req.idAsistencia == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
+                        res.resultado = false;
+                        res.idAsistencia = req.idAsistencia;
+                        return res;
+                    }
+                    else
+                    {
+                        if (req.Estado == false)
+                        {
+                            //Si el usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
+                            req.idCarpool = null;
+                        }
+                        
+                        if (req.Estado == null)
+                        {
+                            res.error.Add(Error.generarError(enumErrores.requestIncompleto, "El valor de estado es requerido."));
+                            res.resultado = false;
+                            res.idAsistencia = req.idAsistencia;
+                            return res;
+                        }
+                        else
+                        {
+                            SP_EditarAsistenciaResult AsistenciaBD;
+                            using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                            {
+                                var resultado = linq.SP_EditarAsistencia(
+                                    req.idAsistencia,
+                                    req.Estado,
+                                    req.idCarpool,
+                                    ref ErrorId,
+                                    ref ErrorDescripcion
+                                );
+                                AsistenciaBD = resultado.FirstOrDefault();
+                            }
+                            if (AsistenciaBD != null)
+                            {
+                                res.resultado = true;
+                                res = FactoryEditarAsistencia(AsistenciaBD);
+                            }
+                            else
+                            {
+                                res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
+                            }
+                        }
+                    }                                  
+                }
+            }
+            catch(Exception ex)
+            {
+                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+            }
+            return res;
+        }
+        #endregion
+
+        #region BORRAR
+        public ResBorrarAsistencia Borrar(ReqBorrarAsistencia req)
+        {
+
+            ResBorrarAsistencia res = new ResBorrarAsistencia();
+            res.error = new List<Error>();
+            _ = new Error();
+
+            try
+            {
+                int? ErrorId = 0;
+                string ErrorDescripcion = null;
+
+                if (req.Sesion.Usuario.Admin == false)
+                {
+                    res.error.Add(Error.generarError(enumErrores.noAutorizado, "El usuario no tiene permisos para realizar esta acción."));
+                    res.resultado = false;
+                    return res;
+                }
+		
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
@@ -286,36 +367,22 @@ namespace EventPlannerCR_backend.Logica
                     }
                     else
                     {
-
-                        if (req.Status == false)
-                        {
-                            //Si el usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
-                            req.idCarpool = null;
-                        }
-
-
-                        SP_EditarAsistenciaResult AsistenciaBD;
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
-                            var resultado = linq.SP_EditarAsistencia(
+                            var resultado = linq.SP_BorrarAsistencia(
                                 req.idAsistencia,
-                                req.Status,
-                                req.idCarpool,
                                 ref ErrorId,
                                 ref ErrorDescripcion
                             );
-
-                            AsistenciaBD = resultado.FirstOrDefault();  
                         }
-                        if (AsistenciaBD != null)
+                        if (ErrorId == null || ErrorId == 0)
                         {
                             res.resultado = true;
-                            res = FactoryEditarAsistencia(AsistenciaBD);
                         }
                         else
                         {
                             res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
-                        }
+                        } 
                     }                                  
                 }
             }
@@ -325,12 +392,6 @@ namespace EventPlannerCR_backend.Logica
             }
             return res;
         }
-
-        #endregion
-
-        #region BORRAR
-        //borrar
-
         #endregion
 
         #region laFactoriaa!!
@@ -364,9 +425,9 @@ namespace EventPlannerCR_backend.Logica
             return new ResBuscarAsistenciaEvento.ResBuscarAsistenciaEvento_Modelo
             {
                 idAsistencia = tc.IdAsistencia,
-                NombreCompleto = tc.Usuario,
+                NombreCompleto = tc.NombreCompleto,
                 Trasnporte = tc.Transporte,
-                ConfirmacionAsistencia = (DateTime)tc.FechaDeConfirmacion,
+                ConfirmacionAsistencia = (DateTime)tc.ConfirmacionAsistencia,
                 Estado = tc.Estado,
             };
         }

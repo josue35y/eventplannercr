@@ -34,5 +34,12 @@ namespace API.Controllers
         {
             return new LogAsistencia().Editar(req);
         }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/asistencia/borrar")]
+        public ResBorrarAsistencia Borrar(ReqBorrarAsistencia req)
+        {
+            return new LogAsistencia().Borrar(req);
+        }
     }
 }

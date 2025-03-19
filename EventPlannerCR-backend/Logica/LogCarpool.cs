@@ -11,7 +11,7 @@ namespace EventPlannerCR_backend.Logica
 {
     public class LogCarpool
     {
-        //Insertar un grupo carpool
+        #region INSERTAR 
         public ResInsertarCarpool insertar(ReqInsertarCarpool req)
         {
             ResInsertarCarpool res = new ResInsertarCarpool();
@@ -65,6 +65,7 @@ namespace EventPlannerCR_backend.Logica
                                 req.Carpool.Canton,
                                 req.Carpool.Distrito,
                                 req.Carpool.idUsuario,
+                                req.Carpool.NotasCarpool,
                                 ref idBD,
                                 ref idError,
                                 ref errorDescripcion);
@@ -86,14 +87,14 @@ namespace EventPlannerCR_backend.Logica
             }
             return res;
         }
+        #endregion
 
-
-        //Buscar por evento
+        #region BUSCAR
         public ResObtenerCarpoolPorEvento listar(ReqObtenerCarpoolPorEvento req)
         {
             ResObtenerCarpoolPorEvento res = new ResObtenerCarpoolPorEvento();
+            List<ResObtenerCarpoolPorEvento.CarpoolPorEvento_Modelo> ListaCarpools = new List<ResObtenerCarpoolPorEvento.CarpoolPorEvento_Modelo>();  
             res.error = new List<Error>();
-            Error error = new Error();
 
             try
             {
@@ -120,26 +121,42 @@ namespace EventPlannerCR_backend.Logica
 
                 int? idError = 0;
                 string errorDescripcion = null;
-                
-                List<SP_BuscarCarpoolPorEventoResult> listaCarpoolPorEventoBD = new List<SP_BuscarCarpoolPorEventoResult>();
+
                 using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
-                    listaCarpoolPorEventoBD = linq.SP_BuscarCarpoolPorEvento(
+                    var listaCarpools = linq.SP_BuscarCarpoolPorEvento2(
                         req.idEvento,
                         ref idError,
                         ref errorDescripcion
                     ).ToList();
-                }
 
-                if (idError != null && idError > 0)
-                {
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorDescripcion));
-                    res.resultado = false;
-                    return res;
-                }
+                    if (idError != null && idError > 0)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion)); res.resultado = false; return res;
+                    }
 
-                res.CarpoolList = listaCarpoolPorEventoBD.Select(factoryCarpool).ToList();
-                res.resultado = true;
+                    int? idError2 = 0;
+                    string errorDescripcion2 = null;
+
+                    // Buscar usuarios asociados a cada carpool
+                    res.CarpoolList = listaCarpools.Select(carpool =>
+                    {
+                        var usuarios = linq.SP_BuscarUsuariosPorCarpool(carpool.IdCarpool, ref idError2, ref errorDescripcion2)
+                            .Select(u => new ResObtenerCarpoolPorEvento.UsuariosCarpool
+                            {
+                                idUsuario = u.IdUsuario.ToString(),
+                                NombreApellido = $"{u.NombreApellido}"
+                            }).ToList();
+                        return FactoryCarpool(carpool, usuarios);
+                    }).ToList();
+
+                    if (idError2 != null && idError2 > 0)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion2)); res.resultado = false; return res;
+                    }
+
+                    res.resultado = true;
+                }
             }
             catch (Exception ex)
             {
@@ -149,26 +166,192 @@ namespace EventPlannerCR_backend.Logica
             return res;
         }
 
-        //editar
+        public ResObtenerCarpoolPorUsuario listarUsuario(ReqObtenerCarpoolPorUsuario req)
+        {
+            ResObtenerCarpoolPorUsuario res = new ResObtenerCarpoolPorUsuario();
+            List<ResObtenerCarpoolPorUsuario.CarpoolPorUsuario_Modelo> ListaCarpools = new List<ResObtenerCarpoolPorUsuario.CarpoolPorUsuario_Modelo>();
+            res.error = new List<Error>();
 
+            try
+            {
+                if (req.Sesion.Estado == enumEstadoSesion.cerrada)
+                {
+                    res.error.Add(Error.generarError(enumErrores.sessionCerrada, "Sesion expirada."));
+                    res.resultado = false;
+                    return res;
+                }
+
+                if (req == null)
+                {
+                    res.error.Add(Error.generarError(enumErrores.requestNulo, "El request es nulo"));
+                    res.resultado = false;
+                    return res;
+                }
+
+                if (req.idUsuario < 0 || req.idUsuario == null) 
+                {
+                    res.error.Add(Error.generarError(enumErrores.idFaltante, "El request es nulo"));
+                    res.resultado = false;
+                    return res;
+                }
+
+                int? idError = 0;
+                string errorDescripcion = null;
+
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    var listaCarpools = linq.SP_BuscarCarpoolPorUsuario2(
+                        req.idUsuario,
+                        ref idError,
+                        ref errorDescripcion
+                    ).ToList();
+
+                    if (idError != null && idError > 0)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion));
+                        res.resultado = false;
+                        return res;
+                    }
+
+                    int? idError2 = 0;
+                    string errorDescripcion2 = null;
+
+                    // Buscar usuarios asociados a cada carpool
+                    res.CarpoolList = listaCarpools.Select(carpool =>
+                    {
+                        var usuarios = linq.SP_BuscarUsuariosPorCarpool(carpool.IdCarpool, ref idError2, ref errorDescripcion2)
+                            .Select(u => new ResObtenerCarpoolPorUsuario.UsuariosCarpool
+                            {
+                                idUsuario = u.IdUsuario.ToString(),
+                                NombreApellido = $"{u.NombreApellido}"
+                            }).ToList();
+
+                        return FactoryCarpoolUsuario(carpool, usuarios);
+                    }).ToList();
+
+                    if (idError2 != null && idError2 > 0)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion2));
+                        res.resultado = false;
+                        return res;
+                    }
+
+                    res.resultado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.Message));
+                res.resultado = false;
+            }
+            return res;
+        }
+
+        #endregion
+
+        #region EDITAR
+
+        //public ResEditarCarpool 
+
+        public ResEditarCarpool Editar(ReqEditarCarpool req)
+        {
+            ResEditarCarpool res = new ResEditarCarpool();
+            res.error = new List<Error>();
+
+            //Validaciones
+            int IdUsuario = req.IdUsuario;
+            int IdEvento = req.IdEvento;
+
+            //Opcionales, pueden no ser nulos si el idUsuario es el dueño del carpool.
+            int? IdUsuarioOcupante = req.IdUsuarioOcupante;
+            string NotasCarpool = req.NotasCarpool;
+            int? Provincia = req.Provincia;
+            int? Canton = req.Canton;
+            int? Distrito = req.Distrito;
+            DateTime? HoraSalida = req.HoraSalida;
+
+            //Opcional, puede ser nulo si el idUsuario no es el dueño del carpool.
+            int? idCarpool_Nuevo = req.IdCarpool_Nuevo;
+
+            int? ErrorID = 0;
+            string ErrorDescripcion = null;
+
+            using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+            {
+                linq.SP_EditarCarpool(
+                    IdUsuario, 
+                    IdEvento, 
+                    IdUsuarioOcupante, 
+                    NotasCarpool, 
+                    Provincia, 
+                    Canton, 
+                    Distrito, 
+                    HoraSalida, 
+                    idCarpool_Nuevo, 
+                    ref ErrorID, 
+                    ref ErrorDescripcion);
+            }
+
+            if (ErrorID == null)
+            {
+                res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
+                res.resultado = false;
+            }
+            else
+            {
+                res.resultado = true;
+                res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion)); //borrar esto
+            }
+
+            return res;
+        }
+
+
+        #endregion
+
+
+        #region BORRAR
         //borrar
 
+        #endregion
+
         #region laFactoriaa!!
-        private Carpool factoryCarpool(SP_BuscarCarpoolPorEventoResult tc/*, ReqObtenerCarpoolPorEvento req*/)
+
+        public static ResObtenerCarpoolPorEvento.CarpoolPorEvento_Modelo FactoryCarpool(SP_BuscarCarpoolPorEvento2Result tc, List<ResObtenerCarpoolPorEvento.UsuariosCarpool> usuarios)
         {
-            return new Carpool
+            return new ResObtenerCarpoolPorEvento.CarpoolPorEvento_Modelo
             {
                 idCarpool = tc.IdCarpool,
-                Evento = new Evento { idEvento = tc.IdEvento/*,
-                    Nombre = req.idEvento
-                */},
+                NombreCompletoDueno = tc.NombreCompletoDueno,
                 CamposDisponibles = tc.CamposDisponibles,
-                Provincia = tc.Provincia,
-                Canton = tc.Canton,
-                Distrito = tc.Distrito
+                NombreEvento = tc.NombreEvento,
+                DireccionOrigen = tc.DireccionOrigen,
+                DireccionDestino = tc.DireccionDestino,
+                HoraSalida = tc.HoraSalida,
+                NotasCarpool = tc.NotasCarpool,
+                CarpoolUsuarios = usuarios // Se llena la lista de usuarios del carpool
             };
         }
 
+        public static ResObtenerCarpoolPorUsuario.CarpoolPorUsuario_Modelo FactoryCarpoolUsuario(SP_BuscarCarpoolPorUsuario2Result tc, List<ResObtenerCarpoolPorUsuario.UsuariosCarpool> usuarios)
+        {
+            return new ResObtenerCarpoolPorUsuario.CarpoolPorUsuario_Modelo
+            {
+                idCarpool = tc.IdCarpool,
+                idEvento = tc.IdEvento,
+                
+                NombreCompletoDueno = tc.NombreCompletoDueno,
+                CamposDisponibles = tc.CamposDisponibles,
+                CamposRestantes = tc.CamposRestantes,
+                CarpoolUsuarios = usuarios, // Se llena la lista de usuarios del carpool
+
+                NombreEvento = tc.NombreEvento,
+                NotasCarpool = tc.NotasCarpool,
+                DireccionOrigen = tc.DireccionOrigen,
+                DireccionDestino = tc.DireccionDestino,
+                HoraSalida = tc.HoraSalida,
+            };
+        }
         #endregion
 
     }

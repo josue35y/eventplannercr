@@ -34,6 +34,7 @@ namespace EventPlannerCR_backend.Entidades
         errorConversion = 16,
 
         requestIncompleto = 17,
+        noAutorizado = 18,
 
 
     }

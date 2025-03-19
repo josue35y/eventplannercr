@@ -19,6 +19,19 @@ namespace API.Controllers
             return new LogCarpool().listar(req);
         }
 
+        [HttpPost]
+        [Route("api/carpool/capoolporusuario")]
+        public ResObtenerCarpoolPorUsuario listarUsuario(ReqObtenerCarpoolPorUsuario req)
+        {
+            return new LogCarpool().listarUsuario(req);
+        }
 
+
+        [HttpPost]
+        [Route("api/carpool/editar")]
+        public ResEditarCarpool editar(ReqEditarCarpool req)
+        {
+            return new LogCarpool().Editar(req);
+        }
     }
 }
