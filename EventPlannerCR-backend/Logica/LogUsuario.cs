@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using EventPlannerCR_AccesoDatos;
+using System.Net.Http.Headers;
 
 namespace EventPlannerCR_backend.Logica
 {
@@ -15,7 +16,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResInsertarUsuario res = new ResInsertarUsuario();
             res.error = new List<Error>();
-            Error error = new Error();
+            //Error error = new Error();
 
             try
             {
@@ -23,114 +24,120 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req == null)
                 {
-                    error.ErrorCode = enumErrores.requestNulo;
-                    error.Message = "Req Null";
-                    res.error.Add(error);
-                    // TODO:
-                    //Enviar error a bitacora:
-                    //object LogObject = RegistrarBitacora("LogUsuario", "Insertar", "Error", "400", "El request es nulo", null, null);
-
-
+                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req Null"));
+                    res.resultado = false;
+                    return res;
                 }
                 else
                 {
+
                     if (String.IsNullOrEmpty(req.usuario.Nombre))  //(req .usuario.nombre == null || req.usuario.nombre == "")
                     {
-                        error.ErrorCode = enumErrores.nombreFaltante;
-                        error.Message = "Nombre vacío";
-                        res.error.Add(error);
+                        res.error.Add(Error.generarError(enumErrores.nombreFaltante, "Nombre vacio."));
                     }
                     if (String.IsNullOrEmpty(req.usuario.Apellidos))
                     {
-                        error.ErrorCode = enumErrores.apellidoFaltante;
-                        error.Message = "Apellido vacío";
-                        res.error.Add(error);
+                        res.error.Add(Error.generarError(enumErrores.apellidoFaltante, "Apellidos vacio."));
+                    }
+                    if (String.IsNullOrEmpty(req.usuario.Telefono))
+                    {
+                        res.error.Add(Error.generarError(enumErrores.telefonoFaltante, "Telefono vacio."));
                     }
                     if (String.IsNullOrEmpty(req.usuario.Correo))
                     {
-                        error.ErrorCode = enumErrores.correoFaltante;
-                        error.Message = "Correo vacío";
-                        res.error.Add(error);
+                        res.error.Add(Error.generarError(enumErrores.correoFaltante, "Correo vacio."));
                     }
-                    if (String.IsNullOrEmpty(req.usuario.Correo)) // CAMBIAR POR CO
+                    if (String.IsNullOrEmpty(req.usuario.FechaNacimiento.ToString()))
                     {
-                        error.ErrorCode = enumErrores.correoFaltante;
-                        error.Message = "Correo vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Password))
-                    {
-                        error.ErrorCode = enumErrores.passwordFaltante;
-                        error.Message = "Password vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Password))
-                    {
-                        error.ErrorCode = enumErrores.passwordFaltante;
-                        error.Message = "Password vacío";
-                        res.error.Add(error);
+                        res.error.Add(Error.generarError(enumErrores.FechaNacimiento, "Fecha de nacimiento vacia."));
                     }
 
-                    //
-                    int? idBd = 0;
-                    int? idError = 0;
-                    string errorDescripcion = null;
+
+                    if (req.usuario.Provincia == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.provinciaFaltante, "Provincia vacia."));
+                    }
+                    if (req.usuario.Canton == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.cantonFaltante, "Canton vacio."));
+                    }
+                    if (req.usuario.Distrito == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.distritoFaltante, "Distrito vacio."));
+                    }
+
+
+                    if (req.usuario.Admin == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.AtributoInvalido, "Admin vacio."));
+                    }
+
+                    if (String.IsNullOrEmpty(req.usuario.Password))
+                    {
+                        res.error.Add(Error.generarError(enumErrores.passwordFaltante, "Password vacío"));
+                    }
+
+                    if (req.usuario.Vehiculo == null)
+                    {
+                        res.error.Add(Error.generarError(enumErrores.AtributoInvalido, "Vehiculo vacio."));
+                    }
+
+
+
+
+
+
 
                     if (res.error.Any())
                     {
-                        // hay al menos 1 error.
                         res.resultado = false;
                     }
-                    else     // No hubo errores.
+                    else // No hubo errores.
                     {
+
+                        int? idBd = null;
+                        int? idError = null;
+                        string errorDescripcion = null;
+
+                        bool estado = true;
+                        Guid guid = Guid.NewGuid();
 
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
-                            linq.SP_InsertarUsuario(
+                            linq.SP_InsertarUsuario_josue(
                                 req.usuario.Nombre,
                                 req.usuario.Apellidos,
                                 req.usuario.Telefono,
                                 req.usuario.Correo,
                                 req.usuario.FechaNacimiento,
                                 req.usuario.Provincia,
+                                req.usuario.Canton,
+                                req.usuario.Distrito,
                                 req.usuario.Admin,
                                 req.usuario.Password,
                                 req.usuario.Vehiculo,
-
+                                guid.ToString(),
+                                estado,
                                 ref idBd,
                                 ref idError,
                                 ref errorDescripcion);
                         }
-
-
-                        if (idBd >= 1)
+                        if (idError < 0)
                         {
-                            res.resultado = true;
-                            error.ErrorCode = (enumErrores)idError;
+                            res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorDescripcion));
                         }
 
-                        //MALA Practica.
-                        error.Message = errorDescripcion;
-                        res.error.Add(error);
+                        if (idBd > 0)
+                        {
+                            res.resultado = true;
+                        }
                     }
-
                 }
-
             }
             catch (Exception ex)
             {
-                error.ErrorCode = enumErrores.excepcionLogica; //CAMBIAR
-                error.Message = ex.ToString();
-                res.error.Add(error);
-
+                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
             }
-
-
-
-
-
-
-
             return res;
         }
 

@@ -102,9 +102,9 @@ namespace EventPlannerCR_backend.Logica
             {
                 idEvento = unTipo.IdEvento,
                 FechaInicio = unTipo.FechaInicio,
-                lat = unTipo.lat,
-                lon = unTipo.lon,
-                diasFaltantes = unTipo.DiasParaEvento
+                //lat = unTipo.lat,
+                //lon = unTipo.lon,
+                //diasFaltantes = unTipo.DiasParaEvento
             };
             return evento;
         }

@@ -190,6 +190,32 @@ namespace EventPlannerCR_AccesoDatos
 			errorDescripcion = ((string)(result.GetParameterValue(4)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarUsuario_josue")]
+		public int SP_InsertarUsuario_josue(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(15)")] string telefono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaNacimiento", DbType="Date")] System.Nullable<System.DateTime> fechaNacimiento, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Provincia", DbType="Int")] System.Nullable<int> provincia, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Canton", DbType="Int")] System.Nullable<int> canton, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Distrito", DbType="Int")] System.Nullable<int> distrito, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Admin", DbType="Bit")] System.Nullable<bool> admin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(255)")] string password, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Vehiculo", DbType="Bit")] System.Nullable<bool> vehiculo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoVerificacion", DbType="NVarChar(15)")] string codigoVerificacion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Estado", DbType="Bit")] System.Nullable<bool> estado, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, apellidos, telefono, correo, fechaNacimiento, provincia, canton, distrito, admin, password, vehiculo, codigoVerificacion, estado, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(13)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(14)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(15)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_EventosCercanosResult
@@ -242,43 +268,43 @@ namespace EventPlannerCR_AccesoDatos
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lat", DbType="Decimal(9,6)")]
-		public double lat
+		public System.Nullable<decimal> lat
 		{
 			get
 			{
-				return (double)this._lat;
+				return this._lat;
 			}
 			set
 			{
-				if ((this._lat != (decimal?)value))
+				if ((this._lat != value))
 				{
-					this._lat = (decimal?)value;
+					this._lat = value;
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lon", DbType="Decimal(9,6)")]
-		public double lon
+		public System.Nullable<decimal> lon
 		{
 			get
 			{
-				return (double)this._lon;
+				return this._lon;
 			}
 			set
 			{
-				if ((this._lon != (decimal?)value))
+				if ((this._lon != value))
 				{
-					this._lon = (decimal?)value;
+					this._lon = value;
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiasParaEvento", DbType="Int")]
-		public int DiasParaEvento
+		public System.Nullable<int> DiasParaEvento
 		{
 			get
 			{
-				return (int)this._DiasParaEvento;
+				return this._DiasParaEvento;
 			}
 			set
 			{

@@ -16,7 +16,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResInsertarCarpool res = new ResInsertarCarpool();
             res.error = new List<Error>();
-            Error error = new Error(); 
+            //Error error = new Error(); 
             try
             {
                 if (req == null)
