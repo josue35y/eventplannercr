@@ -57,7 +57,7 @@ namespace EventPlannerCR_backend.Logica
                     enumErrores.excepcionBaseDatos.ToString(),
                     ex.Message, null, res.ToString());
                 LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
-                ex.Message, req.ToString(), res.ToString());
+                ex.Message, null, res.ToString());
                 error.Message = ex.Message;
                 error.ErrorCode = enumErrores.excepcionBaseDatos;
                 res.error.Add(error);

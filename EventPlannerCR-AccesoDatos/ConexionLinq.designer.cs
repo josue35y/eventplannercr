@@ -242,43 +242,43 @@ namespace EventPlannerCR_AccesoDatos
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lat", DbType="Decimal(9,6)")]
-		public System.Nullable<decimal> lat
+		public double lat
 		{
 			get
 			{
-				return this._lat;
+				return (double)this._lat;
 			}
 			set
 			{
-				if ((this._lat != value))
+				if ((this._lat != (decimal?)value))
 				{
-					this._lat = value;
+					this._lat = (decimal?)value;
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lon", DbType="Decimal(9,6)")]
-		public System.Nullable<decimal> lon
+		public double lon
 		{
 			get
 			{
-				return this._lon;
+				return (double)this._lon;
 			}
 			set
 			{
-				if ((this._lon != value))
+				if ((this._lon != (decimal?)value))
 				{
-					this._lon = value;
+					this._lon = (decimal?)value;
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiasParaEvento", DbType="Int")]
-		public System.Nullable<int> DiasParaEvento
+		public int DiasParaEvento
 		{
 			get
 			{
-				return this._DiasParaEvento;
+				return (int)this._DiasParaEvento;
 			}
 			set
 			{
