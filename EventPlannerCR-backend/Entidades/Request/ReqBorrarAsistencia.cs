@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class Asistencia
+    public class ReqBorrarAsistencia : ReqBase
     {
         public int idAsistencia {  get; set; }
-        public Usuario Usuario { get; set; }
-        public Evento Evento { get; set; }
-        public bool Status { get; set; }
-        public Carpool Carpool { get; set; }
 
     }
 }

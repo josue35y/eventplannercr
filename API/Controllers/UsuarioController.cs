@@ -7,9 +7,9 @@ namespace API.Controllers
 {
     public class UsuarioController : ApiController
     {
-        //insertar
+        //Insertar
         [HttpPost]
-        [Route("api/usuario/insertar")]
+        [Route("api/usuario/Insertar")]
         public ResInsertarUsuario insertar(ReqInsertarUsuario req)
         {
             return new LogUsuario().insertar(req);

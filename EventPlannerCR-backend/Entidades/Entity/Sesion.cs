@@ -15,7 +15,7 @@ namespace EventPlannerCR_backend.Entidades
         public string Origen { get; set; }
         public DateTime Fecha_Inicio { get; set; }
         public DateTime Fecha_Final {  get; set; }
-        public int Estado { get; set; }
+        public enumEstadoSesion Estado { get; set; }
         public DateTime Fecha_Actualizacion { get; set; }        
     }
 }

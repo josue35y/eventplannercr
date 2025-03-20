@@ -29,6 +29,12 @@ namespace EventPlannerCR_backend.Entidades
         cantonFaltante = 12,
         distritoFaltante = 13,
 
+        AtributoInvalido = 14,
+        datosNoEncontrados = 15,
+        errorConversion = 16,
+
+        requestIncompleto = 17,
+        noAutorizado = 18,
 
 
     }
