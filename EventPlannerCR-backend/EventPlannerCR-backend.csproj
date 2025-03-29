@@ -35,6 +35,9 @@
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -44,6 +47,9 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
@@ -70,26 +76,40 @@
     <Compile Include="Entidades\Entity\Deuda.cs" />
     <Compile Include="Entidades\Entity\Error.cs" />
     <Compile Include="Entidades\Entity\Evento.cs" />
+    <Compile Include="Entidades\Entity\EventoD.cs" />
     <Compile Include="Entidades\Entity\GruposCobro.cs" />
     <Compile Include="Entidades\Entity\Pagos.cs" />
     <Compile Include="Entidades\Entity\Sesion.cs" />
     <Compile Include="Entidades\Entity\Usuario.cs" />
+    <Compile Include="Entidades\Entity\UsuarioD.cs" />
     <Compile Include="Entidades\Enum\enumErrores.cs" />
+    <Compile Include="Entidades\Request\ReqActualizarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqAgregarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqBuscarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqBuscarUsuario.cs" />
+    <Compile Include="Entidades\Request\ReqActualizarUsuario.cs" />
+    <Compile Include="Entidades\Request\ReqEliminarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqEliminarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqEventosCercanos.cs" />
     <Compile Include="Entidades\Request\ReqInsertarAsistencia.cs" />
     <Compile Include="Entidades\Request\ReqBase.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarCarpool.cs" />
+    <Compile Include="Entidades\Request\ReqInsertarUsuarioD.cs" />
+    <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
+    <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
     <Compile Include="Entidades\Response\ResEventosCercanos.cs" />
     <Compile Include="Entidades\Response\ResInsertarAsistencia.cs" />
     <Compile Include="Entidades\Response\ResInsertarCarpool.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResInsertarUsuarioD.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
     <Compile Include="Logica\LogBitacora.cs" />
     <Compile Include="Logica\LogCarpool.cs" />
     <Compile Include="Logica\LogEvento.cs" />
     <Compile Include="Logica\LogUsuario.cs" />
+    <Compile Include="Logica\LogUsuarioD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
