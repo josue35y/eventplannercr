@@ -65,7 +65,7 @@ namespace EventPlannerCR_backend.Logica
                                 req.Carpool.Canton,
                                 req.Carpool.Distrito,
                                 req.Usuario.idUsuario,
-                                req.Carpool.Notas,
+                                req.Carpool.NotasCarpool,
                                 ref idBD,
                                 ref idError,
                                 ref errorDescripcion);
@@ -144,7 +144,7 @@ namespace EventPlannerCR_backend.Logica
                         var usuarios = linq.SP_BuscarUsuariosPorCarpool(carpool.IdCarpool, ref idError2, ref errorDescripcion2)
                             .Select(u => new ResObtenerCarpoolPorEvento.UsuariosCarpool
                             {
-                                idUsuario = u.IdUsuario.ToString(),
+                                idUsuario = u.ID_USUARIO.ToString(),
                                 NombreApellido = $"{u.NombreApellido}"
                             }).ToList();
                         return FactoryCarpool(carpool, usuarios);
@@ -222,7 +222,7 @@ namespace EventPlannerCR_backend.Logica
                         var usuarios = linq.SP_BuscarUsuariosPorCarpool(carpool.IdCarpool, ref idError2, ref errorDescripcion2)
                             .Select(u => new ResObtenerCarpoolPorUsuario.UsuariosCarpool
                             {
-                                idUsuario = u.IdUsuario.ToString(),
+                                idUsuario = u.ID_USUARIO.ToString(),
                                 NombreApellido = $"{u.NombreApellido}"
                             }).ToList();
 
