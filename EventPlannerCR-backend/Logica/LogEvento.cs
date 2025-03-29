@@ -98,13 +98,14 @@ namespace EventPlannerCR_backend.Logica
 
         private Evento FactoriaEvento(SP_EventosCercanosResult unTipo)
         {
+            
             Evento evento = new Evento
             {
-                //idEvento = unTipo.IdEvento,
-                //FechaInicio = unTipo.FechaInicio,
-                //lat = unTipo.lat,
-                //lon = unTipo.lon,
-                //diasFaltantes = unTipo.DiasParaEvento
+                idEvento = unTipo.IdEvento,
+                FechaInicio = unTipo.FechaInicio,
+                lat = unTipo.lat,
+                lon = unTipo.lon,
+                diasFaltantes = unTipo.DiasParaEvento
             };
             return evento;
         }

@@ -10,7 +10,7 @@ namespace EventPlannerCR_backend.Entidades
     {
         public int idEvento {  get; set; }
         public string Nombre { get; set; }
-        public DateTime FechaInicio { get; set; }
+        public DateTime? FechaInicio { get; set; }
         public DateTime FechaFinal {  get; set; }
         public string Lugar { get; set; }
         public string Descripcion { get; set; }
