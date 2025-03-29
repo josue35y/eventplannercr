@@ -87,18 +87,9 @@ namespace EventPlannerCR_backend.Logica
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
                             linq.SP_InsertarUsuario(
-                                req.usuario.Nombre,
-                                req.usuario.Apellidos,
-                                req.usuario.Telefono,
-                                req.usuario.Correo,
-                                req.usuario.FechaNacimiento,
-                                req.usuario.Provincia,
-                                req.usuario.Admin,
-                                req.usuario.Password,
-                                req.usuario.Vehiculo,
-
-                                ref idBd,
-                                ref idError,
+                                req.usuario.Nombre, req.usuario.Apellidos, req.usuario.Telefono,
+                                req.usuario.Correo, req.usuario.FechaNacimiento, req.usuario.Admin,
+                                req.usuario.Password, req.usuario.Vehiculo, ref idBd, ref idError,
                                 ref errorDescripcion);
                         }
 
