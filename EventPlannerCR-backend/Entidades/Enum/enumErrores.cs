@@ -35,7 +35,10 @@ namespace EventPlannerCR_backend.Entidades
 
         requestIncompleto = 17,
         noAutorizado = 18,
-
-
+        NombreInvalido = 19,
+        ApellidoInvalido = 20,
+        CorreoInvalido = 21,
+        FechaNacimientoFaltante = 22,
+        excepcionListaUsuarios = 23,
     }
 }

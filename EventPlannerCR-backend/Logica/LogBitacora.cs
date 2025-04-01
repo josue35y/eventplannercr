@@ -1,4 +1,4 @@
-﻿using EventPlannerCR_AccesoDatos;
+﻿using Acceso_de_datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

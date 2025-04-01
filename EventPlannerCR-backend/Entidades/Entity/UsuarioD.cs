@@ -17,10 +17,10 @@ namespace EventPlannerCR_backend.Entidades
         public String Correo { get; set; }
         public bool Correo_Verificado { get; set; }
         public int Cod_Ver_Cor { get; set; }
-        public bool Admin {  get; set; }
+        public bool? Admin {  get; set; }
         public String Password { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public bool Vehiculo { get; set; }
+        public bool? Vehiculo { get; set; } 
     }
 }

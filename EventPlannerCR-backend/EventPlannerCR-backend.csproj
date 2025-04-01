@@ -101,10 +101,12 @@
     <Compile Include="Entidades\Request\ReqBase.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarCarpool.cs" />
+    <Compile Include="Entidades\Request\ReqListaUsuarios.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuarioD.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
+    <Compile Include="Entidades\Response\ResListaUsuarios.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
     <Compile Include="Entidades\Response\ResBorrarAsistencia.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuarioD.cs" />
+    <Compile Include="Logica\Factorias.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
     <Compile Include="Logica\LogBitacora.cs" />
     <Compile Include="Logica\LogCarpool.cs" />
@@ -128,9 +131,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventPlannerCR-AccesoDatos\EventPlannerCR-AccesoDatos.csproj">
-      <Project>{56e22ebb-1e7a-4d46-b7eb-5acc2de88009}</Project>
-      <Name>EventPlannerCR-AccesoDatos</Name>
+    <ProjectReference Include="..\Acceso de datos\Acceso de datos.csproj">
+      <Project>{38c908c4-3dbc-46cf-bcd1-63adde65fbf1}</Project>
+      <Name>Acceso de datos</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventPlannerCR-Gateway\EventPlannerCR-Gateway.csproj">
       <Project>{6d96732c-fcc2-4ddb-a62b-5a3a874048e8}</Project>

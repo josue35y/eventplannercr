@@ -10,9 +10,16 @@ namespace API.Controllers
         //Insertar
         [HttpPost]
         [Route("api/usuario/Insertar")]
-        public ResInsertarUsuario insertar(ReqInsertarUsuario req)
+        public ResInsertarUsuarioD insertar(ReqInsertarUsuarioD req)
         {
-            return new LogUsuario().insertar(req);
+            return new LogUsuarioD().Insertar(req);
+        }
+
+        [HttpGet]
+        [Route("api/usuario/ListaUsuarios")]
+        public ResListaUsuarios listaUsuarios(ReqListaUsuarios req)
+        {
+            return new LogUsuarioD().ListaUsuarios(req);
         }
 
         // controlar los errores si el api no responde.

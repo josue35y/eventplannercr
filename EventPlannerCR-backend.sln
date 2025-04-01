@@ -4,15 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-backend", "EventPlannerCR-backend\EventPlannerCR-backend.csproj", "{E9655575-6E10-4690-A1B6-9828F0959B60}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B5E126C8-618E-4691-9C16-DB5C68493F76} = {B5E126C8-618E-4691-9C16-DB5C68493F76}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-AccesoDatos", "EventPlannerCR-AccesoDatos\EventPlannerCR-AccesoDatos.csproj", "{56E22EBB-1E7A-4D46-B7EB-5ACC2DE88009}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-API", "API\EventPlannerCR-API.csproj", "{4C131B1E-8EC0-4393-BE65-9038622088DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlannerCR-Gateway", "EventPlannerCR-Gateway\EventPlannerCR-Gateway.csproj", "{6D96732C-FCC2-4DDB-A62B-5A3A874048E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acceso de datos", "Acceso de datos\Acceso de datos.csproj", "{38C908C4-3DBC-46CF-BCD1-63ADDE65FBF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,18 +19,14 @@ Global
 		{E9655575-6E10-4690-A1B6-9828F0959B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9655575-6E10-4690-A1B6-9828F0959B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9655575-6E10-4690-A1B6-9828F0959B60}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56E22EBB-1E7A-4D46-B7EB-5ACC2DE88009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56E22EBB-1E7A-4D46-B7EB-5ACC2DE88009}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56E22EBB-1E7A-4D46-B7EB-5ACC2DE88009}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56E22EBB-1E7A-4D46-B7EB-5ACC2DE88009}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C131B1E-8EC0-4393-BE65-9038622088DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C131B1E-8EC0-4393-BE65-9038622088DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C131B1E-8EC0-4393-BE65-9038622088DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C131B1E-8EC0-4393-BE65-9038622088DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D96732C-FCC2-4DDB-A62B-5A3A874048E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D96732C-FCC2-4DDB-A62B-5A3A874048E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D96732C-FCC2-4DDB-A62B-5A3A874048E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D96732C-FCC2-4DDB-A62B-5A3A874048E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C908C4-3DBC-46CF-BCD1-63ADDE65FBF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C908C4-3DBC-46CF-BCD1-63ADDE65FBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C908C4-3DBC-46CF-BCD1-63ADDE65FBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C908C4-3DBC-46CF-BCD1-63ADDE65FBF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

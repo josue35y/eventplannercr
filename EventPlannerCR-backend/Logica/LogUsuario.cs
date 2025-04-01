@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using EventPlannerCR_AccesoDatos;
+using Acceso_de_datos;
 
 namespace EventPlannerCR_backend.Logica
 {

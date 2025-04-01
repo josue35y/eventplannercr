@@ -1,4 +1,4 @@
-﻿using EventPlannerCR_AccesoDatos;
+﻿using Acceso_de_datos;
 using EventPlannerCR_backend.Entidades;
 using System;
 using System.Collections.Generic;
@@ -59,9 +59,9 @@ namespace EventPlannerCR_backend.Logica
                     }
                     else
                     {
-                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        using (ConexionLinqDataContext Linq = new ConexionLinqDataContext())
                         {
-                            linq.SP_InsertarAsistencia(
+                            Linq.SP_InsertarAsistencia(
                                 req.Asistencia.Usuario.idUsuario,
                                 req.Asistencia.Evento.idEvento,
                                 status,
