@@ -8,6 +8,6 @@ namespace EventPlannerCR_backend.Entidades
 {
     public class ReqInsertarUsuario : ReqBase
     {
-        public Usuario usuario {  get; set; }
+        public UsuarioD Usuario { get; set; }
     }
 }

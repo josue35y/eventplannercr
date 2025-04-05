@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventPlannerCR_backend.Entidades
+namespace EventPlannerCR_backend.Entidades.Request
 {
-    public class ResInsertarUsuario : ResBase
+    public class ReqEliminarUsuario : ReqBase
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ResActualizarUsuario
+    public class ResActualizarUsuario : ResBase
     {
     }
 }

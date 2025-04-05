@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventPlannerCR_backend.Entidades.Request
+namespace EventPlannerCR_backend.Entidades
 {
     public class ReqEliminarUsuario : ReqBase
     {
+        public UsuarioD Usuario { get; set; }
     }
 }

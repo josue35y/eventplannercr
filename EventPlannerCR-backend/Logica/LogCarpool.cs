@@ -64,7 +64,7 @@ namespace EventPlannerCR_backend.Logica
                                 req.Carpool.Provincia,
                                 req.Carpool.Canton,
                                 req.Carpool.Distrito,
-                                req.Usuario.idUsuario,
+                                req.Usuario.IdUsuario,
                                 req.Carpool.NotasCarpool,
                                 ref idBD,
                                 ref idError,

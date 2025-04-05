@@ -1,191 +1,529 @@
-﻿using EventPlannerCR_backend.Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using EventPlannerCR_backend.Entidades;
 using EventPlannerCR_AccesoDatos;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace EventPlannerCR_backend.Logica
 {
     public class LogUsuario
     {
 
-        public ResInsertarUsuario insertar(ReqInsertarUsuario req)
+        //Metodo para insertar Usuario
+        public ResInsertarUsuario InsertarUsuario(ReqInsertarUsuario req)
         {
+
+            //Creacion de instancias generales del método
             ResInsertarUsuario res = new ResInsertarUsuario();
             res.error = new List<Error>();
-            Error error = new Error();
 
+            //inicio de manejo de excepciones
             try
             {
 
-
+                //validación del request
                 if (req == null)
                 {
+                    Error error = new Error();
+
                     error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
                     res.error.Add(error);
-                    // TODO:
-                    //Enviar error a bitacora:
-                    //object LogObject = RegistrarBitacora("LogUsuario", "Insertar", "Error", "400", "El request es nulo", null, null);
+                }
 
+                //Validación del nombre del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Usuario.Nombre))
+                {
+                    Error error = new Error();
 
+                    //Acumula la respuesta de error
+                    error.ErrorCode = enumErrores.nombreFaltante;
+                    error.Message = "Nombre nulo o no válido";
+                    res.error.Add(error);
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(req.usuario.Nombre))  //(req .usuario.nombre == null || req.usuario.nombre == "")
-                    {
-                        error.ErrorCode = enumErrores.nombreFaltante;
-                        error.Message = "Nombre vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Apellidos))
-                    {
-                        error.ErrorCode = enumErrores.apellidoFaltante;
-                        error.Message = "Apellido vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Correo))
-                    {
-                        error.ErrorCode = enumErrores.correoFaltante;
-                        error.Message = "Correo vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Correo)) // CAMBIAR POR CO
-                    {
-                        error.ErrorCode = enumErrores.correoFaltante;
-                        error.Message = "Correo vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Password))
-                    {
-                        error.ErrorCode = enumErrores.passwordFaltante;
-                        error.Message = "Password vacío";
-                        res.error.Add(error);
-                    }
-                    if (String.IsNullOrEmpty(req.usuario.Password))
-                    {
-                        error.ErrorCode = enumErrores.passwordFaltante;
-                        error.Message = "Password vacío";
-                        res.error.Add(error);
-                    }
 
-                    //
+                    //Validación de caracteres especiales en el nombre
+                    String patron = @"^[\p{L}\s'-]+$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.NombreInvalido;
+                        error.Message = "Hay un carácter no válido en el nombre";
+                        res.error.Add(error);
+                    }
+                }
+
+                //Validación del apellido del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Usuario.Apellidos))
+                {
+                    Error error = new Error();
+
+                    //Acumula la respuesta de error
+                    error.ErrorCode = enumErrores.apellidoFaltante;
+                    error.Message = "Apellidos nulo o no válido";
+                    res.error.Add(error);
+                }
+                else
+                {
+
+                    //Validación de caracteres especiales en el apellido
+                    String patron = @"^[\p{L}\s'-]+$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
+
+
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.ApellidoInvalido;
+                        error.Message = "Hay un carácter no válido en el apellido";
+                        res.error.Add(error);
+                    }
+                }
+
+                //Validación del correo del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Usuario.Correo))
+                {
+                    Error error = new Error();
+
+                    //Acumula la respuesta de error
+                    error.ErrorCode = enumErrores.correoFaltante;
+                    error.Message = "Correo nulo o no válido";
+                    res.error.Add(error);
+                }
+
+                //Validación de formato de correo
+                else
+                {
+                    //Validacion del formato de correo
+                    String patron = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
+
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.CorreoInvalido;
+                        error.Message = "Formato de correo no válido";
+                        res.error.Add(error);
+                    }
+                }
+
+                //Validación de la contraseña del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Usuario.Password))
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.passwordFaltante;
+                    error.Message = "Password nulo o no válido";
+                    res.error.Add(error);
+                }
+                else
+                {
+                    //Validacion de la contraseña
+                    String patron = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Password, patron);
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.passwordInvalido;
+                        error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
+                            "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
+                            "4-Al menos una minúscula";
+                        res.error.Add(error);
+                    }
+                }
+
+                //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                if (req.Usuario.FechaNacimiento == null)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
+                    error.Message = "Fecha nula";
+                    res.error.Add(error);
+                }
+
+                //Se valida si hubo errores en todas las validaciones
+                if (res.error.Any())
+                {
+                    res.resultado = false;
+                }
+                //Si no hubo errores se agrega el usuario a la base de datos
+                else
+                {
+
                     int? idBd = 0;
                     int? idError = 0;
                     string errorDescripcion = null;
 
-                    if (res.error.Any())
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-                        // hay al menos 1 error.
-                        res.resultado = false;
+                        linq.SP_InsertarUsuarios(
+                            req.Usuario.Nombre, req.Usuario.Apellidos,
+                            req.Usuario.Correo, req.Usuario.FechaNacimiento,
+                            req.Usuario.Password, ref idBd, ref idError,
+                            ref errorDescripcion);
                     }
-                    else     // No hubo errores.
+
+                }
+            }
+
+            //Manejo de excepciones
+            catch (Exception ex)
+            {
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionLogica;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            //Retorno de la respuesta
+            return res;
+        }
+
+        //Método para buscar un usuario
+        public ResBuscarUsuario BuscarUsuario(ReqBuscarUsuario req)
+        {
+
+            ResBuscarUsuario res = new ResBuscarUsuario();
+            res.error = new List<Error>();
+            res.ListaUsuarios = new List<UsuarioD>();
+
+            try
+            {
+                //Validación del request 
+                if (req == null)
+                {
+                    Error error = new Error();
+                    error.ErrorCode = enumErrores.requestNulo;
+                    error.Message = "Req Null";
+                    res.error.Add(error);
+                }
+
+                if (!String.IsNullOrEmpty(req.Usuario.Nombre)) {
+
+                    req.Usuario.Nombre = req.Usuario.Nombre.ToLower();
+                    //Validación de caracteres especiales en el nombre
+                    String patron = "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
+                    //Si no cumple con el patrón, se acumula el error
+                    if (!match)
                     {
+                        Error error = new Error();
 
-                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
-                        {
-                            linq.SP_InsertarUsuario(
-                                req.usuario.Nombre, req.usuario.Apellidos, req.usuario.Telefono,
-                                req.usuario.Correo, req.usuario.FechaNacimiento, req.usuario.Admin,
-                                req.usuario.Password, req.usuario.Vehiculo, ref idBd, ref idError,
-                                ref errorDescripcion);
-                        }
-
-
-                        if (idBd >= 1)
-                        {
-                            res.resultado = true;
-                            error.ErrorCode = (enumErrores)idError;
-                        }
-
-                        //MALA Practica.
-                        error.Message = errorDescripcion;
+                        error.ErrorCode = enumErrores.NombreInvalido;
+                        error.Message = "Hay un carácter no válido en el nombre";
                         res.error.Add(error);
                     }
+                }
 
+                if (!String.IsNullOrEmpty(req.Usuario.Apellidos)) {
+
+                    req.Usuario.Apellidos = req.Usuario.Apellidos.ToLower();
+                    //Validación de caracteres especiales en el nombre
+                    String patron = "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
+                    //Si no cumple con el patrón, se acumula el error
+
+                    if (!match)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.ApellidoInvalido;
+                        error.Message = "Hay un carácter no válido en el apellido";
+                        res.error.Add(error);
+                    }
+                }
+
+                if (res.error.Any()) {
+
+                    res.resultado = false;
+                    return res;
+                }
+
+                int? idBd = 0;
+                int? idError = 0;
+                string errorDescripcion = null;
+
+                //Se busca el usuario en la base de datos
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    Factorias Factorias = new Factorias();
+
+                    List<SP_Buscar_UsuarioResult> tc = linq.SP_Buscar_Usuario(req.Usuario.IdUsuario, 
+                        req.Usuario.Correo, req.Usuario.Nombre, req.Usuario.Apellidos
+                        , req.Usuario.Admin, ref idBd, ref idError,ref errorDescripcion).ToList();
+
+                    res.ListaUsuarios = Factorias.BuscarUsuario(tc);
+
+                    res.resultado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionLogica;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            return res;
+        }
+
+        //Retornar toda la lista de usuarios
+        public ResListaUsuarios ListaUsuarios(ReqListaUsuarios req)
+        {
+
+            ResListaUsuarios res = new ResListaUsuarios();
+            res.ListaUsuarios = new List<UsuarioD>();
+            res.error = new List<Error>();
+
+            try
+            {
+
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    Factorias Factorias = new Factorias();
+
+                    List <SP_Lista_UsuariosResult> tc = linq.SP_Lista_Usuarios().ToList();
+
+                    res.ListaUsuarios = Factorias.ListaUsuarios(tc);
+
+                    res.resultado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionListaUsuarios;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            return res;
+        }
+
+        //Elimina un usuario
+        public ResEliminarUsuario EliminarUsuario(ReqEliminarUsuario req) { 
+        
+            ResEliminarUsuario res = new ResEliminarUsuario();
+            res.error = new List<Error>();
+
+            try {
+
+                //Validación del request 
+                if (req == null)
+                {
+                    Error error = new Error();
+                    error.ErrorCode = enumErrores.requestNulo;
+                    error.Message = "Req Null";
+                    res.error.Add(error);
+                }
+
+                //Validacion del formato de correo
+                String patron = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
+
+                //Si no cumple con el patrón, se acumula el error
+                if (match == false)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.CorreoInvalido;
+                    error.Message = "Formato de correo no válido";
+                    res.error.Add(error);
+                }
+
+                // verifico si hubo errores en todas las validaciones
+                if (res.error.Any())
+                {
+                    res.resultado = false;
+                    return res;
+                }
+                else 
+                {
+                    //al no haber errores, se procede a eliminar el usuario
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                    {
+                        int? idBd = 0;
+                        int? idError = 0;
+                        string errorDescripcion = null;
+                        linq.SP_Eliminar_Usuario(req.Usuario.IdUsuario, req.Usuario.Correo.ToLower(), 
+                            ref idBd, ref idError, ref errorDescripcion);
+                    }
+
+                    res.resultado = true;
                 }
 
             }
             catch (Exception ex)
             {
-                error.ErrorCode = enumErrores.excepcionLogica; //CAMBIAR
+                Error error = new Error();
+                error.ErrorCode = enumErrores.excepcionEliminarUsuario;
                 error.Message = ex.ToString();
                 res.error.Add(error);
-
             }
-
-
-
-
-
-
 
             return res;
         }
 
-
-
-
-        #region laFactoria!
-        //private Usuario FactoryUsuario(SP_InsertarUsuarioResult tc)
-        //{
-        //    //
-        //    Usuario usuario = new Usuario();
-        //    usuario.Nombre = tc.NOMBRE;
-        //    usuario.Apellidos = tc.APELLIDOS;
-        //    usuario.Correo = tc.CORREO_ELECTRONICO;
-        //    usuario.FechaRegistro = tc.FECHA_REGISTRO.AddHours(-6);
-
-
-        //    return usuario;
-        //}
-        #endregion
-
-        #region helpers
-
-        public bool EsCorreoValido(string correo)
+        public ResActualizarUsuario ActualizarUsuario(ReqActualizarUsuario req)
         {
-            // Verifica que el correo no sea nulo o vacío.
-            if (string.IsNullOrWhiteSpace(correo))
-                return false;
+            //Creacion de instancias generales del método
+            ResActualizarUsuario res = new ResActualizarUsuario();
+            res.error = new List<Error>();
 
-            // Patrón simple para validar correo electrónico.
-            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-
-            return Regex.IsMatch(correo, patron);
-        }
-
-        public bool EsPasswordSeguro(string password)
-        {
-            // Verifica que el Password no sea nulo o vacío.
-            if (string.IsNullOrWhiteSpace(password))
-                return false;
-
-            // Patrón que valida el Password según los criterios mencionados.
-            string patron = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
-
-            return Regex.IsMatch(password, patron);
-        }
-
-        public string GenerarPin(int longitud)
-        {
-            // Crea una instancia de Random.
-            Random rnd = new Random();
-            // Utiliza StringBuilder para construir el PIN.
-            StringBuilder pin = new StringBuilder();
-
-            // Itera la cantidad de veces según la longitud deseada.
-            for (int i = 0; i < longitud; i++)
+            //inicio de manejo de excepciones
+            try
             {
-                // Genera un dígito entre 0 y 9 y lo agrega al PIN.
-                pin.Append(rnd.Next(0, 10));
+
+                //validación del request
+                if (req == null)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.requestNulo;
+                    error.Message = "Req Null";
+                    res.error.Add(error);
+                }
+
+                
+
+                if (!String.IsNullOrEmpty(req.Usuario.Nombre)) {
+
+                    //Validación de caracteres especiales en el nombre
+                    String patron = @"^([\p{L}\s'-]*|\s*)$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.NombreInvalido;
+                        error.Message = "Hay un carácter no válido en el nombre";
+                        res.error.Add(error);
+                    }
+
+                }
+
+                if (!String.IsNullOrEmpty(req.Usuario.Apellidos)) {
+
+                    //Validación de caracteres especiales en el apellido
+                    String patron = @"^([\p{L}\s'-]*|\s*)$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
+
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.ApellidoInvalido;
+                        error.Message = "Hay un carácter no válido en el apellido";
+                        res.error.Add(error);
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(req.Usuario.Correo)) {
+
+                    //Validacion del formato de correo
+                    String patron = @"^$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
+
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.CorreoInvalido;
+                        error.Message = "Formato de correo no válido";
+                        res.error.Add(error);
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(req.Usuario.Password)) {
+
+                    //Validacion de la contraseña
+                    String patron = @"^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
+                    bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Password, patron);
+                    //Si no cumple con el patrón, se acumula el error
+                    if (match == false)
+                    {
+                        Error error = new Error();
+
+                        error.ErrorCode = enumErrores.passwordInvalido;
+                        error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
+                            "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
+                            "4-Al menos una minúscula";
+                        res.error.Add(error);
+                    }
+                }
+
+                ////Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                //if (req.Usuario.FechaNacimiento == null)
+                //{
+                //    Error error = new Error();
+
+                //    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
+                //    error.Message = "Fecha nula";
+                //    res.error.Add(error);
+                //}
+
+                //Se valida si hubo errores en todas las validaciones
+                if (res.error.Any())
+                {
+                    res.resultado = false;
+                }
+                //Si no hubo errores se agrega el usuario a la base de datos
+                else
+                {
+
+                    int? idBd = 0;
+                    int? idError = 0;
+                    string errorDescripcion = null;
+
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                    {
+
+                        linq.SP_ActualizarUsuario( req.Usuario.IdUsuario, req.Usuario.Nombre, req.Usuario.Apellidos, 
+                            req.Usuario.Telefono, req.Usuario.Telefono_Verificado, req.Usuario.Cod_Ver_Tel,
+                            req.Usuario.Correo, req.Usuario.Correo_Verificado, req.Usuario.Cod_Ver_Cor,
+                            req.Usuario.Admin, req.Usuario.Password, req.Usuario.Vehiculo, ref idBd, ref idError,
+                            ref errorDescripcion);
+                    }
+
+                }
             }
 
-            return pin.ToString();
-        }
+            //Manejo de excepciones
+            catch (Exception ex)
+            {
+                Error error = new Error();
 
-        #endregion
+                error.ErrorCode = enumErrores.excepcionLogica;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            //Retorno de la respuesta
+            return res;
+        }
     }
 }

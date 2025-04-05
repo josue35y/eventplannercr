@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ResInsertarUsuario : ResBase
+    public class ReqBuscarEvento : ReqBase
     {
+        UsuarioD Usuario { get; set; }
     }
 }

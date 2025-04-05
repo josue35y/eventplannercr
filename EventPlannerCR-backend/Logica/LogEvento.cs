@@ -30,7 +30,7 @@ namespace EventPlannerCR_backend.Logica
                     complejo = linq.SP_EventosCercanos().ToList();
                     foreach (SP_EventosCercanosResult unTipo in complejo)
                     {
-                        res.Eventos.Add(this.FactoriaEvento(unTipo));
+                        //res.Eventos.Add(this.FactoriaEvento(unTipo));
                     }
                 }
                 
@@ -96,19 +96,19 @@ namespace EventPlannerCR_backend.Logica
 
         #region Factoria Evento Cercano
 
-        private Evento FactoriaEvento(SP_EventosCercanosResult unTipo)
-        {
+        //private Evento FactoriaEvento(SP_EventosCercanosResult unTipo)
+        //{
             
-            Evento evento = new Evento
-            {
-                idEvento = unTipo.IdEvento,
-                FechaInicio = unTipo.FechaInicio,
-                lat = unTipo.lat,
-                lon = unTipo.lon,
-                diasFaltantes = unTipo.DiasParaEvento
-            };
-            return evento;
-        }
+        //    //Evento evento = new Evento
+        //    //{
+        //    //    idEvento = unTipo.IdEvento,
+        //    //    FechaInicio = unTipo.FechaInicio,
+        //    //    lat = unTipo.lat,
+        //    //    lon = unTipo.lon,
+        //    //    diasFaltantes = unTipo.DiasParaEvento
+        //    //};
+        //    //return evento;
+        //}
 
         #endregion
         

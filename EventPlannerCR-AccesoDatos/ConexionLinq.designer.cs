@@ -28,12 +28,12 @@ namespace EventPlannerCR_AccesoDatos
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
     #endregion
 		
 		public ConexionLinqDataContext() : 
-				base(global::EventPlannerCR_AccesoDatos.Properties.Settings.Default.EventPlannerConnectionString1, mappingSource)
+				base(global::EventPlannerCR_AccesoDatos.Properties.Settings.Default.EventPlannerConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -212,6 +212,53 @@ namespace EventPlannerCR_AccesoDatos
 			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(7)));
 			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(8)));
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(9)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarUsuarios")]
+		public int SP_InsertarUsuarios([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaNacimiento", DbType="Date")] System.Nullable<System.DateTime> fechaNacimiento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(255)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, apellidos, correo, fechaNacimiento, password, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(7)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Lista_Usuarios")]
+		public ISingleResult<SP_Lista_UsuariosResult> SP_Lista_Usuarios()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_Lista_UsuariosResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Buscar_Usuario")]
+		public ISingleResult<SP_Buscar_UsuarioResult> SP_Buscar_Usuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Admin", DbType="Bit")] System.Nullable<bool> admin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, correo, nombre, apellidos, admin, iDRETURN, eRRORID, errorDescripcion);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			errorDescripcion = ((string)(result.GetParameterValue(7)));
+			return ((ISingleResult<SP_Buscar_UsuarioResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Eliminar_Usuario")]
+		public int SP_Eliminar_Usuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, correo, iDRETURN, eRRORID, errorDescripcion);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			errorDescripcion = ((string)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_ActualizarUsuario")]
+		public int SP_ActualizarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(15)")] string telefono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TelefonoVerificado", DbType="Bit")] System.Nullable<bool> telefonoVerificado, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodVerTel", DbType="Int")] System.Nullable<int> codVerTel, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CorreoVerificado", DbType="Bit")] System.Nullable<bool> correoVerificado, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodVerCor", DbType="Int")] System.Nullable<int> codVerCor, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Admin", DbType="Bit")] System.Nullable<bool> admin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(255)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Vehiculo", DbType="Bit")] System.Nullable<bool> vehiculo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nombre, apellidos, telefono, telefonoVerificado, codVerTel, correo, correoVerificado, codVerCor, admin, password, vehiculo, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(12)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(13)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(14)));
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -1310,49 +1357,569 @@ namespace EventPlannerCR_AccesoDatos
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lat", DbType="Decimal(9,6)")]
-		public double lat
+		public System.Nullable<decimal> lat
 		{
 			get
 			{
-				return (double)this._lat;
+				return this._lat;
 			}
 			set
 			{
-				if ((this._lat != (decimal?)value))
+				if ((this._lat != value))
 				{
-					this._lat = (decimal?)value;
+					this._lat = value;
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lon", DbType="Decimal(9,6)")]
-		public double lon
+		public System.Nullable<decimal> lon
 		{
 			get
 			{
-				return (double)this._lon;
+				return this._lon;
 			}
 			set
 			{
-				if ((this._lon != (decimal?)value))
+				if ((this._lon != value))
 				{
-					this._lon = (decimal?)value;
+					this._lon = value;
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiasParaEvento", DbType="Int")]
-		public int DiasParaEvento
+		public System.Nullable<int> DiasParaEvento
 		{
 			get
 			{
-				return (int)this._DiasParaEvento;
+				return this._DiasParaEvento;
 			}
 			set
 			{
 				if ((this._DiasParaEvento != value))
 				{
 					this._DiasParaEvento = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_Lista_UsuariosResult
+	{
+		
+		private int _ID_USUARIO;
+		
+		private string _NOMBRE;
+		
+		private string _APELLIDOS;
+		
+		private string _TELEFONO;
+		
+		private System.Nullable<bool> _TELEFONO_VERIFICADO;
+		
+		private System.Nullable<int> _COD_VER_TEL;
+		
+		private string _CORREO;
+		
+		private System.Nullable<bool> _CORREO_VERIFICADO;
+		
+		private string _COD_VER_COR;
+		
+		private System.DateTime _FECHANACIMIENTO;
+		
+		private System.Nullable<bool> _ADMIN;
+		
+		private string _PASSWORD;
+		
+		private System.DateTime _FECHAREGISTRO;
+		
+		private System.Nullable<bool> _VEHICULO;
+		
+		public SP_Lista_UsuariosResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_USUARIO", DbType="Int NOT NULL")]
+		public int ID_USUARIO
+		{
+			get
+			{
+				return this._ID_USUARIO;
+			}
+			set
+			{
+				if ((this._ID_USUARIO != value))
+				{
+					this._ID_USUARIO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NOMBRE
+		{
+			get
+			{
+				return this._NOMBRE;
+			}
+			set
+			{
+				if ((this._NOMBRE != value))
+				{
+					this._NOMBRE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APELLIDOS", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string APELLIDOS
+		{
+			get
+			{
+				return this._APELLIDOS;
+			}
+			set
+			{
+				if ((this._APELLIDOS != value))
+				{
+					this._APELLIDOS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(15)")]
+		public string TELEFONO
+		{
+			get
+			{
+				return this._TELEFONO;
+			}
+			set
+			{
+				if ((this._TELEFONO != value))
+				{
+					this._TELEFONO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO_VERIFICADO", DbType="Bit")]
+		public System.Nullable<bool> TELEFONO_VERIFICADO
+		{
+			get
+			{
+				return this._TELEFONO_VERIFICADO;
+			}
+			set
+			{
+				if ((this._TELEFONO_VERIFICADO != value))
+				{
+					this._TELEFONO_VERIFICADO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COD_VER_TEL", DbType="Int")]
+		public System.Nullable<int> COD_VER_TEL
+		{
+			get
+			{
+				return this._COD_VER_TEL;
+			}
+			set
+			{
+				if ((this._COD_VER_TEL != value))
+				{
+					this._COD_VER_TEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CORREO", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string CORREO
+		{
+			get
+			{
+				return this._CORREO;
+			}
+			set
+			{
+				if ((this._CORREO != value))
+				{
+					this._CORREO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CORREO_VERIFICADO", DbType="Bit")]
+		public System.Nullable<bool> CORREO_VERIFICADO
+		{
+			get
+			{
+				return this._CORREO_VERIFICADO;
+			}
+			set
+			{
+				if ((this._CORREO_VERIFICADO != value))
+				{
+					this._CORREO_VERIFICADO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COD_VER_COR", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string COD_VER_COR
+		{
+			get
+			{
+				return this._COD_VER_COR;
+			}
+			set
+			{
+				if ((this._COD_VER_COR != value))
+				{
+					this._COD_VER_COR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FECHANACIMIENTO", DbType="DateTime NOT NULL")]
+		public System.DateTime FECHANACIMIENTO
+		{
+			get
+			{
+				return this._FECHANACIMIENTO;
+			}
+			set
+			{
+				if ((this._FECHANACIMIENTO != value))
+				{
+					this._FECHANACIMIENTO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ADMIN", DbType="Bit")]
+		public System.Nullable<bool> ADMIN
+		{
+			get
+			{
+				return this._ADMIN;
+			}
+			set
+			{
+				if ((this._ADMIN != value))
+				{
+					this._ADMIN = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PASSWORD", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string PASSWORD
+		{
+			get
+			{
+				return this._PASSWORD;
+			}
+			set
+			{
+				if ((this._PASSWORD != value))
+				{
+					this._PASSWORD = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FECHAREGISTRO", DbType="DateTime NOT NULL")]
+		public System.DateTime FECHAREGISTRO
+		{
+			get
+			{
+				return this._FECHAREGISTRO;
+			}
+			set
+			{
+				if ((this._FECHAREGISTRO != value))
+				{
+					this._FECHAREGISTRO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEHICULO", DbType="Bit")]
+		public System.Nullable<bool> VEHICULO
+		{
+			get
+			{
+				return this._VEHICULO;
+			}
+			set
+			{
+				if ((this._VEHICULO != value))
+				{
+					this._VEHICULO = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_Buscar_UsuarioResult
+	{
+		
+		private int _ID_USUARIO;
+		
+		private string _NOMBRE;
+		
+		private string _APELLIDOS;
+		
+		private string _TELEFONO;
+		
+		private System.Nullable<bool> _TELEFONO_VERIFICADO;
+		
+		private System.Nullable<int> _COD_VER_TEL;
+		
+		private string _CORREO;
+		
+		private System.Nullable<bool> _CORREO_VERIFICADO;
+		
+		private string _COD_VER_COR;
+		
+		private System.DateTime _FECHANACIMIENTO;
+		
+		private System.Nullable<bool> _ADMIN;
+		
+		private string _PASSWORD;
+		
+		private System.DateTime _FECHAREGISTRO;
+		
+		private System.Nullable<bool> _VEHICULO;
+		
+		public SP_Buscar_UsuarioResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_USUARIO", DbType="Int NOT NULL")]
+		public int ID_USUARIO
+		{
+			get
+			{
+				return this._ID_USUARIO;
+			}
+			set
+			{
+				if ((this._ID_USUARIO != value))
+				{
+					this._ID_USUARIO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NOMBRE
+		{
+			get
+			{
+				return this._NOMBRE;
+			}
+			set
+			{
+				if ((this._NOMBRE != value))
+				{
+					this._NOMBRE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APELLIDOS", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string APELLIDOS
+		{
+			get
+			{
+				return this._APELLIDOS;
+			}
+			set
+			{
+				if ((this._APELLIDOS != value))
+				{
+					this._APELLIDOS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(15)")]
+		public string TELEFONO
+		{
+			get
+			{
+				return this._TELEFONO;
+			}
+			set
+			{
+				if ((this._TELEFONO != value))
+				{
+					this._TELEFONO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO_VERIFICADO", DbType="Bit")]
+		public System.Nullable<bool> TELEFONO_VERIFICADO
+		{
+			get
+			{
+				return this._TELEFONO_VERIFICADO;
+			}
+			set
+			{
+				if ((this._TELEFONO_VERIFICADO != value))
+				{
+					this._TELEFONO_VERIFICADO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COD_VER_TEL", DbType="Int")]
+		public System.Nullable<int> COD_VER_TEL
+		{
+			get
+			{
+				return this._COD_VER_TEL;
+			}
+			set
+			{
+				if ((this._COD_VER_TEL != value))
+				{
+					this._COD_VER_TEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CORREO", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string CORREO
+		{
+			get
+			{
+				return this._CORREO;
+			}
+			set
+			{
+				if ((this._CORREO != value))
+				{
+					this._CORREO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CORREO_VERIFICADO", DbType="Bit")]
+		public System.Nullable<bool> CORREO_VERIFICADO
+		{
+			get
+			{
+				return this._CORREO_VERIFICADO;
+			}
+			set
+			{
+				if ((this._CORREO_VERIFICADO != value))
+				{
+					this._CORREO_VERIFICADO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COD_VER_COR", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string COD_VER_COR
+		{
+			get
+			{
+				return this._COD_VER_COR;
+			}
+			set
+			{
+				if ((this._COD_VER_COR != value))
+				{
+					this._COD_VER_COR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FECHANACIMIENTO", DbType="DateTime NOT NULL")]
+		public System.DateTime FECHANACIMIENTO
+		{
+			get
+			{
+				return this._FECHANACIMIENTO;
+			}
+			set
+			{
+				if ((this._FECHANACIMIENTO != value))
+				{
+					this._FECHANACIMIENTO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ADMIN", DbType="Bit")]
+		public System.Nullable<bool> ADMIN
+		{
+			get
+			{
+				return this._ADMIN;
+			}
+			set
+			{
+				if ((this._ADMIN != value))
+				{
+					this._ADMIN = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PASSWORD", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string PASSWORD
+		{
+			get
+			{
+				return this._PASSWORD;
+			}
+			set
+			{
+				if ((this._PASSWORD != value))
+				{
+					this._PASSWORD = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FECHAREGISTRO", DbType="DateTime NOT NULL")]
+		public System.DateTime FECHAREGISTRO
+		{
+			get
+			{
+				return this._FECHAREGISTRO;
+			}
+			set
+			{
+				if ((this._FECHAREGISTRO != value))
+				{
+					this._FECHAREGISTRO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEHICULO", DbType="Bit")]
+		public System.Nullable<bool> VEHICULO
+		{
+			get
+			{
+				return this._VEHICULO;
+			}
+			set
+			{
+				if ((this._VEHICULO != value))
+				{
+					this._VEHICULO = value;
 				}
 			}
 		}

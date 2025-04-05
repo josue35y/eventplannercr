@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventPlannerCR_backend.Logica
+namespace EventPlannerCR_backend.Entidades
 {
-    public class LogUsuarioD
+    public class ResBuscarUsuario : ResBase
     {
     }
 }

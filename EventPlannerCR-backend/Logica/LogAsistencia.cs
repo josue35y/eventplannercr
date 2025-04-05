@@ -30,7 +30,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     if (req.Asistencia.Usuario == null)
                     {
-                        req.Asistencia.Usuario = new Usuario { idUsuario = 0 };
+                        req.Asistencia.Usuario = new UsuarioD { IdUsuario = 0 };
                     }
                     if (req.Asistencia.Evento == null)
                     {
@@ -40,7 +40,7 @@ namespace EventPlannerCR_backend.Logica
                     {
                         req.Asistencia.Carpool = new Carpool { idCarpool = 0 };
                     }
-                    if (req.Asistencia.Usuario.idUsuario <= 0)
+                    if (req.Asistencia.Usuario.IdUsuario <= 0)
                     {
                         res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
                     }
@@ -62,7 +62,7 @@ namespace EventPlannerCR_backend.Logica
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
                             linq.SP_InsertarAsistencia(
-                                req.Asistencia.Usuario.idUsuario,
+                                req.Asistencia.Usuario.IdUsuario,
                                 req.Asistencia.Evento.idEvento,
                                 status,
                                 req.Asistencia.Carpool.idCarpool,
