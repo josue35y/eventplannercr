@@ -8,6 +8,6 @@ namespace EventPlannerCR_backend.Entidades
 {
     public class ReqBuscarEvento : ReqBase
     {
-        UsuarioD Usuario { get; set; }
+        Usuario Usuario { get; set; }
     }
 }

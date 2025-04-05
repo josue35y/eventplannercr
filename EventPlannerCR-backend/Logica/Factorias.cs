@@ -10,9 +10,9 @@ namespace EventPlannerCR_backend.Logica
 {
     public class Factorias
     {
-        public List<UsuarioD> ListaUsuarios(List<SP_Lista_UsuariosResult> tc) {
+        public List<Usuario> ListaUsuarios(List<SP_Lista_UsuariosResult> tc) {
 
-            List<UsuarioD> ListaUsuarios = new List<UsuarioD>();
+            List<Usuario> ListaUsuarios = new List<Usuario>();
 
             ListaUsuarios = FactoryListaUsuario(tc);
 
@@ -20,14 +20,14 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #region laFactoria!
-        private List<UsuarioD> FactoryListaUsuario(List<SP_Lista_UsuariosResult> tc)
+        private List<Usuario> FactoryListaUsuario(List<SP_Lista_UsuariosResult> tc)
         {
-            List<UsuarioD> ListaUsuarios = new List<UsuarioD>();
+            List<Usuario> ListaUsuarios = new List<Usuario>();
 
                 foreach (var item in tc)
                 {
                     // Crear un nuevo objeto para cada elemento
-                    UsuarioD usuario = new UsuarioD();
+                    Usuario usuario = new Usuario();
 
                     // Asignar propiedades
                     usuario.Nombre = item.NOMBRE;
@@ -46,10 +46,10 @@ namespace EventPlannerCR_backend.Logica
         }
         #endregion
 
-        public List<UsuarioD> BuscarUsuario(List<SP_Buscar_UsuarioResult> tc)
+        public List<Usuario> BuscarUsuario(List<SP_Buscar_UsuarioResult> tc)
         {
 
-            List<UsuarioD> ListaUsuarios = new List<UsuarioD>();
+            List<Usuario> ListaUsuarios = new List<Usuario>();
 
             ListaUsuarios = FactoryBuscarUsuario(tc);
 
@@ -57,14 +57,14 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #region laFactoria!
-        private List<UsuarioD> FactoryBuscarUsuario(List<SP_Buscar_UsuarioResult> tc)
+        private List<Usuario> FactoryBuscarUsuario(List<SP_Buscar_UsuarioResult> tc)
         {
-            List<UsuarioD> ListaUsuarios = new List<UsuarioD>();
+            List<Usuario> ListaUsuarios = new List<Usuario>();
 
             foreach (var item in tc)
             {
                 // Crear un nuevo objeto para cada elemento
-                UsuarioD usuario = new UsuarioD();
+                Usuario usuario = new Usuario();
 
                 // Asignar propiedades
                 usuario.Nombre = item.NOMBRE;
