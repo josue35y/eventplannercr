@@ -80,7 +80,6 @@
     <Compile Include="Entidades\Entity\GruposCobro.cs" />
     <Compile Include="Entidades\Entity\Pagos.cs" />
     <Compile Include="Entidades\Entity\Sesion.cs" />
-    <Compile Include="Entidades\Entity\Usuario.cs" />
     <Compile Include="Entidades\Entity\UsuarioD.cs" />
     <Compile Include="Entidades\Enum\enumEstadoSesion.cs" />
     <Compile Include="Entidades\Enum\enumErrores.cs" />
@@ -99,12 +98,14 @@
     <Compile Include="Entidades\Request\ReqEventosCercanos.cs" />
     <Compile Include="Entidades\Request\ReqInsertarAsistencia.cs" />
     <Compile Include="Entidades\Request\ReqBase.cs" />
-    <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarCarpool.cs" />
+    <Compile Include="Entidades\Request\ReqListaUsuarios.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
-    <Compile Include="Entidades\Request\ReqInsertarUsuarioD.cs" />
+    <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
+    <Compile Include="Entidades\Response\ResEliminarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResListaUsuarios.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
     <Compile Include="Entidades\Response\ResBorrarAsistencia.cs" />
@@ -114,17 +115,16 @@
     <Compile Include="Entidades\Response\ResEventosCercanos.cs" />
     <Compile Include="Entidades\Response\ResInsertarAsistencia.cs" />
     <Compile Include="Entidades\Response\ResInsertarCarpool.cs" />
-    <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
-    <Compile Include="Entidades\Response\ResInsertarUsuarioD.cs" />
+    <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
+    <Compile Include="Logica\Factorias.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
     <Compile Include="Logica\LogBitacora.cs" />
     <Compile Include="Logica\LogCarpool.cs" />
     <Compile Include="Logica\LogEvento.cs" />
     <Compile Include="Logica\LogUsuario.cs" />
-    <Compile Include="Logica\LogUsuarioD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
