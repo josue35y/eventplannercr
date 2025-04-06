@@ -8,6 +8,6 @@ namespace EventPlannerCR_backend.Entidades
 {
     public class ResBuscarUsuario : ResBase
     {
-        public List<Usuario> ListaUsuarios { get; set; }
+        public List<UsuarioD> ListaUsuarios { get; set; }
     }
 }

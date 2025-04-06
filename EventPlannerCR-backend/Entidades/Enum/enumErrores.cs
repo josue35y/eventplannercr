@@ -41,5 +41,9 @@ namespace EventPlannerCR_backend.Entidades
         FechaNacimientoFaltante = 22,
         excepcionListaUsuarios = 23,
         excepcionEliminarUsuario = 24,
+        DescripcionFaltante = 25,
+        LugarFaltante = 26,
+        FechaInicioEventoFaltante = 27,
+        FechaFinalEventoFaltante = 28,
     }
 }

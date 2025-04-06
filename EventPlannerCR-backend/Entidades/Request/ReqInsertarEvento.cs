@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventPlannerCR_backend.Entidades
+namespace EventPlannerCR_backend.Entidades.Request
 {
-    public class ReqInsertarUsuario : ReqBase
+    public class ReqInsertarEvento
     {
-        public UsuarioD Usuario { get; set; }
+        public Evento Evento { get; set; }
     }
 }

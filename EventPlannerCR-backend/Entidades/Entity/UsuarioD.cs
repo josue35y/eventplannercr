@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class Usuario
+    public class UsuarioD
     {
         public int IdUsuario { get; set; }
         public String Nombre {  get; set; }
