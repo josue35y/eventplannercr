@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EventPlannerCR_AccesoDatos;
 using EventPlannerCR_backend.Entidades;
+using EventPlannerCR_backend.Entidades.Request;
 using EventPlannerCR_Gateway.Controllers;
 using EventPlannerCR_Gateway.Models.Request;
 using EventPlannerCR_Gateway.Models.Response;
@@ -42,8 +43,8 @@ namespace EventPlannerCR_backend.Logica
                     {
                         OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
                         {
-                            lat = resEvento.lat,
-                            lon = resEvento.lon,
+                            lat = resEvento.Latitud,
+                            lon = resEvento.Longitud,
                             cnt = resEvento.diasFaltantes
                         };
                         EventoController eventoController = new EventoController();
@@ -62,6 +63,122 @@ namespace EventPlannerCR_backend.Logica
                 error.ErrorCode = enumErrores.excepcionBaseDatos;
                 res.error.Add(error);
             }
+        }
+
+        public ResInsertarEvento InsertarEvento(ReqInsertarEvento req) {
+
+            //Creacion de instancias generales del método
+            ResInsertarEvento res = new ResInsertarEvento();
+            res.error = new List<Error>();
+
+            //inicio de manejo de excepciones
+            try
+            {
+
+                //validación del request
+                if (req == null)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.requestNulo;
+                    error.Message = "Req Null";
+                    res.error.Add(error);
+                }
+
+                //Validación del nombre del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Evento.Nombre))
+                {
+                    Error error = new Error();
+
+                    //Acumula la respuesta de error
+                    error.ErrorCode = enumErrores.nombreFaltante;
+                    error.Message = "Nombre nulo o en blanco";
+                    res.error.Add(error);
+                }
+                
+                 //Validación de la fecha de inicio del nuevo usuario para evitar nulos o default (que pasa si es una fecha anterior al día de hoy)
+                if (req.Evento.FechaInicio == null || req.Evento.FechaInicio == default || 
+                    req.Evento.FechaInicio < DateTime.Now.Date)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.FechaInicioEventoFaltante;
+                    error.Message = "Fecha inicio de evento nula o no válida";
+                    res.error.Add(error);
+                }
+
+                //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                if (req.Evento.FechaFin.Date == null || req.Evento.FechaFin.Date == default 
+                    || req.Evento.FechaFin.Date <= DateTime.Now.Date)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.FechaFinalEventoFaltante;
+                    error.Message = "Fecha fin de evento nula o no válida";
+                    res.error.Add(error);
+                }
+
+                //Validación del correo del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Evento.Lugar))
+                {
+                    Error error = new Error();
+
+                    //Acumula la respuesta de error
+                    error.ErrorCode = enumErrores.LugarFaltante;
+                    error.Message = "Lugar Nulo o faltante";
+                    res.error.Add(error);
+                }
+
+                //Validación del apellido del nuevo usuario para evitar nulos o espacio en blanco
+                if (String.IsNullOrEmpty(req.Evento.Descripcion))
+                {
+                    Error error = new Error();
+
+                    //Acumula la respuesta de error
+                    error.ErrorCode = enumErrores.DescripcionFaltante;
+                    error.Message = "Descripcion del evento nula o faltante";
+                    res.error.Add(error);
+                }
+
+                //Se valida si hubo errores en todas las validaciones
+                if (res.error.Any())
+                {
+                    res.resultado = false;
+                }
+                //Si no hubo errores se agrega el usuario a la base de datos
+                else
+                {
+
+                    int? idBd = 0;
+                    int? idError = 0;
+                    string errorDescripcion = null;
+
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                    {
+                        linq.SP_InsertarEvento(
+                            req.Evento.Nombre, req.Evento.FechaInicio, req.Evento.FechaFin,
+                            req.Evento.Lugar, req.Evento.Provincia, req.Evento.Canton, 
+                            req.Evento.Distrito, (decimal)req.Evento.Latitud, (decimal)req.Evento.Longitud, 
+                            ref idBd, ref idError, ref errorDescripcion);
+                    }
+
+                    res.resultado = true;
+
+                }
+            }
+
+            //Manejo de excepciones
+            catch (Exception ex)
+            {
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionLogica;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            //Retorno de la respuesta
+            return res;
         }
 
         #region Guardar Clima Evento

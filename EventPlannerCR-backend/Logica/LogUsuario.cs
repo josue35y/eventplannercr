@@ -148,7 +148,7 @@ namespace EventPlannerCR_backend.Logica
                 }
 
                 //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
-                if (req.Usuario.FechaNacimiento == null)
+                if (req.Usuario.FechaNacimiento == null || req.Usuario.FechaNacimiento.Date == default)
                 {
                     Error error = new Error();
 
@@ -202,7 +202,7 @@ namespace EventPlannerCR_backend.Logica
 
             ResBuscarUsuario res = new ResBuscarUsuario();
             res.error = new List<Error>();
-            res.ListaUsuarios = new List<Usuario>();
+            res.ListaUsuarios = new List<UsuarioD>();
 
             try
             {
@@ -263,7 +263,7 @@ namespace EventPlannerCR_backend.Logica
                 //Se busca el usuario en la base de datos
                 using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
-                    Factorias Factorias = new Factorias();
+                    LogFactorias Factorias = new LogFactorias();
 
                     List<SP_Buscar_UsuarioResult> tc = linq.SP_Buscar_Usuario(req.Usuario.IdUsuario, 
                         req.Usuario.Correo, req.Usuario.Nombre, req.Usuario.Apellidos
@@ -291,7 +291,7 @@ namespace EventPlannerCR_backend.Logica
         {
 
             ResListaUsuarios res = new ResListaUsuarios();
-            res.ListaUsuarios = new List<Usuario>();
+            res.ListaUsuarios = new List<UsuarioD>();
             res.error = new List<Error>();
 
             try
@@ -299,7 +299,7 @@ namespace EventPlannerCR_backend.Logica
 
                 using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
-                    Factorias Factorias = new Factorias();
+                    LogFactorias Factorias = new LogFactorias();
 
                     List <SP_Lista_UsuariosResult> tc = linq.SP_Lista_Usuarios().ToList();
 
