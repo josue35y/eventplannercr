@@ -30,7 +30,7 @@ namespace EventPlannerCR_backend.Logica
                     complejo = linq.SP_EventosCercanos().ToList();
                     foreach (SP_EventosCercanosResult unTipo in complejo)
                     {
-                        //res.Eventos.Add(this.FactoriaEvento(unTipo));
+                        res.Eventos.Add(this.FactoriaEvento(unTipo));
                     }
                 }
                 
@@ -44,7 +44,7 @@ namespace EventPlannerCR_backend.Logica
                         {
                             lat = resEvento.Latitud,
                             lon = resEvento.Longitud,
-                            cnt = resEvento.diasFaltantes
+                            cnt = resEvento.DiasFaltantes
                         };
                         EventoController eventoController = new EventoController();
                         ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
@@ -85,7 +85,7 @@ namespace EventPlannerCR_backend.Logica
                 }
 
                 //Validación del nombre del nuevo usuario para evitar nulos o espacio en blanco
-                if (String.IsNullOrEmpty(req.Evento.Nombre))
+                if (req != null && String.IsNullOrEmpty(req.Evento.Nombre))
                 {
                     Error error = new Error();
 
@@ -107,8 +107,8 @@ namespace EventPlannerCR_backend.Logica
                 }
 
                 //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
-                if (req.Evento.FechaFin.Date == null || req.Evento.FechaFin.Date == default 
-                    || req.Evento.FechaFin.Date <= DateTime.Now.Date)
+                if (req.Evento.FechaFin == null || req.Evento.FechaFin == default 
+                    || req.Evento.FechaFin <= DateTime.Now.Date)
                 {
                     Error error = new Error();
 
@@ -194,7 +194,7 @@ namespace EventPlannerCR_backend.Logica
                     string jsonRes = JsonConvert.SerializeObject(res);
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
-                            linq.SP_Actualizar_Clima(evento.idEvento, jsonRes, ref idBd, ref idError,
+                            linq.SP_Actualizar_Clima(evento.IdEvento, jsonRes, ref idBd, ref idError,
                                 ref errorDescripcion);
                         }
                 }
@@ -212,19 +212,19 @@ namespace EventPlannerCR_backend.Logica
 
         #region Factoria Evento Cercano
 
-        //private Evento FactoriaEvento(SP_EventosCercanosResult unTipo)
-        //{
+        private Evento FactoriaEvento(SP_EventosCercanosResult unTipo)
+        {
             
-        //    //Evento evento = new Evento
-        //    //{
-        //    //    idEvento = unTipo.IdEvento,
-        //    //    FechaInicio = unTipo.FechaInicio,
-        //    //    lat = unTipo.lat,
-        //    //    lon = unTipo.lon,
-        //    //    diasFaltantes = unTipo.DiasParaEvento
-        //    //};
-        //    //return evento;
-        //}
+            Evento evento = new Evento
+            {
+                IdEvento = unTipo.IdEvento,
+                FechaInicio = unTipo.FechaInicio,
+                Latitud = unTipo.lat,
+                Longitud = unTipo.lon,
+                DiasFaltantes = unTipo.DiasParaEvento
+            };
+            return evento;
+        }
 
         #endregion
         

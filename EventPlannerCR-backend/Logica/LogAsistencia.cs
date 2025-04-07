@@ -3,10 +3,6 @@ using EventPlannerCR_backend.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Logica
 {   
@@ -30,11 +26,11 @@ namespace EventPlannerCR_backend.Logica
                 {
                     if (req.Asistencia.Usuario == null)
                     {
-                        req.Asistencia.Usuario = new UsuarioD { IdUsuario = 0 };
+                        req.Asistencia.Usuario = new Usuario { IdUsuario = 0 };
                     }
                     if (req.Asistencia.Evento == null)
                     {
-                        req.Asistencia.Evento = new Evento { idEvento = 0 };
+                        req.Asistencia.Evento = new Evento { IdEvento = 0 };
                     }
                     if (req.Asistencia.Carpool == null)
                     {
@@ -44,7 +40,7 @@ namespace EventPlannerCR_backend.Logica
                     {
                         res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
                     }
-                    if (req.Asistencia.Evento.idEvento <= 0)
+                    if (req.Asistencia.Evento.IdEvento <= 0)
                     {
                         res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante o invalido."));
                     }
@@ -63,7 +59,7 @@ namespace EventPlannerCR_backend.Logica
                         {
                             linq.SP_InsertarAsistencia(
                                 req.Asistencia.Usuario.IdUsuario,
-                                req.Asistencia.Evento.idEvento,
+                                req.Asistencia.Evento.IdEvento,
                                 status,
                                 req.Asistencia.Carpool.idCarpool,
                                 ref idBD,

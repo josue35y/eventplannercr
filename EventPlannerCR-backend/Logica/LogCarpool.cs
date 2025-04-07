@@ -25,7 +25,7 @@ namespace EventPlannerCR_backend.Logica
                 }
                 else
                 {
-                    if (req.Carpool.Evento == null || req.Carpool.Evento.idEvento == null || req.Carpool.Evento.idEvento <= 0)
+                    if (req.Carpool.Evento == null || req.Carpool.Evento.IdEvento == null || req.Carpool.Evento.IdEvento <= 0)
                     {
                         res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante, incorrecto o nulo."));
                     }
@@ -59,7 +59,7 @@ namespace EventPlannerCR_backend.Logica
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
                             linq.SP_InsertarCarpool(
-                                req.Carpool.Evento.idEvento,
+                                req.Carpool.Evento.IdEvento,
                                 req.Carpool.CamposDisponibles,
                                 req.Carpool.Provincia,
                                 req.Carpool.Canton,

@@ -9,7 +9,7 @@ namespace EventPlannerCR_backend.Entidades
     public class Asistencia
     {
         public int idAsistencia {  get; set; }
-        public UsuarioD Usuario { get; set; }
+        public Usuario Usuario { get; set; }
         public Evento Evento { get; set; }
         public bool Status { get; set; }
         public Carpool Carpool { get; set; }

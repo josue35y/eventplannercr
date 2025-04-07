@@ -202,7 +202,7 @@ namespace EventPlannerCR_backend.Logica
 
             ResBuscarUsuario res = new ResBuscarUsuario();
             res.error = new List<Error>();
-            res.ListaUsuarios = new List<UsuarioD>();
+            res.ListaUsuarios = new List<Usuario>();
 
             try
             {
@@ -291,7 +291,7 @@ namespace EventPlannerCR_backend.Logica
         {
 
             ResListaUsuarios res = new ResListaUsuarios();
-            res.ListaUsuarios = new List<UsuarioD>();
+            res.ListaUsuarios = new List<Usuario>();
             res.error = new List<Error>();
 
             try

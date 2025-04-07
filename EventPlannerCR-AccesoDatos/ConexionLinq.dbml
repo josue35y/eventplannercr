@@ -205,24 +205,6 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_Lista_Usuarios" Method="SP_Lista_Usuarios">
-    <ElementType Name="SP_Lista_UsuariosResult">
-      <Column Name="ID_USUARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="APELLIDOS" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="TELEFONO_VERIFICADO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="COD_VER_TEL" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CORREO" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="CORREO_VERIFICADO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="COD_VER_COR" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
-      <Column Name="FECHANACIMIENTO" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ADMIN" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="PASSWORD" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="FECHAREGISTRO" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="VEHICULO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SP_Buscar_Usuario" Method="SP_Buscar_Usuario">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
@@ -289,6 +271,24 @@
     <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Lista_Usuarios" Method="SP_Lista_Usuarios">
+    <ElementType Name="SP_Lista_UsuariosResult">
+      <Column Name="ID_USUARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="APELLIDOS" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="TELEFONO_VERIFICADO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="COD_VER_TEL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CORREO" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CORREO_VERIFICADO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="COD_VER_COR" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="FECHANACIMIENTO" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ADMIN" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PASSWORD" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FECHAREGISTRO" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VEHICULO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
   </Function>
   <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
     <ElementType Name="SP_EventosCercanosResult">

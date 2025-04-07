@@ -9,6 +9,6 @@ namespace EventPlannerCR_backend.Entidades
     public class ReqInsertarCarpool : ReqBase
     {
         public Carpool Carpool { get; set; }
-        public UsuarioD Usuario { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

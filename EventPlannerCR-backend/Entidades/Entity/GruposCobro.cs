@@ -9,6 +9,6 @@ namespace EventPlannerCR_backend.Entidades
     public   class GruposCobro
     {
         public Deuda Deuda {  get; set; }
-        public UsuarioD Usuario { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

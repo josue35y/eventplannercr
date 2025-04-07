@@ -82,7 +82,7 @@
     <Compile Include="Entidades\Entity\GruposCobro.cs" />
     <Compile Include="Entidades\Entity\Pagos.cs" />
     <Compile Include="Entidades\Entity\Sesion.cs" />
-    <Compile Include="Entidades\Entity\UsuarioD.cs" />
+    <Compile Include="Entidades\Entity\Usuario.cs" />
     <Compile Include="Entidades\Enum\enumEstadoSesion.cs" />
     <Compile Include="Entidades\Enum\enumErrores.cs" />
     <Compile Include="Entidades\Request\ReqActualizarEvento.cs" />

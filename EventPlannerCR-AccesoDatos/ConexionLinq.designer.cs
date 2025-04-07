@@ -218,13 +218,6 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Lista_Usuarios")]
-		public ISingleResult<SP_Lista_UsuariosResult> SP_Lista_Usuarios()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<SP_Lista_UsuariosResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Buscar_Usuario")]
 		public ISingleResult<SP_Buscar_UsuarioResult> SP_Buscar_Usuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Admin", DbType="Bit")] System.Nullable<bool> admin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
 		{
@@ -263,6 +256,13 @@ namespace EventPlannerCR_AccesoDatos
 			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(10)));
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(11)));
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Lista_Usuarios")]
+		public ISingleResult<SP_Lista_UsuariosResult> SP_Lista_Usuarios()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_Lista_UsuariosResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EventosCercanos")]
@@ -1317,7 +1317,7 @@ namespace EventPlannerCR_AccesoDatos
 		}
 	}
 	
-	public partial class SP_Lista_UsuariosResult
+	public partial class SP_Buscar_UsuarioResult
 	{
 		
 		private int _ID_USUARIO;
@@ -1348,7 +1348,7 @@ namespace EventPlannerCR_AccesoDatos
 		
 		private System.Nullable<bool> _VEHICULO;
 		
-		public SP_Lista_UsuariosResult()
+		public SP_Buscar_UsuarioResult()
 		{
 		}
 		
@@ -1577,7 +1577,7 @@ namespace EventPlannerCR_AccesoDatos
 		}
 	}
 	
-	public partial class SP_Buscar_UsuarioResult
+	public partial class SP_Lista_UsuariosResult
 	{
 		
 		private int _ID_USUARIO;
@@ -1608,7 +1608,7 @@ namespace EventPlannerCR_AccesoDatos
 		
 		private System.Nullable<bool> _VEHICULO;
 		
-		public SP_Buscar_UsuarioResult()
+		public SP_Lista_UsuariosResult()
 		{
 		}
 		
