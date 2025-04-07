@@ -1,5 +1,5 @@
 ﻿using EventPlannerCR_backend.Entidades;
-using EventPlannerCR_backend.Entidades.Request;
+using EventPlannerCR_backend.Entidades;
 using EventPlannerCR_backend.Logica;
 using System;
 using System.Collections.Generic;
