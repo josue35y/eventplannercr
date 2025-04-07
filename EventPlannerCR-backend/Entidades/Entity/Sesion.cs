@@ -11,7 +11,7 @@ namespace EventPlannerCR_backend.Entidades
     {
         public int Id { get; set; }
         public string CodigoSesion {  get; set; }
-        public Usuario Usuario { get; set; }
+        public UsuarioD Usuario { get; set; }
         public string Origen { get; set; }
         public DateTime Fecha_Inicio { get; set; }
         public DateTime Fecha_Final {  get; set; }

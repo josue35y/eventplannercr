@@ -30,7 +30,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     if (req.Asistencia.Usuario == null)
                     {
-                        req.Asistencia.Usuario = new Usuario { IdUsuario = 0 };
+                        req.Asistencia.Usuario = new UsuarioD { IdUsuario = 0 };
                     }
                     if (req.Asistencia.Evento == null)
                     {

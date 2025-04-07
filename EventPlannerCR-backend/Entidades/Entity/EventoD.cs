@@ -10,12 +10,14 @@ namespace EventPlannerCR_backend.Entidades
     {
         public int IdEvento { get; set; }
         public String Nombre { get; set; }
-        public DateTime Fecha_Evento { get; set; }
-        public String Lugar_Evento { get; set; }
+        
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public String Lugar { get; set; }
         public String Descripcion { get; set; }
         public String Clima { get; set; }
-        public String Latitud {  get; set; }
-        public String Longitud { get; set; }
+        public int Latitud {  get; set; }
+        public int Longitud { get; set; }
         public int Provincia { get; set; }
         public int Canton { get; set; }
         public int Distrito { get; set; }

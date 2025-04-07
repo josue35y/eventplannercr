@@ -10,7 +10,7 @@ namespace EventPlannerCR_backend.Entidades
     {
         public int idDeuda {  get; set; }
         public Evento Evento {  get; set; }
-        public Usuario Usuario { get; set; }
+        public UsuarioD Usuario { get; set; }
         public string Motivo { get; set; }
         public float Total {  get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SixLabors.ImageSharp.3.1.7\build\SixLabors.ImageSharp.props" Condition="Exists('..\packages\SixLabors.ImageSharp.3.1.7\build\SixLabors.ImageSharp.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,11 +79,10 @@
     <Compile Include="Entidades\Entity\Deuda.cs" />
     <Compile Include="Entidades\Entity\Error.cs" />
     <Compile Include="Entidades\Entity\Evento.cs" />
-    <Compile Include="Entidades\Entity\EventoD.cs" />
     <Compile Include="Entidades\Entity\GruposCobro.cs" />
     <Compile Include="Entidades\Entity\Pagos.cs" />
     <Compile Include="Entidades\Entity\Sesion.cs" />
-    <Compile Include="Entidades\Entity\Usuario.cs" />
+    <Compile Include="Entidades\Entity\UsuarioD.cs" />
     <Compile Include="Entidades\Enum\enumEstadoSesion.cs" />
     <Compile Include="Entidades\Enum\enumErrores.cs" />
     <Compile Include="Entidades\Request\ReqActualizarEvento.cs" />
@@ -103,8 +105,10 @@
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
+    <Compile Include="Entidades\Request\ReqInsertarEvento.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
     <Compile Include="Entidades\Response\ResEliminarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResInsertarEvento.cs" />
     <Compile Include="Entidades\Response\ResListaUsuarios.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
@@ -119,12 +123,13 @@
     <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
-    <Compile Include="Logica\Factorias.cs" />
+    <Compile Include="Logica\LogFactorias.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
     <Compile Include="Logica\LogBitacora.cs" />
     <Compile Include="Logica\LogCarpool.cs" />
     <Compile Include="Logica\LogEvento.cs" />
     <Compile Include="Logica\LogUsuario.cs" />
+    <Compile Include="Logica\LogUtilitarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,4 +147,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SixLabors.ImageSharp.3.1.7\build\SixLabors.ImageSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SixLabors.ImageSharp.3.1.7\build\SixLabors.ImageSharp.props'))" />
+  </Target>
 </Project>
