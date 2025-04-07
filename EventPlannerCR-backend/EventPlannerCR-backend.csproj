@@ -89,9 +89,11 @@
     <Compile Include="Entidades\Request\ReqBase.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarCarpool.cs" />
+    <Compile Include="Entidades\Request\ReqLogin-josue.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
+    <Compile Include="Entidades\Response\ResLogin_josue.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
     <Compile Include="Entidades\Response\ResBorrarAsistencia.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Logica\LogCarpool.cs" />
     <Compile Include="Logica\LogEvento.cs" />
     <Compile Include="Logica\LogUsuario.cs" />
+    <Compile Include="Logica\Utilitarios-josue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

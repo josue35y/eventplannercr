@@ -37,5 +37,8 @@ namespace EventPlannerCR_backend.Entidades
         noAutorizado = 18,
         telefonoFaltante = 19,
         FechaNacimiento = 20,
+        urlInvlaida = 21,
+        correoNoEnviado = 22,
+
     }
 }

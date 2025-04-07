@@ -17,7 +17,7 @@ namespace EventPlannerCR_backend.Entidades
 
             /// <summary>
             /// Nombre completo del dueño del carpool
-            /// sale de la tabla usuario, con el idUsuario
+            /// sale de la tabla usuario, con el IdUsuario
             /// </summary>
             /// 
             public String NombreCompletoDueno { get; set; }
@@ -25,7 +25,7 @@ namespace EventPlannerCR_backend.Entidades
             public int? CamposRestantes { get; set; }
             /// <summary>
             /// Nombre completo y ID de los usuarios que se unieron al carpool 
-            /// puestos en una sola columna que contiene un arreglo "idUsuario , Nombre Apellido"
+            /// puestos en una sola columna que contiene un arreglo "IdUsuario , Nombre Apellido"
             /// </summary>
             public List<UsuariosCarpool> CarpoolUsuarios { get; set; }
 
@@ -61,7 +61,7 @@ namespace EventPlannerCR_backend.Entidades
 
         public class UsuariosCarpool
         {
-            public String idUsuario { get; set; }
+            public int IdUsuario { get; set; }
             public String NombreApellido { get; set; }
 
         }

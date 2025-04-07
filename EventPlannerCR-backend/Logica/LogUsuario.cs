@@ -83,11 +83,6 @@ namespace EventPlannerCR_backend.Logica
                     }
 
 
-
-
-
-
-
                     if (res.error.Any())
                     {
                         res.resultado = false;

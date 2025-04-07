@@ -1,9 +1,12 @@
 ﻿using EventPlannerCR_AccesoDatos;
 using EventPlannerCR_backend.Entidades;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -138,7 +141,7 @@ namespace EventPlannerCR_backend.Logica
                     int? idError2 = 0;
                     string errorDescripcion2 = null;
 
-                    // Buscar usuarios asociados a cada carpool
+                    // Buscar usuario asociados a cada carpool
                     res.CarpoolList = listaCarpools.Select(carpool =>
                     {
                         var usuarios = linq.SP_BuscarUsuariosPorCarpool(carpool.IdCarpool, ref idError2, ref errorDescripcion2)
@@ -206,36 +209,19 @@ namespace EventPlannerCR_backend.Logica
                         ref errorDescripcion
                     ).ToList();
 
+                    res.CarpoolList = listaCarpools.Select(carpool =>
+                    {
+                        List<ResObtenerCarpoolPorUsuario.UsuariosCarpool> usuarios = JsonConvert.DeserializeObject<List<ResObtenerCarpoolPorUsuario.UsuariosCarpool>>(carpool.CarpoolUsuarios);
+                        return FactoryCarpoolUsuario(carpool, usuarios);
+                    }
+                    ).ToList();
+
                     if (idError != null && idError > 0)
                     {
                         res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion));
                         res.resultado = false;
                         return res;
                     }
-
-                    int? idError2 = 0;
-                    string errorDescripcion2 = null;
-
-                    // Buscar usuarios asociados a cada carpool
-                    res.CarpoolList = listaCarpools.Select(carpool =>
-                    {
-                        var usuarios = linq.SP_BuscarUsuariosPorCarpool(carpool.IdCarpool, ref idError2, ref errorDescripcion2)
-                            .Select(u => new ResObtenerCarpoolPorUsuario.UsuariosCarpool
-                            {
-                                idUsuario = u.IdUsuario.ToString(),
-                                NombreApellido = $"{u.NombreApellido}"
-                            }).ToList();
-
-                        return FactoryCarpoolUsuario(carpool, usuarios);
-                    }).ToList();
-
-                    if (idError2 != null && idError2 > 0)
-                    {
-                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion2));
-                        res.resultado = false;
-                        return res;
-                    }
-
                     res.resultado = true;
                 }
             }
@@ -258,11 +244,32 @@ namespace EventPlannerCR_backend.Logica
             ResEditarCarpool res = new ResEditarCarpool();
             res.error = new List<Error>();
 
-            //Validaciones
             int IdUsuario = req.IdUsuario;
             int IdEvento = req.IdEvento;
 
-            //Opcionales, pueden no ser nulos si el idUsuario es el dueño del carpool.
+            if (req.IdUsuario == req.Sesion.Usuario.idUsuario)
+            {
+                IdUsuario = req.IdUsuario;
+                IdEvento = req.IdEvento;
+            }
+            
+
+
+
+            //Validaciones
+            
+            //Opcionales, pueden no ser nulos si el IdUsuario es el dueño del carpool.
+
+            if (req.IdUsuarioOcupante != null)
+            {
+                res.error.Add(Error.generarError(enumErrores.noAutorizado, "El usuario dueno quiere remover un usuario del carpool."));
+            }
+
+            if (req.NotasCarpool != null || req.Provincia != null || req.Canton != null || req.Distrito != null || req.HoraSalida != null)
+            {
+                res.error.Add(Error.generarError(enumErrores.noAutorizado, "El usuario dueno quiere modificar algun atributo del carpool."));
+            }
+
             int? IdUsuarioOcupante = req.IdUsuarioOcupante;
             string NotasCarpool = req.NotasCarpool;
             int? Provincia = req.Provincia;
@@ -270,7 +277,7 @@ namespace EventPlannerCR_backend.Logica
             int? Distrito = req.Distrito;
             DateTime? HoraSalida = req.HoraSalida;
 
-            //Opcional, puede ser nulo si el idUsuario no es el dueño del carpool.
+            //Opcional, puede ser nulo si el IdUsuario no es el dueño del carpool.
             int? idCarpool_Nuevo = req.IdCarpool_Nuevo;
 
             int? ErrorID = 0;
@@ -329,7 +336,7 @@ namespace EventPlannerCR_backend.Logica
                 DireccionDestino = tc.DireccionDestino,
                 HoraSalida = tc.HoraSalida,
                 NotasCarpool = tc.NotasCarpool,
-                CarpoolUsuarios = usuarios // Se llena la lista de usuarios del carpool
+                CarpoolUsuarios = usuarios // Se llena la lista de usuario del carpool
             };
         }
 
@@ -343,7 +350,7 @@ namespace EventPlannerCR_backend.Logica
                 NombreCompletoDueno = tc.NombreCompletoDueno,
                 CamposDisponibles = tc.CamposDisponibles,
                 CamposRestantes = tc.CamposRestantes,
-                CarpoolUsuarios = usuarios, // Se llena la lista de usuarios del carpool
+                CarpoolUsuarios = usuarios, // Se llena la lista de usuario del carpool
 
                 NombreEvento = tc.NombreEvento,
                 NotasCarpool = tc.NotasCarpool,

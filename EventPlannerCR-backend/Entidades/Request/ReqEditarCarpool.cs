@@ -18,16 +18,5 @@ namespace EventPlannerCR_backend.Entidades
         public DateTime? HoraSalida { get; set; }     
         public int? IdCarpool_Nuevo { get; set; }
 
-//    @idUsuario INT,
-//    @idEvento INT,
-//    @idUsuarioOcupante INT = NULL,
-//    @NotasCarpool VARCHAR(1) = NULL,
-//    @Provincia INT = NULL,
-//    @Canton INT = NULL,
-//    @Distrito INT = NULL,
-//    @HoraSalida DATETIME = NULL,
-//    @idCarpool_Nuevo INT = NULL,
-//    @ErrorID INT OUTPUT,
-//    @ErrorDescripcion NVARCHAR(MAX) OUTPUT
     }
 }
