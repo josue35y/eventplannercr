@@ -16,7 +16,6 @@ namespace EventPlannerCR_backend.Logica
 
         public ResLogin_josue login(ReqLogin_josue req)
         {
-
             ResLogin_josue res = new ResLogin_josue();
             res.error = new List<Error>();
 
