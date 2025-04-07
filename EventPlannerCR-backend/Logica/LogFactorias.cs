@@ -46,7 +46,7 @@ namespace EventPlannerCR_backend.Logica
         }
         #endregion
 
-        public List<UsuarioD> BuscarUsuario(List<SP_Buscar_UsuarioResult> tc)
+        public List<UsuarioD> Buscarusuario(List<SP_Buscar_UsuarioResult> tc)
         {
 
             List<UsuarioD> ListaUsuarios = new List<UsuarioD>();

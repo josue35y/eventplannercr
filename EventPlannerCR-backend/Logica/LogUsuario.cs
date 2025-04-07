@@ -269,7 +269,7 @@ namespace EventPlannerCR_backend.Logica
                         req.Usuario.Correo, req.Usuario.Nombre, req.Usuario.Apellidos
                         , req.Usuario.Admin, ref idBd, ref idError,ref errorDescripcion).ToList();
 
-                    res.ListaUsuarios = Factorias.BuscarUsuario(tc);
+                    res.ListaUsuarios = Factorias.Buscarusuario(tc);
 
                     res.resultado = true;
                 }
