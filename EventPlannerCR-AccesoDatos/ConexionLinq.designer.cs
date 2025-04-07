@@ -178,13 +178,6 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EventosCercanos")]
-		public ISingleResult<SP_EventosCercanosResult> SP_EventosCercanos()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<SP_EventosCercanosResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarAsistencia")]
 		public int SP_InsertarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdUsuario", DbType="Int")] System.Nullable<int> idUsuario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FkCarpool", DbType="Int")] System.Nullable<int> fkCarpool, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
 		{
@@ -270,6 +263,13 @@ namespace EventPlannerCR_AccesoDatos
 			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(10)));
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(11)));
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EventosCercanos")]
+		public ISingleResult<SP_EventosCercanosResult> SP_EventosCercanos()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_EventosCercanosResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1317,104 +1317,6 @@ namespace EventPlannerCR_AccesoDatos
 		}
 	}
 	
-	public partial class SP_EventosCercanosResult
-	{
-		
-		private int _IdEvento;
-		
-		private System.Nullable<System.DateTime> _FechaInicio;
-		
-		private System.Nullable<decimal> _lat;
-		
-		private System.Nullable<decimal> _lon;
-		
-		private System.Nullable<int> _DiasParaEvento;
-		
-		public SP_EventosCercanosResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvento", DbType="Int NOT NULL")]
-		public int IdEvento
-		{
-			get
-			{
-				return this._IdEvento;
-			}
-			set
-			{
-				if ((this._IdEvento != value))
-				{
-					this._IdEvento = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaInicio", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaInicio
-		{
-			get
-			{
-				return this._FechaInicio;
-			}
-			set
-			{
-				if ((this._FechaInicio != value))
-				{
-					this._FechaInicio = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lat", DbType="Decimal(9,6)")]
-		public System.Nullable<decimal> lat
-		{
-			get
-			{
-				return this._lat;
-			}
-			set
-			{
-				if ((this._lat != value))
-				{
-					this._lat = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lon", DbType="Decimal(9,6)")]
-		public System.Nullable<decimal> lon
-		{
-			get
-			{
-				return this._lon;
-			}
-			set
-			{
-				if ((this._lon != value))
-				{
-					this._lon = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiasParaEvento", DbType="Int")]
-		public System.Nullable<int> DiasParaEvento
-		{
-			get
-			{
-				return this._DiasParaEvento;
-			}
-			set
-			{
-				if ((this._DiasParaEvento != value))
-				{
-					this._DiasParaEvento = value;
-				}
-			}
-		}
-	}
-	
 	public partial class SP_Lista_UsuariosResult
 	{
 		
@@ -1930,6 +1832,104 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._VEHICULO != value))
 				{
 					this._VEHICULO = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_EventosCercanosResult
+	{
+		
+		private int _IdEvento;
+		
+		private System.Nullable<System.DateTime> _FechaInicio;
+		
+		private System.Nullable<double> _lat;
+		
+		private System.Nullable<double> _lon;
+		
+		private System.Nullable<int> _DiasParaEvento;
+		
+		public SP_EventosCercanosResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvento", DbType="Int NOT NULL")]
+		public int IdEvento
+		{
+			get
+			{
+				return this._IdEvento;
+			}
+			set
+			{
+				if ((this._IdEvento != value))
+				{
+					this._IdEvento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaInicio", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaInicio
+		{
+			get
+			{
+				return this._FechaInicio;
+			}
+			set
+			{
+				if ((this._FechaInicio != value))
+				{
+					this._FechaInicio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lat", DbType="Float")]
+		public System.Nullable<double> lat
+		{
+			get
+			{
+				return this._lat;
+			}
+			set
+			{
+				if ((this._lat != value))
+				{
+					this._lat = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lon", DbType="Float")]
+		public System.Nullable<double> lon
+		{
+			get
+			{
+				return this._lon;
+			}
+			set
+			{
+				if ((this._lon != value))
+				{
+					this._lon = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiasParaEvento", DbType="Int")]
+		public System.Nullable<int> DiasParaEvento
+		{
+			get
+			{
+				return this._DiasParaEvento;
+			}
+			set
+			{
+				if ((this._DiasParaEvento != value))
+				{
+					this._DiasParaEvento = value;
 				}
 			}
 		}

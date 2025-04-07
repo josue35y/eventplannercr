@@ -158,15 +158,6 @@
     <Parameter Name="ErrorDescripcion" Parameter="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
-    <ElementType Name="SP_EventosCercanosResult">
-      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FechaInicio" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="lat" Type="System.Decimal" DbType="Decimal(9,6)" CanBeNull="true" />
-      <Column Name="lon" Type="System.Decimal" DbType="Decimal(9,6)" CanBeNull="true" />
-      <Column Name="DiasParaEvento" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SP_InsertarAsistencia" Method="SP_InsertarAsistencia">
     <Parameter Name="IdUsuario" Parameter="idUsuario" Type="System.Int32" DbType="Int" />
     <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
@@ -298,5 +289,14 @@
     <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
+    <ElementType Name="SP_EventosCercanosResult">
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="lat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="lon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DiasParaEvento" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

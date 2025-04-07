@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EventPlannerCR_AccesoDatos;
 using EventPlannerCR_backend.Entidades;
-using EventPlannerCR_backend.Entidades.Request;
 using EventPlannerCR_Gateway.Controllers;
 using EventPlannerCR_Gateway.Models.Request;
 using EventPlannerCR_Gateway.Models.Response;
