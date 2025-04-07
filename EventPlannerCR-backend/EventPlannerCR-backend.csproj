@@ -106,10 +106,12 @@
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqLogin.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
     <Compile Include="Entidades\Response\ResEliminarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarEvento.cs" />
     <Compile Include="Entidades\Response\ResListaUsuarios.cs" />
+    <Compile Include="Entidades\Response\ResLogin.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
     <Compile Include="Entidades\Response\ResBorrarAsistencia.cs" />

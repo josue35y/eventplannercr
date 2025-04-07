@@ -45,5 +45,10 @@ namespace EventPlannerCR_backend.Entidades
         LugarFaltante = 26,
         FechaInicioEventoFaltante = 27,
         FechaFinalEventoFaltante = 28,
+
+
+        urlInvlaida = 40,
+        correoNoEnviado = 41,
+
     }
 }
