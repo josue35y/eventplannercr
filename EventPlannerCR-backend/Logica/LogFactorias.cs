@@ -10,7 +10,7 @@ namespace EventPlannerCR_backend.Logica
 {
     public class LogFactorias
     {
-        public List<UsuarioD> ListaUsuarios(List<SP_Lista_UsuariosResult> tc) {
+        public List<UsuarioD> ListaUsuarios(List<SP_Lista_UsuarioResult> tc) {
 
             List<UsuarioD> ListaUsuarios = new List<UsuarioD>();
 
@@ -20,7 +20,7 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #region laFactoria!
-        private List<UsuarioD> FactoryListaUsuario(List<SP_Lista_UsuariosResult> tc)
+        private List<UsuarioD> FactoryListaUsuario(List<SP_Lista_UsuarioResult> tc)
         {
             List<UsuarioD> ListaUsuarios = new List<UsuarioD>();
 
