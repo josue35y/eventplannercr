@@ -52,7 +52,7 @@ namespace EventPlannerCR_backend.Logica
 
                     if (res.error.Any())
                     {
-                        res.resultado = false;
+                        res.Resultado = false;
                     }
                     else 
                     {
@@ -72,7 +72,7 @@ namespace EventPlannerCR_backend.Logica
                         }
                         if (idBD >= 1)
                         {
-                            res.resultado = true;
+                            res.Resultado = true;
                         }
                         else
                         {
@@ -101,21 +101,21 @@ namespace EventPlannerCR_backend.Logica
                 if (req.Sesion.Estado == enumEstadoSesion.cerrada)
                 {
                     res.error.Add(Error.generarError(enumErrores.sessionCerrada, "Sesion expirada."));
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;  
                 }
 
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "El request es nulo"));
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res; 
                 }
 
                 if (req.idEvento < 0) // Puede haber validaciones adicionales
                 {
                     res.error.Add(Error.generarError(enumErrores.idFaltante, "El request es nulo"));
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res; 
                 }
 
@@ -132,7 +132,7 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idError != null && idError > 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion)); res.resultado = false; return res;
+                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion)); res.Resultado = false; return res;
                     }
 
                     int? idError2 = 0;
@@ -152,16 +152,16 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idError2 != null && idError2 > 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion2)); res.resultado = false; return res;
+                        res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion2)); res.Resultado = false; return res;
                     }
 
-                    res.resultado = true;
+                    res.Resultado = true;
                 }
             }
             catch (Exception ex)
             {
                 res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.Message));
-                res.resultado = false;
+                res.Resultado = false;
             }
             return res;
         }
@@ -177,21 +177,21 @@ namespace EventPlannerCR_backend.Logica
                 if (req.Sesion.Estado == enumEstadoSesion.cerrada)
                 {
                     res.error.Add(Error.generarError(enumErrores.sessionCerrada, "Sesion expirada."));
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "El request es nulo"));
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
                 if (req.idUsuario < 0 || req.idUsuario == null) 
                 {
                     res.error.Add(Error.generarError(enumErrores.idFaltante, "El request es nulo"));
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -209,7 +209,7 @@ namespace EventPlannerCR_backend.Logica
                     if (idError != null && idError > 0)
                     {
                         res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion));
-                        res.resultado = false;
+                        res.Resultado = false;
                         return res;
                     }
 
@@ -232,17 +232,17 @@ namespace EventPlannerCR_backend.Logica
                     if (idError2 != null && idError2 > 0)
                     {
                         res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, errorDescripcion2));
-                        res.resultado = false;
+                        res.Resultado = false;
                         return res;
                     }
 
-                    res.resultado = true;
+                    res.Resultado = true;
                 }
             }
             catch (Exception ex)
             {
                 res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.Message));
-                res.resultado = false;
+                res.Resultado = false;
             }
             return res;
         }
@@ -295,11 +295,11 @@ namespace EventPlannerCR_backend.Logica
             if (ErrorID == null)
             {
                 res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
-                res.resultado = false;
+                res.Resultado = false;
             }
             else
             {
-                res.resultado = true;
+                res.Resultado = true;
                 res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion)); //borrar esto
             }
 

@@ -34,8 +34,8 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
                 
-                res.resultado = res.Eventos.Count != 0;
-                if (res.resultado)
+                res.Resultado = res.Eventos.Count != 0;
+                if (res.Resultado)
                 {
                     // Se construye el objeto tipo OpenWeather
                     foreach (Evento resEvento in res.Eventos)
@@ -142,7 +142,7 @@ namespace EventPlannerCR_backend.Logica
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                 }
                 //Si no hubo errores se agrega el usuario a la base de datos
                 else
@@ -161,7 +161,7 @@ namespace EventPlannerCR_backend.Logica
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
-                    res.resultado = true;
+                    res.Resultado = true;
 
                 }
             }
