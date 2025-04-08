@@ -8,7 +8,7 @@ namespace EventPlannerCR_backend.Entidades
 {
     public class ResBase
     {
-        public bool Resultado { get; set; }
+        public bool resultado { get; set; }
         public List<Error> error { get; set; }
     }
 }

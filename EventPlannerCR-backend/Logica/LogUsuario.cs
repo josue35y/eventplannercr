@@ -160,7 +160,7 @@ namespace EventPlannerCR_backend.Logica
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                 }
                 //Si no hubo errores se agrega el usuario a la base de datos
                 else
@@ -252,7 +252,7 @@ namespace EventPlannerCR_backend.Logica
 
                 if (res.error.Any()) {
 
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
 
@@ -271,7 +271,7 @@ namespace EventPlannerCR_backend.Logica
 
                     res.ListaUsuarios = Factorias.Buscarusuario(tc);
 
-                    res.Resultado = true;
+                    res.resultado = true;
                 }
             }
             catch (Exception ex)
@@ -305,7 +305,7 @@ namespace EventPlannerCR_backend.Logica
 
                     res.ListaUsuarios = Factorias.ListaUsuarios(tc);
 
-                    res.Resultado = true;
+                    res.resultado = true;
                 }
             }
             catch (Exception ex)
@@ -355,7 +355,7 @@ namespace EventPlannerCR_backend.Logica
                 // verifico si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
                 else 
@@ -370,7 +370,7 @@ namespace EventPlannerCR_backend.Logica
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
-                    res.Resultado = true;
+                    res.resultado = true;
                 }
 
             }
@@ -489,7 +489,7 @@ namespace EventPlannerCR_backend.Logica
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                 }
                 //Si no hubo errores se agrega el usuario a la base de datos
                 else

@@ -12,59 +12,9 @@ namespace EventPlannerCR_backend.Logica
 {
     public class LogEvento
     {
-        #region Timer task para buscar los eventos cercanos
 
-        public void BuscarEventosCercanos()
+        public ResInsertarEvento InsertarEvento(ReqInsertarEvento req)
         {
-            ResEventosCercanos res = new ResEventosCercanos
-            {
-                error = new List<Error>(),
-                Eventos = new List<Evento>()
-            };
-            Error error = new Error();
-            try
-            {
-                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
-                {
-                    List<SP_EventosCercanosResult> complejo = new List<SP_EventosCercanosResult>();
-                    complejo = linq.SP_EventosCercanos().ToList();
-                    foreach (SP_EventosCercanosResult unTipo in complejo)
-                    {
-                        res.Eventos.Add(this.FactoriaEvento(unTipo));
-                    }
-                }
-                
-                res.Resultado = res.Eventos.Count != 0;
-                if (res.Resultado)
-                {
-                    // Se construye el objeto tipo OpenWeather
-                    foreach (Evento resEvento in res.Eventos)
-                    {
-                        OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
-                        {
-                            lat = resEvento.Latitud,
-                            lon = resEvento.Longitud,
-                            cnt = resEvento.DiasFaltantes
-                        };
-                        EventoController eventoController = new EventoController();
-                        ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
-                    enumErrores.excepcionBaseDatos.ToString(),
-                    ex.Message, null, res.ToString());
-                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
-                ex.Message, null, res.ToString());
-                error.Message = ex.Message;
-                error.ErrorCode = enumErrores.excepcionBaseDatos;
-                res.error.Add(error);
-            }
-        }
-
-        public ResInsertarEvento InsertarEvento(ReqInsertarEvento req) {
 
             //Creacion de instancias generales del método
             ResInsertarEvento res = new ResInsertarEvento();
@@ -94,9 +44,9 @@ namespace EventPlannerCR_backend.Logica
                     error.Message = "Nombre nulo o en blanco";
                     res.error.Add(error);
                 }
-                
-                 //Validación de la fecha de inicio del nuevo usuario para evitar nulos o default (que pasa si es una fecha anterior al día de hoy)
-                if (req.Evento.FechaInicio == null || req.Evento.FechaInicio == default || 
+
+                //Validación de la fecha de inicio del nuevo usuario para evitar nulos o default (que pasa si es una fecha anterior al día de hoy)
+                if (req.Evento.FechaInicio == null || req.Evento.FechaInicio == default ||
                     req.Evento.FechaInicio < DateTime.Now.Date)
                 {
                     Error error = new Error();
@@ -107,7 +57,7 @@ namespace EventPlannerCR_backend.Logica
                 }
 
                 //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
-                if (req.Evento.FechaFin == null || req.Evento.FechaFin == default 
+                if (req.Evento.FechaFin == null || req.Evento.FechaFin == default
                     || req.Evento.FechaFin <= DateTime.Now.Date)
                 {
                     Error error = new Error();
@@ -142,7 +92,7 @@ namespace EventPlannerCR_backend.Logica
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                 }
                 //Si no hubo errores se agrega el usuario a la base de datos
                 else
@@ -156,12 +106,12 @@ namespace EventPlannerCR_backend.Logica
                     {
                         linq.SP_InsertarEvento(
                             req.Evento.Nombre, req.Evento.FechaInicio, req.Evento.FechaFin,
-                            req.Evento.Lugar, req.Evento.Provincia, req.Evento.Canton, 
-                            req.Evento.Distrito, (decimal)req.Evento.Latitud, (decimal)req.Evento.Longitud, 
+                            req.Evento.Lugar, req.Evento.Provincia, req.Evento.Canton,
+                            req.Evento.Distrito, (decimal)req.Evento.Latitud, (decimal)req.Evento.Longitud,
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
-                    res.Resultado = true;
+                    res.resultado = true;
 
                 }
             }
@@ -179,6 +129,60 @@ namespace EventPlannerCR_backend.Logica
             //Retorno de la respuesta
             return res;
         }
+
+        #region Timer task para buscar los eventos cercanos
+
+        public void BuscarEventosCercanos()
+        {
+            ResEventosCercanos res = new ResEventosCercanos
+            {
+                error = new List<Error>(),
+                Eventos = new List<Evento>()
+            };
+            Error error = new Error();
+            try
+            {
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    List<SP_EventosCercanosResult> complejo = new List<SP_EventosCercanosResult>();
+                    complejo = linq.SP_EventosCercanos().ToList();
+                    foreach (SP_EventosCercanosResult unTipo in complejo)
+                    {
+                        res.Eventos.Add(this.FactoriaEvento(unTipo));
+                    }
+                }
+                
+                res.resultado = res.Eventos.Count != 0;
+                if (res.resultado)
+                {
+                    // Se construye el objeto tipo OpenWeather
+                    foreach (Evento resEvento in res.Eventos)
+                    {
+                        OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
+                        {
+                            lat = resEvento.Latitud,
+                            lon = resEvento.Longitud,
+                            cnt = resEvento.DiasFaltantes
+                        };
+                        EventoController eventoController = new EventoController();
+                        ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
+                    enumErrores.excepcionBaseDatos.ToString(),
+                    ex.Message, null, res.ToString());
+                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
+                ex.Message, null, res.ToString());
+                error.Message = ex.Message;
+                error.ErrorCode = enumErrores.excepcionBaseDatos;
+                res.error.Add(error);
+            }
+        }
+
+        
 
         #region Guardar Clima Evento
 

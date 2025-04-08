@@ -50,7 +50,7 @@ namespace EventPlannerCR_backend.Logica
                     bool status = true;
                     if (res.error.Any())
                     {
-                        res.Resultado = false;
+                        res.resultado = false;
                         return res;
                     }
                     else
@@ -70,15 +70,15 @@ namespace EventPlannerCR_backend.Logica
                         {
                             if (idError == 4)
                             {
-                                res.Resultado = false;
+                                res.resultado = false;
                                 res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "El usuario ya se encuentra inscrito en el evento."));
                                 return res;
                             }
-                            res.Resultado = true;
+                            res.resultado = true;
                         }
                         else
                         {
-                            res.Resultado = false;
+                            res.resultado = false;
                             res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorDescripcion));
                             return res;
                         }
@@ -118,7 +118,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                     if (res.error.Any())
                     {
-                        res.Resultado = false;
+                        res.resultado = false;
                         return res;
                     }
                     else
@@ -134,13 +134,13 @@ namespace EventPlannerCR_backend.Logica
                         if (listaAsistenciaUsuarioBD == null || !listaAsistenciaUsuarioBD.Any())
                         {
                             res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
-                            res.Resultado = false;
+                            res.resultado = false;
                             return res;
                         }
                         if (ErrorId != null && ErrorId > 0)
                         {
                             res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
-                            res.Resultado = false;
+                            res.resultado = false;
                             return res;
                         }
                         else
@@ -161,7 +161,7 @@ namespace EventPlannerCR_backend.Logica
                            .Where(a => a != null)
                            .ToList();
                         }
-                        res.Resultado = true;
+                        res.resultado = true;
                     }
                 }
             }
@@ -195,7 +195,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                     if (res.error.Any())
                     {
-                        res.Resultado = false;
+                        res.resultado = false;
                         return res;
                     }
                     else
@@ -211,13 +211,13 @@ namespace EventPlannerCR_backend.Logica
                         if (listaAsistenciaEventoBD == null || !listaAsistenciaEventoBD.Any())
                         {
                             res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
-                            res.Resultado = false;
+                            res.resultado = false;
                             return res;
                         }
                         if (ErrorId != null && ErrorId > 0)
                         {
                             res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
-                            res.Resultado = false;
+                            res.resultado = false;
                             return res;
                         }
                         else
@@ -238,7 +238,7 @@ namespace EventPlannerCR_backend.Logica
                            .Where(a => a != null)
                            .ToList();
                         }
-                        res.Resultado = true;
+                        res.resultado = true;
                     }
                 }
             }
@@ -265,7 +265,7 @@ namespace EventPlannerCR_backend.Logica
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
                 else 
@@ -273,7 +273,7 @@ namespace EventPlannerCR_backend.Logica
                     if (req.idAsistencia <= 0 || req.idAsistencia == null)
                     {
                         res.error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
-                        res.Resultado = false;
+                        res.resultado = false;
                         res.idAsistencia = req.idAsistencia;
                         return res;
                     }
@@ -288,7 +288,7 @@ namespace EventPlannerCR_backend.Logica
                         if (req.Estado == null)
                         {
                             res.error.Add(Error.generarError(enumErrores.requestIncompleto, "El valor de estado es requerido."));
-                            res.Resultado = false;
+                            res.resultado = false;
                             res.idAsistencia = req.idAsistencia;
                             return res;
                         }
@@ -308,7 +308,7 @@ namespace EventPlannerCR_backend.Logica
                             }
                             if (AsistenciaBD != null)
                             {
-                                res.Resultado = true;
+                                res.resultado = true;
                                 res = FactoryEditarAsistencia(AsistenciaBD);
                             }
                             else
@@ -343,14 +343,14 @@ namespace EventPlannerCR_backend.Logica
                 if (req.Sesion.Usuario.Admin == false)
                 {
                     res.error.Add(Error.generarError(enumErrores.noAutorizado, "El usuario no tiene permisos para realizar esta acción."));
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
 		
                 if (req == null)
                 {
                     res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
                 else 
@@ -358,7 +358,7 @@ namespace EventPlannerCR_backend.Logica
                     if (req.idAsistencia <= 0 || req.idAsistencia == null)
                     {
                         res.error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
-                        res.Resultado = false;
+                        res.resultado = false;
                         return res;
                     }
                     else
@@ -373,7 +373,7 @@ namespace EventPlannerCR_backend.Logica
                         }
                         if (ErrorId == null || ErrorId == 0)
                         {
-                            res.Resultado = true;
+                            res.resultado = true;
                         }
                         else
                         {
