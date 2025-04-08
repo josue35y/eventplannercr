@@ -13,6 +13,7 @@ namespace EventPlannerCR_backend.Logica
     public class LogEvento
     {
 
+        //Logica insertar evento
         public ResInsertarEvento InsertarEvento(ReqInsertarEvento req)
         {
 
@@ -130,59 +131,236 @@ namespace EventPlannerCR_backend.Logica
             return res;
         }
 
-        #region Timer task para buscar los eventos cercanos
-
-        public void BuscarEventosCercanos()
+        //Logica lista de eventos
+        public ResListaEventos ListaEventos(ReqListaEventos req)
         {
-            ResEventosCercanos res = new ResEventosCercanos
-            {
-                error = new List<Error>(),
-                Eventos = new List<Evento>()
-            };
-            Error error = new Error();
+
+            ResListaEventos res = new ResListaEventos();
+            res.ListaEventos = new List<Evento>();
+            res.error = new List<Error>();
+
             try
             {
+
                 using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
-                    List<SP_EventosCercanosResult> complejo = new List<SP_EventosCercanosResult>();
-                    complejo = linq.SP_EventosCercanos().ToList();
-                    foreach (SP_EventosCercanosResult unTipo in complejo)
-                    {
-                        res.Eventos.Add(this.FactoriaEvento(unTipo));
-                    }
-                }
-                
-                res.resultado = res.Eventos.Count != 0;
-                if (res.resultado)
-                {
-                    // Se construye el objeto tipo OpenWeather
-                    foreach (Evento resEvento in res.Eventos)
-                    {
-                        OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
-                        {
-                            lat = resEvento.Latitud,
-                            lon = resEvento.Longitud,
-                            cnt = resEvento.DiasFaltantes
-                        };
-                        EventoController eventoController = new EventoController();
-                        ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
-                    }
+                    LogFactorias Factorias = new LogFactorias();
+
+                    List<SP_Lista_EventosResult> tc = linq.SP_Lista_Eventos().ToList();
+
+                    res.ListaEventos = Factorias.ListaEventos(tc);
+
+                    res.resultado = true;
                 }
             }
             catch (Exception ex)
             {
-                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
-                    enumErrores.excepcionBaseDatos.ToString(),
-                    ex.Message, null, res.ToString());
-                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
-                ex.Message, null, res.ToString());
-                error.Message = ex.Message;
-                error.ErrorCode = enumErrores.excepcionBaseDatos;
+
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionListaUsuarios;
+                error.Message = ex.ToString();
                 res.error.Add(error);
             }
+
+            return res;
         }
 
-        
+        //logica Buscar de eventos
+
+        public ResBuscarEvento BuscarEvento(ReqBuscarEvento req)
+        {
+            ResBuscarEvento res = new ResBuscarEvento();
+            res.ListaEventos = new List<Evento>();
+            res.error = new List<Error>();
+            try
+            {
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    LogFactorias Factorias = new LogFactorias();
+
+                    int? idBd = 0;
+                    int? idError = 0;
+                    string errorDescripcion = null;
+
+                    List<SP_Buscar_EventoResult> tc = linq.SP_Buscar_Evento(req.Evento.Nombre, 
+                        req.Evento.Lugar,ref idBd, ref idError, ref errorDescripcion).ToList();
+                    res.ListaEventos = Factorias.BuscarEvento(tc);
+                    res.resultado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Error error = new Error();
+                error.ErrorCode = enumErrores.excepcionListaUsuarios;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+            return res;
+        }
+
+        //Logica Actualizar Evento
+        public ResActualizarEvento ActualizarEvento(ReqActualizarEvento req)
+        {
+            //Creacion de instancias generales del método
+            ResActualizarEvento res = new ResActualizarEvento();
+            res.error = new List<Error>();
+
+            //inicio de manejo de excepciones
+            try
+            {
+
+                //validación del request
+                if (req == null)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.requestNulo;
+                    error.Message = "Req Null";
+                    res.error.Add(error);
+                    res.resultado = false;
+                }
+
+                if (!res.error.Any())
+                {
+                    int? idBd = 0;
+                    int? idError = 0;
+                    string errorDescripcion = null;
+
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                    {
+
+                        linq.SP_ActualizarEvento(req.Evento.IdEvento, req.Evento.Nombre, req.Evento.FechaInicio,
+                            req.Evento.FechaFin, req.Evento.Lugar, req.Evento.Descripcion, req.Evento.Clima, req.Evento.Latitud,
+                            req.Evento.Longitud, req.Evento.Provincia, req.Evento.Canton, req.Evento.Distrito, ref idBd, ref idError,
+                            ref errorDescripcion);
+
+                        res.resultado = true;
+                    }
+                }
+                
+            }
+
+            //Manejo de excepciones
+            catch (Exception ex)
+            {
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionLogica;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            //Retorno de la respuesta
+            return res;
+        }
+
+        //Logica Eliminar Evento
+        public ResEliminarEvento EliminarEvento(ReqEliminarEvento req) {
+
+            ResEliminarEvento res = new ResEliminarEvento();
+            res.error = new List<Error>();
+
+            //inicio de manejo de excepciones
+            try
+            {
+
+                //validación del request
+                if (req == null)
+                {
+                    Error error = new Error();
+
+                    error.ErrorCode = enumErrores.requestNulo;
+                    error.Message = "Req Null";
+                    res.error.Add(error);
+                    res.resultado = false;
+                }
+
+                if (!res.error.Any())
+                {
+                    int? idBd = 0;
+                    int? idError = 0;
+                    string errorDescripcion = null;
+
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                    {
+
+                        linq.SP_Eliminar_Evento(req.Evento.IdEvento, ref idBd, ref idError,
+                            ref errorDescripcion);
+
+                        res.resultado = true;
+                    }
+                }
+
+            }
+
+            //Manejo de excepciones
+            catch (Exception ex)
+            {
+                Error error = new Error();
+
+                error.ErrorCode = enumErrores.excepcionLogica;
+                error.Message = ex.ToString();
+                res.error.Add(error);
+            }
+
+            return res;
+        }
+
+
+        #region Timer task para buscar los eventos cercanos
+
+        //public void BuscarEventosCercanos()
+        //{
+        //    ResEventosCercanos res = new ResEventosCercanos
+        //    {
+        //        error = new List<Error>(),
+        //        Eventos = new List<Evento>()
+        //    };
+        //    Error error = new Error();
+        //    try
+        //    {
+        //        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+        //        {
+        //            List<SP_EventosCercanosResult> complejo = new List<SP_EventosCercanosResult>();
+        //            complejo = linq.SP_EventosCercanos().ToList();
+        //            foreach (SP_EventosCercanosResult unTipo in complejo)
+        //            {
+        //                res.Eventos.Add(this.FactoriaEvento(unTipo));
+        //            }
+        //        }
+
+        //        res.resultado = res.Eventos.Count != 0;
+        //        if (res.resultado)
+        //        {
+        //            // Se construye el objeto tipo OpenWeather
+        //            foreach (Evento resEvento in res.Eventos)
+        //            {
+        //                OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
+        //                {
+        //                    lat = resEvento.Latitud,
+        //                    lon = resEvento.Longitud,
+        //                    cnt = resEvento.DiasFaltantes
+        //                };
+        //                EventoController eventoController = new EventoController();
+        //                ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
+        //            enumErrores.excepcionBaseDatos.ToString(),
+        //            ex.Message, null, res.ToString());
+        //        LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
+        //        ex.Message, null, res.ToString());
+        //        error.Message = ex.Message;
+        //        error.ErrorCode = enumErrores.excepcionBaseDatos;
+        //        res.error.Add(error);
+        //    }
+        //}
+
+
 
         #region Guardar Clima Evento
 

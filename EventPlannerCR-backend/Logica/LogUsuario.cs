@@ -476,15 +476,15 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                ////Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
-                //if (req.Usuario.FechaNacimiento == null)
-                //{
-                //    Error error = new Error();
+                //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                if (req.Usuario.FechaNacimiento == null || req.Usuario.FechaNacimiento == req.Usuario.FechaNacimiento.Date == default)
+                {
+                    Error error = new Error();
 
-                //    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
-                //    error.Message = "Fecha nula";
-                //    res.error.Add(error);
-                //}
+                    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
+                    error.Message = "Fecha nula";
+                    res.error.Add(error);
+                }
 
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
