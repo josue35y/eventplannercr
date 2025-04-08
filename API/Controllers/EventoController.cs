@@ -20,5 +20,38 @@ namespace API.Controllers
             return new LogEvento().InsertarEvento(req);
         }
 
+
+        //Lista de eventos
+        [HttpGet]
+        [Route("api/evento/Lista_Eventos")]
+        public ResListaEventos Lista_Eventos(ReqListaEventos req)
+        {
+            return new LogEvento().ListaEventos(req);
+        }
+
+        //Buscar evento
+        [HttpPost]
+        [Route("api/evento/BuscarEvento")]
+        public ResBuscarEvento BuscarEvento(ReqBuscarEvento req)
+        {
+            return new LogEvento().BuscarEvento(req);
+        }
+
+        //Eliminar Evento
+        [HttpPost]
+        [Route("api/evento/Eliminar")]
+        public ResEliminarEvento EliminarEvento(ReqEliminarEvento req)
+        {
+            return new LogEvento().EliminarEvento(req);
+        }
+
+        //Actualizar Evento
+        [HttpPost]
+        [Route("api/evento/Actualizar")]
+        public ResActualizarEvento ActualizarEvento(ReqActualizarEvento req)
+        {
+            return new LogEvento().ActualizarEvento(req);
+        }
+
     }
 }

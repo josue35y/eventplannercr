@@ -82,5 +82,88 @@ namespace EventPlannerCR_backend.Logica
             return ListaUsuarios;
         }
         #endregion
+
+        public List<Evento> ListaEventos(List<SP_Lista_EventosResult> tc)
+        {
+
+            List<Evento> ListaEventos = new List<Evento>();
+
+            ListaEventos = FactoryListaEventos(tc);
+
+            return ListaEventos;
+        }
+
+        #region laFactoria!
+        private List<Evento> FactoryListaEventos(List<SP_Lista_EventosResult> tc)
+        {
+            List<Evento> ListaEventos = new List<Evento>();
+
+            foreach (var item in tc)
+            {
+                // Crear un nuevo objeto para cada elemento
+                Evento evento = new Evento();
+
+                // Asignar propiedades
+                evento.Nombre = item.Nombre;
+                evento.FechaInicio = item.FechaInicio;
+                evento.FechaFin = item.FechaFin;
+                evento.Lugar = item.Lugar;
+                evento.Descripcion = item.Descripcion;
+                evento.Clima = item.Clima;
+                evento.Latitud = item.lat;
+                evento.Longitud = item.lon;
+                evento.Provincia = item.Provincia;
+                evento.Canton = item.Canton;
+                evento.Distrito = item.Distrito;
+
+                // Añadir a la lista
+                ListaEventos.Add(evento);
+            }
+
+            return ListaEventos;
+        }
+        #endregion
+
+        public List<Evento> BuscarEvento(List<SP_Buscar_EventoResult> tc)
+        {
+
+            List<Evento> ListaEventos = new List<Evento>();
+
+            ListaEventos = FactoryBuscarEvento(tc);
+
+            return ListaEventos;
+        }
+
+        #region laFactoria!
+        private List<Evento> FactoryBuscarEvento(List<SP_Buscar_EventoResult> tc)
+        {
+            List<Evento> ListaEventos = new List<Evento>();
+
+            foreach (var item in tc)
+            {
+                // Crear un nuevo objeto para cada elemento
+                Evento evento = new Evento();
+
+                // Asignar propiedades
+                // Asignar propiedades
+                evento.Nombre = item.Nombre;
+                evento.FechaInicio = item.FechaInicio;
+                evento.FechaFin = item.FechaFin;
+                evento.Lugar = item.Lugar;
+                evento.Descripcion = item.Descripcion;
+                evento.Clima = item.Clima;
+                evento.Latitud = item.lat;
+                evento.Longitud = item.lon;
+                evento.Provincia = item.Provincia;
+                evento.Canton = item.Canton;
+                evento.Distrito = item.Distrito;
+
+                // Añadir a la lista
+                ListaEventos.Add(evento);
+            }
+
+            return ListaEventos;
+        }
+        #endregion
     }
 }

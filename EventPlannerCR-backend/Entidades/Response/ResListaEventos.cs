@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ReqEliminarEvento : ReqBase
+    public class ResListaEventos : ResBase
     {
-        public Evento Evento { get; set; }
+        public List<Evento> ListaEventos { get; set; }
     }
 }

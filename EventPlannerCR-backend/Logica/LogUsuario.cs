@@ -160,7 +160,7 @@ namespace EventPlannerCR_backend.Logica
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                 }
                 //Si no hubo errores se agrega el usuario a la base de datos
                 else
@@ -252,7 +252,7 @@ namespace EventPlannerCR_backend.Logica
 
                 if (res.error.Any()) {
 
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
 
@@ -271,7 +271,7 @@ namespace EventPlannerCR_backend.Logica
 
                     res.ListaUsuarios = Factorias.BuscarUsuario(tc);
 
-                    res.Resultado = true;
+                    res.resultado = true;
                 }
             }
             catch (Exception ex)
@@ -305,7 +305,7 @@ namespace EventPlannerCR_backend.Logica
 
                     res.ListaUsuarios = Factorias.ListaUsuarios(tc);
 
-                    res.Resultado = true;
+                    res.resultado = true;
                 }
             }
             catch (Exception ex)
@@ -355,7 +355,7 @@ namespace EventPlannerCR_backend.Logica
                 // verifico si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                     return res;
                 }
                 else 
@@ -370,7 +370,7 @@ namespace EventPlannerCR_backend.Logica
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
-                    res.Resultado = true;
+                    res.resultado = true;
                 }
 
             }
@@ -405,9 +405,10 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                
 
-                if (!String.IsNullOrEmpty(req.Usuario.Nombre)) {
+
+                if (!String.IsNullOrEmpty(req.Usuario.Nombre))
+                {
 
                     //Validación de caracteres especiales en el nombre
                     String patron = @"^([\p{L}\s'-]*|\s*)$";
@@ -424,7 +425,8 @@ namespace EventPlannerCR_backend.Logica
 
                 }
 
-                if (!String.IsNullOrEmpty(req.Usuario.Apellidos)) {
+                if (!String.IsNullOrEmpty(req.Usuario.Apellidos))
+                {
 
                     //Validación de caracteres especiales en el apellido
                     String patron = @"^([\p{L}\s'-]*|\s*)$";
@@ -441,7 +443,8 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                if (!String.IsNullOrEmpty(req.Usuario.Correo)) {
+                if (!String.IsNullOrEmpty(req.Usuario.Correo))
+                {
 
                     //Validacion del formato de correo
                     String patron = @"^$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
@@ -458,7 +461,8 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                if (!String.IsNullOrEmpty(req.Usuario.Password)) {
+                if (!String.IsNullOrEmpty(req.Usuario.Password))
+                {
 
                     //Validacion de la contraseña
                     String patron = @"^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
@@ -476,20 +480,10 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                ////Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
-                //if (req.Usuario.FechaNacimiento == null)
-                //{
-                //    Error error = new Error();
-
-                //    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
-                //    error.Message = "Fecha nula";
-                //    res.error.Add(error);
-                //}
-
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
-                    res.Resultado = false;
+                    res.resultado = false;
                 }
                 //Si no hubo errores se agrega el usuario a la base de datos
                 else
@@ -502,7 +496,7 @@ namespace EventPlannerCR_backend.Logica
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
 
-                        linq.SP_ActualizarUsuario( req.Usuario.IdUsuario, req.Usuario.Nombre, req.Usuario.Apellidos, 
+                        linq.SP_ActualizarUsuario(req.Usuario.IdUsuario, req.Usuario.Nombre, req.Usuario.Apellidos,
                             req.Usuario.Telefono, req.Usuario.Telefono_Verificado, req.Usuario.Cod_Ver_Tel,
                             req.Usuario.Correo, req.Usuario.Correo_Verificado, req.Usuario.Cod_Ver_Cor,
                             req.Usuario.Admin, req.Usuario.Password, req.Usuario.Vehiculo, ref idBd, ref idError,
