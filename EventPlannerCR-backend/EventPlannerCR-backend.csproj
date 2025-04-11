@@ -116,6 +116,7 @@
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
     <Compile Include="Entidades\Response\ResEliminarEvento.cs" />
     <Compile Include="Entidades\Response\ResEliminarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResEventosCercanos.cs" />
     <Compile Include="Entidades\Response\ResInsertarDeuda.cs" />
     <Compile Include="Entidades\Response\ResInsertarEvento.cs" />
     <Compile Include="Entidades\Response\ResListaEventos.cs" />
