@@ -12,6 +12,7 @@ namespace EventPlannerCR_backend.Entidades
         public Deuda Deuda { get; set; }
         public Usuario Usuario { get; set; }
         public float Monto { get; set; }
+        public bool Pago { get; set; }
         public bool Confirmacionpago { get; set; }
 
     }

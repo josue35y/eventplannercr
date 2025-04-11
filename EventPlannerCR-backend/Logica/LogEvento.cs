@@ -310,55 +310,55 @@ namespace EventPlannerCR_backend.Logica
 
         #region Timer task para buscar los eventos cercanos
 
-        //public void BuscarEventosCercanos()
-        //{
-        //    ResEventosCercanos res = new ResEventosCercanos
-        //    {
-        //        error = new List<Error>(),
-        //        Eventos = new List<Evento>()
-        //    };
-        //    Error error = new Error();
-        //    try
-        //    {
-        //        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
-        //        {
-        //            List<SP_EventosCercanosResult> complejo = new List<SP_EventosCercanosResult>();
-        //            complejo = linq.SP_EventosCercanos().ToList();
-        //            foreach (SP_EventosCercanosResult unTipo in complejo)
-        //            {
-        //                res.Eventos.Add(this.FactoriaEvento(unTipo));
-        //            }
-        //        }
+        public void BuscarEventosCercanos()
+        {
+            ResEventosCercanos res = new ResEventosCercanos
+            {
+                error = new List<Error>(),
+                Eventos = new List<Evento>()
+            };
+            Error error = new Error();
+            try
+            {
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                {
+                    List<SP_EventosCercanosResult> complejo = new List<SP_EventosCercanosResult>();
+                    complejo = linq.SP_EventosCercanos().ToList();
+                    foreach (SP_EventosCercanosResult unTipo in complejo)
+                    {
+                        res.Eventos.Add(this.FactoriaEvento(unTipo));
+                    }
+                }
 
-        //        res.resultado = res.Eventos.Count != 0;
-        //        if (res.resultado)
-        //        {
-        //            // Se construye el objeto tipo OpenWeather
-        //            foreach (Evento resEvento in res.Eventos)
-        //            {
-        //                OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
-        //                {
-        //                    lat = resEvento.Latitud,
-        //                    lon = resEvento.Longitud,
-        //                    cnt = resEvento.DiasFaltantes
-        //                };
-        //                EventoController eventoController = new EventoController();
-        //                ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
-        //            enumErrores.excepcionBaseDatos.ToString(),
-        //            ex.Message, null, res.ToString());
-        //        LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
-        //        ex.Message, null, res.ToString());
-        //        error.Message = ex.Message;
-        //        error.ErrorCode = enumErrores.excepcionBaseDatos;
-        //        res.error.Add(error);
-        //    }
-        //}
+                res.resultado = res.Eventos.Count != 0;
+                if (res.resultado)
+                {
+                    // Se construye el objeto tipo OpenWeather
+                    foreach (Evento resEvento in res.Eventos)
+                    {
+                        OpenWeatherForecastRequest owreq = new OpenWeatherForecastRequest()
+                        {
+                            lat = resEvento.Latitud,
+                            lon = resEvento.Longitud,
+                            cnt = resEvento.DiasFaltantes
+                        };
+                        EventoController eventoController = new EventoController();
+                        ActualizarClima(eventoController.ConsultarEventosCercanos(owreq), resEvento);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info",
+                    enumErrores.excepcionBaseDatos.ToString(),
+                    ex.Message, null, res.ToString());
+                LogBitacora.RegistrarBitacora("LogEvento", "BuscarEventosCercanos", "Info", enumErrores.excepcionBaseDatos.ToString(),
+                ex.Message, null, res.ToString());
+                error.Message = ex.Message;
+                error.ErrorCode = enumErrores.excepcionBaseDatos;
+                res.error.Add(error);
+            }
+        }
 
 
 
