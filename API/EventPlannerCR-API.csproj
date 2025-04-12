@@ -160,8 +160,11 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AsistenciaController.cs" />
     <Compile Include="Controllers\CarpoolController.cs" />
+    <Compile Include="Controllers\DeudasController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
+    <Compile Include="Controllers\GrupoCobroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PagosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
