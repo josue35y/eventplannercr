@@ -273,6 +273,7 @@ namespace EventPlannerCR_backend.Logica
 
                     if (req.Imagen != null)
                     {
+                        req.Evento.Imagen = Convert.ToBase64String(req.Imagen);
 
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {
