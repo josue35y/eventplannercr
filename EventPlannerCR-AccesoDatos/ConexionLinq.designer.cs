@@ -308,6 +308,26 @@ namespace EventPlannerCR_AccesoDatos
 			errorDescripcion = ((string)(result.GetParameterValue(3)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarImagenEvento")]
+		public int SP_InsertarImagenEvento([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(MAX)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaInicio", DbType="DateTime")] System.Nullable<System.DateTime> fechaInicio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaFin", DbType="DateTime")] System.Nullable<System.DateTime> fechaFin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Lugar", DbType="NVarChar(MAX)")] string lugar, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Banner", DbType="NVarChar(MAX)")] string banner, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, nombre, fechaInicio, fechaFin, lugar, banner, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(7)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(8)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_ActualizarImagenEvento")]
+		public int SP_ActualizarImagenEvento([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Banner", DbType="NVarChar(MAX)")] string banner, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, banner, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_BuscarAsistenciaPorEventoResult
