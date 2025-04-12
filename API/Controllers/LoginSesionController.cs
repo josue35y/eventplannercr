@@ -31,5 +31,15 @@ namespace API.Controllers
             
             return res = MiLogica.RegistrarUsuario(req);
         }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/utilitarios/Verificar_Cuenta")]
+        public ResVerificarCuenta VerificarCuenta(ReqVerificarCuenta req)
+        {
+            LogUtilitarios MiLogica = new LogUtilitarios();
+            ResVerificarCuenta res = new ResVerificarCuenta();
+
+            return new LogUtilitarios().VerificarCuenta(req);
+        }
     }
 }

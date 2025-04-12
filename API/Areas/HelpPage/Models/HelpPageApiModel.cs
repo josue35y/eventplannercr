@@ -80,7 +80,7 @@ namespace API.Areas.HelpPage.Models
         public IDictionary<MediaTypeHeaderValue, object> SampleResponses { get; private set; }
 
         /// <summary>
-        /// Gets the error messages associated with this model.
+        /// Gets the Error messages associated with this model.
         /// </summary>
         public Collection<string> ErrorMessages { get; private set; }
 

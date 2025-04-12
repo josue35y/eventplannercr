@@ -12,7 +12,7 @@ namespace EventPlannerCR_backend.Entidades
         excepcionBaseDatos = -2,
         excepcionLogica = -1,
 
-        //el error 0 no existe
+        //el Error 0 no existe
 
         requestNulo = 1,
         nombreFaltante = 2,

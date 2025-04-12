@@ -19,7 +19,7 @@ namespace EventPlannerCR_backend.Logica
 
             //Creacion de instancias generales del método
             ResInsertarUsuario res = new ResInsertarUsuario();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             //inicio de manejo de excepciones
             try
@@ -32,7 +32,7 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validación del nombre del nuevo Usuario para evitar nulos o espacio en blanco
@@ -40,10 +40,10 @@ namespace EventPlannerCR_backend.Logica
                 {
                     Error error = new Error();
 
-                    //Acumula la respuesta de error
+                    //Acumula la respuesta de Error
                     error.ErrorCode = enumErrores.nombreFaltante;
                     error.Message = "Nombre nulo o no válido";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
                 else
                 {
@@ -51,14 +51,14 @@ namespace EventPlannerCR_backend.Logica
                     //Validación de caracteres especiales en el nombre
                     String patron = @"^[\p{L}\s'-]+$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.NombreInvalido;
                         error.Message = "Hay un carácter no válido en el nombre";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -67,10 +67,10 @@ namespace EventPlannerCR_backend.Logica
                 {
                     Error error = new Error();
 
-                    //Acumula la respuesta de error
+                    //Acumula la respuesta de Error
                     error.ErrorCode = enumErrores.apellidoFaltante;
                     error.Message = "Apellidos nulo o no válido";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
                 else
                 {
@@ -80,14 +80,14 @@ namespace EventPlannerCR_backend.Logica
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
 
 
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.ApellidoInvalido;
                         error.Message = "Hay un carácter no válido en el apellido";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -96,10 +96,10 @@ namespace EventPlannerCR_backend.Logica
                 {
                     Error error = new Error();
 
-                    //Acumula la respuesta de error
+                    //Acumula la respuesta de Error
                     error.ErrorCode = enumErrores.correoFaltante;
                     error.Message = "Correo nulo o no válido";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validación de formato de correo
@@ -109,14 +109,14 @@ namespace EventPlannerCR_backend.Logica
                     String patron = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
 
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.CorreoInvalido;
                         error.Message = "Formato de correo no válido";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -127,14 +127,14 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.passwordFaltante;
                     error.Message = "Password nulo o no válido";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
                 else
                 {
                     //Validacion de la contraseña
                     String patron = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Password, patron);
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
@@ -143,7 +143,7 @@ namespace EventPlannerCR_backend.Logica
                         error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
                             "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
                             "4-Al menos una minúscula";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -154,13 +154,13 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.FechaNacimientoFaltante;
                     error.Message = "Fecha nula";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Se valida si hubo errores en todas las validaciones
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                 }
                 //Si no hubo errores se agrega el Usuario a la base de datos
                 else
@@ -180,11 +180,11 @@ namespace EventPlannerCR_backend.Logica
                     }
                     if (idBd > 0)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "Error en base de datos."));
+                        res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "Error en base de datos."));
                     }
 
 
@@ -202,7 +202,7 @@ namespace EventPlannerCR_backend.Logica
 
                 error.ErrorCode = enumErrores.excepcionLogica;
                 error.Message = ex.ToString();
-                res.error.Add(error);
+                res.Error.Add(error);
             }
 
             //Retorno de la respuesta
@@ -214,7 +214,7 @@ namespace EventPlannerCR_backend.Logica
         {
 
             ResBuscarUsuario res = new ResBuscarUsuario();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
             res.ListaUsuarios = new List<Usuario>();
 
             try
@@ -225,7 +225,7 @@ namespace EventPlannerCR_backend.Logica
                     Error error = new Error();
                     error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 if (!String.IsNullOrEmpty(req.Usuario.Nombre)) {
@@ -234,14 +234,14 @@ namespace EventPlannerCR_backend.Logica
                     //Validación de caracteres especiales en el nombre
                     String patron = "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (!match)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.NombreInvalido;
                         error.Message = "Hay un carácter no válido en el nombre";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -251,7 +251,7 @@ namespace EventPlannerCR_backend.Logica
                     //Validación de caracteres especiales en el nombre
                     String patron = "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
 
                     if (!match)
                     {
@@ -259,13 +259,13 @@ namespace EventPlannerCR_backend.Logica
 
                         error.ErrorCode = enumErrores.ApellidoInvalido;
                         error.Message = "Hay un carácter no válido en el apellido";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
-                if (res.error.Any()) {
+                if (res.Error.Any()) {
 
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -284,7 +284,7 @@ namespace EventPlannerCR_backend.Logica
 
                     res.ListaUsuarios = Factorias.Buscarusuario(tc);
 
-                    res.resultado = true;
+                    res.Resultado = true;
                 }
             }
             catch (Exception ex)
@@ -293,7 +293,7 @@ namespace EventPlannerCR_backend.Logica
 
                 error.ErrorCode = enumErrores.excepcionLogica;
                 error.Message = ex.ToString();
-                res.error.Add(error);
+                res.Error.Add(error);
             }
 
             return res;
@@ -305,7 +305,7 @@ namespace EventPlannerCR_backend.Logica
 
             ResListaUsuarios res = new ResListaUsuarios();
             res.ListaUsuarios = new List<Usuario>();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             try
             {
@@ -317,7 +317,7 @@ namespace EventPlannerCR_backend.Logica
 
                     res.ListaUsuarios = Factorias.ListaUsuarios(tc);
 
-                    res.resultado = true;
+                    res.Resultado = true;
                 }
             }
             catch (Exception ex)
@@ -327,7 +327,7 @@ namespace EventPlannerCR_backend.Logica
 
                 error.ErrorCode = enumErrores.excepcionListaUsuarios;
                 error.Message = ex.ToString();
-                res.error.Add(error);
+                res.Error.Add(error);
             }
 
             return res;
@@ -337,7 +337,7 @@ namespace EventPlannerCR_backend.Logica
         public ResEliminarUsuario EliminarUsuario(ReqEliminarUsuario req) { 
         
             ResEliminarUsuario res = new ResEliminarUsuario();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             try {
 
@@ -347,27 +347,27 @@ namespace EventPlannerCR_backend.Logica
                     Error error = new Error();
                     error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validacion del formato de correo
                 String patron = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                 bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
 
-                //Si no cumple con el patrón, se acumula el error
+                //Si no cumple con el patrón, se acumula el Error
                 if (match == false)
                 {
                     Error error = new Error();
 
                     error.ErrorCode = enumErrores.CorreoInvalido;
                     error.Message = "Formato de correo no válido";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 // verifico si hubo errores en todas las validaciones
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
                 else 
@@ -382,7 +382,7 @@ namespace EventPlannerCR_backend.Logica
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
-                    res.resultado = true;
+                    res.Resultado = true;
                 }
 
             }
@@ -391,7 +391,7 @@ namespace EventPlannerCR_backend.Logica
                 Error error = new Error();
                 error.ErrorCode = enumErrores.excepcionEliminarUsuario;
                 error.Message = ex.ToString();
-                res.error.Add(error);
+                res.Error.Add(error);
             }
 
             return res;
@@ -401,7 +401,7 @@ namespace EventPlannerCR_backend.Logica
         {
             //Creacion de instancias generales del método
             ResActualizarUsuario res = new ResActualizarUsuario();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             //inicio de manejo de excepciones
             try
@@ -414,7 +414,7 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 
@@ -424,14 +424,14 @@ namespace EventPlannerCR_backend.Logica
                     //Validación de caracteres especiales en el nombre
                     String patron = @"^([\p{L}\s'-]*|\s*)$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.NombreInvalido;
                         error.Message = "Hay un carácter no válido en el nombre";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
 
                 }
@@ -442,14 +442,14 @@ namespace EventPlannerCR_backend.Logica
                     String patron = @"^([\p{L}\s'-]*|\s*)$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
 
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.ApellidoInvalido;
                         error.Message = "Hay un carácter no válido en el apellido";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -459,14 +459,14 @@ namespace EventPlannerCR_backend.Logica
                     String patron = @"^$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
 
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
 
                         error.ErrorCode = enumErrores.CorreoInvalido;
                         error.Message = "Formato de correo no válido";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
@@ -475,7 +475,7 @@ namespace EventPlannerCR_backend.Logica
                     //Validacion de la contraseña
                     String patron = @"^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Password, patron);
-                    //Si no cumple con el patrón, se acumula el error
+                    //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
                         Error error = new Error();
@@ -484,24 +484,24 @@ namespace EventPlannerCR_backend.Logica
                         error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
                             "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
                             "4-Al menos una minúscula";
-                        res.error.Add(error);
+                        res.Error.Add(error);
                     }
                 }
 
                 ////Validación de la fecha de nacimiento del nuevo Usuario para evitar nulos
                 //if (req.Usuario.FechaNacimiento == null)
                 //{
-                //    Error error = new Error();
+                //    Error Error = new Error();
 
-                //    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
-                //    error.Message = "Fecha nula";
-                //    res.error.Add(error);
+                //    Error.ErrorCode = enumErrores.FechaNacimientoFaltante;
+                //    Error.Message = "Fecha nula";
+                //    res.Error.Add(Error);
                 //}
 
                 //Se valida si hubo errores en todas las validaciones
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                 }
                 //Si no hubo errores se agrega el Usuario a la base de datos
                 else
@@ -531,7 +531,7 @@ namespace EventPlannerCR_backend.Logica
 
                 error.ErrorCode = enumErrores.excepcionLogica;
                 error.Message = ex.ToString();
-                res.error.Add(error);
+                res.Error.Add(error);
             }
 
             //Retorno de la respuesta

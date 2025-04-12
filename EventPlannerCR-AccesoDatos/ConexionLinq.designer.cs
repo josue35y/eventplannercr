@@ -274,6 +274,15 @@ namespace EventPlannerCR_AccesoDatos
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(7)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_VerificarCuenta")]
+		public ISingleResult<SP_VerificarCuentaResult> SP_VerificarCuenta([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Codigo", DbType="NVarChar(15)")] string codigo, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(255)")] ref string errorDescripcion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), correo, codigo, idError, errorDescripcion);
+			idError = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			errorDescripcion = ((string)(result.GetParameterValue(3)));
+			return ((ISingleResult<SP_VerificarCuentaResult>)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_BuscarAsistenciaPorEventoResult
@@ -1933,6 +1942,266 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._DiasParaEvento != value))
 				{
 					this._DiasParaEvento = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_VerificarCuentaResult
+	{
+		
+		private int _ID_USUARIO;
+		
+		private string _NOMBRE;
+		
+		private string _APELLIDOS;
+		
+		private string _TELEFONO;
+		
+		private System.Nullable<bool> _TELEFONO_VERIFICADO;
+		
+		private System.Nullable<int> _COD_VER_TEL;
+		
+		private string _CORREO;
+		
+		private System.Nullable<bool> _CORREO_VERIFICADO;
+		
+		private string _COD_VER_COR;
+		
+		private System.DateTime _FECHANACIMIENTO;
+		
+		private System.Nullable<bool> _ADMIN;
+		
+		private string _PASSWORD;
+		
+		private System.DateTime _FECHAREGISTRO;
+		
+		private System.Nullable<bool> _VEHICULO;
+		
+		public SP_VerificarCuentaResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_USUARIO", DbType="Int NOT NULL")]
+		public int ID_USUARIO
+		{
+			get
+			{
+				return this._ID_USUARIO;
+			}
+			set
+			{
+				if ((this._ID_USUARIO != value))
+				{
+					this._ID_USUARIO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string NOMBRE
+		{
+			get
+			{
+				return this._NOMBRE;
+			}
+			set
+			{
+				if ((this._NOMBRE != value))
+				{
+					this._NOMBRE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APELLIDOS", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string APELLIDOS
+		{
+			get
+			{
+				return this._APELLIDOS;
+			}
+			set
+			{
+				if ((this._APELLIDOS != value))
+				{
+					this._APELLIDOS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(15)")]
+		public string TELEFONO
+		{
+			get
+			{
+				return this._TELEFONO;
+			}
+			set
+			{
+				if ((this._TELEFONO != value))
+				{
+					this._TELEFONO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO_VERIFICADO", DbType="Bit")]
+		public System.Nullable<bool> TELEFONO_VERIFICADO
+		{
+			get
+			{
+				return this._TELEFONO_VERIFICADO;
+			}
+			set
+			{
+				if ((this._TELEFONO_VERIFICADO != value))
+				{
+					this._TELEFONO_VERIFICADO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COD_VER_TEL", DbType="Int")]
+		public System.Nullable<int> COD_VER_TEL
+		{
+			get
+			{
+				return this._COD_VER_TEL;
+			}
+			set
+			{
+				if ((this._COD_VER_TEL != value))
+				{
+					this._COD_VER_TEL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CORREO", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string CORREO
+		{
+			get
+			{
+				return this._CORREO;
+			}
+			set
+			{
+				if ((this._CORREO != value))
+				{
+					this._CORREO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CORREO_VERIFICADO", DbType="Bit")]
+		public System.Nullable<bool> CORREO_VERIFICADO
+		{
+			get
+			{
+				return this._CORREO_VERIFICADO;
+			}
+			set
+			{
+				if ((this._CORREO_VERIFICADO != value))
+				{
+					this._CORREO_VERIFICADO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COD_VER_COR", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string COD_VER_COR
+		{
+			get
+			{
+				return this._COD_VER_COR;
+			}
+			set
+			{
+				if ((this._COD_VER_COR != value))
+				{
+					this._COD_VER_COR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FECHANACIMIENTO", DbType="DateTime NOT NULL")]
+		public System.DateTime FECHANACIMIENTO
+		{
+			get
+			{
+				return this._FECHANACIMIENTO;
+			}
+			set
+			{
+				if ((this._FECHANACIMIENTO != value))
+				{
+					this._FECHANACIMIENTO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ADMIN", DbType="Bit")]
+		public System.Nullable<bool> ADMIN
+		{
+			get
+			{
+				return this._ADMIN;
+			}
+			set
+			{
+				if ((this._ADMIN != value))
+				{
+					this._ADMIN = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PASSWORD", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string PASSWORD
+		{
+			get
+			{
+				return this._PASSWORD;
+			}
+			set
+			{
+				if ((this._PASSWORD != value))
+				{
+					this._PASSWORD = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FECHAREGISTRO", DbType="DateTime NOT NULL")]
+		public System.DateTime FECHAREGISTRO
+		{
+			get
+			{
+				return this._FECHAREGISTRO;
+			}
+			set
+			{
+				if ((this._FECHAREGISTRO != value))
+				{
+					this._FECHAREGISTRO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEHICULO", DbType="Bit")]
+		public System.Nullable<bool> VEHICULO
+		{
+			get
+			{
+				return this._VEHICULO;
+			}
+			set
+			{
+				if ((this._VEHICULO != value))
+				{
+					this._VEHICULO = value;
 				}
 			}
 		}

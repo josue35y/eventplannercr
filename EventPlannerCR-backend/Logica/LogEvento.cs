@@ -18,7 +18,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResEventosCercanos res = new ResEventosCercanos
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
                 Eventos = new List<Evento>()
             };
             Error error = new Error();
@@ -34,8 +34,8 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
                 
-                res.resultado = res.Eventos.Count != 0;
-                if (res.resultado)
+                res.Resultado = res.Eventos.Count != 0;
+                if (res.Resultado)
                 {
                     // Se construye el objeto tipo OpenWeather
                     foreach (Evento resEvento in res.Eventos)
@@ -60,7 +60,7 @@ namespace EventPlannerCR_backend.Logica
                 ex.Message, null, res.ToString());
                 error.Message = ex.Message;
                 error.ErrorCode = enumErrores.excepcionBaseDatos;
-                res.error.Add(error);
+                res.Error.Add(error);
             }
         }
 
@@ -68,7 +68,7 @@ namespace EventPlannerCR_backend.Logica
 
             //Creacion de instancias generales del método
             ResInsertarEvento res = new ResInsertarEvento();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             //inicio de manejo de excepciones
             try
@@ -81,7 +81,7 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.requestNulo;
                     error.Message = "Req Null";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validación del nombre del nuevo Usuario para evitar nulos o espacio en blanco
@@ -89,10 +89,10 @@ namespace EventPlannerCR_backend.Logica
                 {
                     Error error = new Error();
 
-                    //Acumula la respuesta de error
+                    //Acumula la respuesta de Error
                     error.ErrorCode = enumErrores.nombreFaltante;
                     error.Message = "Nombre nulo o en blanco";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
                 
                  //Validación de la fecha de inicio del nuevo Usuario para evitar nulos o default (que pasa si es una fecha anterior al día de hoy)
@@ -103,7 +103,7 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.FechaInicioEventoFaltante;
                     error.Message = "Fecha inicio de evento nula o no válida";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validación de la fecha de nacimiento del nuevo Usuario para evitar nulos
@@ -114,7 +114,7 @@ namespace EventPlannerCR_backend.Logica
 
                     error.ErrorCode = enumErrores.FechaFinalEventoFaltante;
                     error.Message = "Fecha fin de evento nula o no válida";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validación del correo del nuevo Usuario para evitar nulos o espacio en blanco
@@ -122,10 +122,10 @@ namespace EventPlannerCR_backend.Logica
                 {
                     Error error = new Error();
 
-                    //Acumula la respuesta de error
+                    //Acumula la respuesta de Error
                     error.ErrorCode = enumErrores.LugarFaltante;
                     error.Message = "Lugar Nulo o faltante";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Validación del apellido del nuevo Usuario para evitar nulos o espacio en blanco
@@ -133,16 +133,16 @@ namespace EventPlannerCR_backend.Logica
                 {
                     Error error = new Error();
 
-                    //Acumula la respuesta de error
+                    //Acumula la respuesta de Error
                     error.ErrorCode = enumErrores.DescripcionFaltante;
                     error.Message = "Descripcion del evento nula o faltante";
-                    res.error.Add(error);
+                    res.Error.Add(error);
                 }
 
                 //Se valida si hubo errores en todas las validaciones
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                 }
                 //Si no hubo errores se agrega el Usuario a la base de datos
                 else
@@ -161,7 +161,7 @@ namespace EventPlannerCR_backend.Logica
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
-                    res.resultado = true;
+                    res.Resultado = true;
 
                 }
             }
@@ -173,7 +173,7 @@ namespace EventPlannerCR_backend.Logica
 
                 error.ErrorCode = enumErrores.excepcionLogica;
                 error.Message = ex.ToString();
-                res.error.Add(error);
+                res.Error.Add(error);
             }
 
             //Retorno de la respuesta
