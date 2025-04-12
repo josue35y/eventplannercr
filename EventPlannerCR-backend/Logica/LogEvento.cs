@@ -79,17 +79,6 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                //Validación del apellido del nuevo usuario para evitar nulos o espacio en blanco
-                if (String.IsNullOrEmpty(req.Evento.Descripcion))
-                {
-                    Error error = new Error();
-
-                    //Acumula la respuesta de error
-                    error.ErrorCode = enumErrores.DescripcionFaltante;
-                    error.Message = "Descripcion del evento nula o faltante";
-                    res.error.Add(error);
-                }
-
                 //Se valida si hubo errores en todas las validaciones
                 if (res.error.Any())
                 {
@@ -120,12 +109,21 @@ namespace EventPlannerCR_backend.Logica
                             res.error.Add(error);
                             res.resultado = false;
                         }
-                        else { 
+                        else {
+                            req.Evento.IdEvento = (int)idBd;
                             res.resultado = true;
                         }
                     }
 
+                    
                     if (req.Imagen != null) {
+
+
+                        idBd = 0;
+                        idError = 0;
+                        errorDescripcion = null;
+
+                        req.Evento.Imagen = "data:image/png;base64," + Convert.ToBase64String(req.Imagen);
 
                         using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                         {

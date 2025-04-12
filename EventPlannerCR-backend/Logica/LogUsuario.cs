@@ -172,11 +172,10 @@ namespace EventPlannerCR_backend.Logica
 
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-                        linq.SP_InsertarUsuarios(
-                            req.Usuario.Nombre, req.Usuario.Apellidos,
-                            req.Usuario.Correo, req.Usuario.FechaNacimiento,
-                            req.Usuario.Password, ref idBd, ref idError,
-                            ref errorDescripcion);
+                        linq.SP_InsertarUsuario(req.Usuario.Nombre, req.Usuario.Apellidos,
+                            req.Usuario.Correo.ToLower(), req.Usuario.Cod_Ver_Cor,
+                            req.Usuario.FechaNacimiento,req.Usuario.Password,
+                            ref idBd, ref idError, ref errorDescripcion);
                     }
 
                 }
