@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EventPlannerCR_AccesoDatos;
 using EventPlannerCR_backend.Entidades;
 
@@ -267,5 +266,44 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #endregion
+
+        public List<Pagos> BuscarPagos(List<SP_BuscarPagosPendientesResult> tc)
+        {
+            List<Pagos> ListaPagos = new List<Pagos>();
+            
+            ListaPagos = FactoryBuscarPagos(tc);
+
+            return ListaPagos;
+        }
+
+        private List<Pagos> FactoryBuscarPagos(List<SP_BuscarPagosPendientesResult> tc)
+        {
+            List<Pagos> ListaPagos = new List<Pagos>();
+            
+            foreach (SP_BuscarPagosPendientesResult item in tc)
+            {
+                Deuda deuda = new Deuda
+                {
+                    idDeuda = item.IdDeuda,
+                };
+                Usuario usuario = new Usuario
+                {
+                    IdUsuario = item.IDPROPIETARIO,
+                    Nombre = item.NOMBREPROPIETARIO,
+                };
+                Pagos pagos = new Pagos
+                {
+                    idPago = item.IdPago,
+                    Monto = item.Monto,
+                    Pago = item.EstadoPago,
+                    ConfirmacionPago = item.ConfirmacionPago,
+                    Deuda = deuda,
+                    Usuario = usuario
+                };
+                ListaPagos.Add(pagos);
+            }
+
+            return ListaPagos;
+        }
     }
 }
