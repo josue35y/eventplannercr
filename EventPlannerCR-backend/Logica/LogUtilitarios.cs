@@ -139,7 +139,15 @@ namespace EventPlannerCR_backend.Logica
             Usuario UsuarioAConfirmar = new Usuario();
             foreach (var item in ResBuscarUsuario.ListaUsuarios)
             {
-                UsuarioAConfirmar = item;
+                if (item.Correo == req.Usuario.Correo)
+                {
+                    UsuarioAConfirmar = item;
+                }
+                else
+                {
+                    res.Resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "Error al buscar el usuario."));
+                }
             }
 
             //Se genera el código de verificación y se asigna al usuario "UsuarioAConfirmar "
