@@ -461,4 +461,34 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SP_InsertarUsuario" Method="SP_InsertarUsuario">
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="GUIDCorreo" Parameter="gUIDCorreo" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="FechaNacimiento" Parameter="fechaNacimiento" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_ActualizarUsuario" Method="SP_ActualizarUsuario">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="TelefonoVerificado" Parameter="telefonoVerificado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CodVerTel" Parameter="codVerTel" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="CorreoVerificado" Parameter="correoVerificado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CodVerCor" Parameter="codVerCor" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Admin" Parameter="admin" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="Vehiculo" Parameter="vehiculo" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
