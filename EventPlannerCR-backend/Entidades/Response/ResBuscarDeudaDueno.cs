@@ -2,8 +2,8 @@
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ResBuscarDeuda : ResBase
+    public class ResBuscarDeudaDueno : ResBase
     {
-        public List<Deudor> Deudor { get; set; }
+        public List<Deuda> Deuda { get; set; }
     }
 }

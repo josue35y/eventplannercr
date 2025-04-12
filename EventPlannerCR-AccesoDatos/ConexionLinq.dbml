@@ -290,15 +290,6 @@
       <Column Name="VEHICULO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
-    <ElementType Name="SP_EventosCercanosResult">
-      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FechaInicio" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="lat" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="lon" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="DiasParaEvento" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SP_Lista_Eventos" Method="SP_Lista_Eventos">
     <ElementType Name="SP_Lista_EventosResult">
       <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -392,17 +383,6 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_BuscarDeuda" Method="SP_BuscarDeuda">
-    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
-    <ElementType Name="SP_BuscarDeudaResult">
-      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
-      <Column Name="IDDEUDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOMBREDEUDOR" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
-      <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SP_BuscarDeudasDueño" Method="SP_BuscarDeudasDueño">
     <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
     <ElementType Name="SP_BuscarDeudasDueñoResult">
@@ -410,17 +390,6 @@
       <Column Name="Motivo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="FechaCreacion" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.SP_BuscarDeudasPorUsuario" Method="SP_BuscarDeudasPorUsuario">
-    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
-    <ElementType Name="SP_BuscarDeudasPorUsuarioResult">
-      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
-      <Column Name="IDDEUDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOMBREDEUDOR" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
-      <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
   <Function Name="dbo.SP_BuscarPagosPendientes" Method="SP_BuscarPagosPendientes">
@@ -451,5 +420,38 @@
     <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
+    <ElementType Name="SP_EventosCercanosResult">
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="lat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="lon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DiasParaEvento" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_BuscarDeuda" Method="SP_BuscarDeuda">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarDeudaResult">
+      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="IDDEUDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREDEUDOR" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_BuscarDeudasPorUsuario" Method="SP_BuscarDeudasPorUsuario">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarDeudasPorUsuarioResult">
+      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="IDDEUDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREDEUDOR" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+    </ElementType>
   </Function>
 </Database>

@@ -77,6 +77,7 @@
     <Compile Include="Entidades\Entity\Bitacora.cs" />
     <Compile Include="Entidades\Entity\Carpool.cs" />
     <Compile Include="Entidades\Entity\Deuda.cs" />
+    <Compile Include="Entidades\Entity\Deudor.cs" />
     <Compile Include="Entidades\Entity\Error.cs" />
     <Compile Include="Entidades\Entity\Evento.cs" />
     <Compile Include="Entidades\Entity\GruposCobro.cs" />
@@ -89,6 +90,8 @@
     <Compile Include="Entidades\Request\ReqAgregarEvento.cs" />
     <Compile Include="Entidades\Request\ReqBorrarDeuda.cs" />
     <Compile Include="Entidades\Request\ReqBuscarDeuda.cs" />
+    <Compile Include="Entidades\Request\ReqBuscarDeudaDueno.cs" />
+    <Compile Include="Entidades\Request\ReqBuscarDeudaUsuario.cs" />
     <Compile Include="Entidades\Request\ReqBuscarEvento.cs" />
     <Compile Include="Entidades\Request\ReqBuscarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqActualizarUsuario.cs" />
@@ -109,9 +112,12 @@
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqBuscarDeudaUsuario.cs" />
     <Compile Include="Entidades\Response\ResActualizarEvento.cs" />
     <Compile Include="Entidades\Response\ResBorrarDeuda.cs" />
     <Compile Include="Entidades\Response\ResBuscarDeuda.cs" />
+    <Compile Include="Entidades\Response\ResBuscarDeudaDueno.cs" />
+    <Compile Include="Entidades\Response\ResBuscarDeudaUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarEvento.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
     <Compile Include="Entidades\Response\ResEliminarEvento.cs" />
