@@ -72,16 +72,6 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarUsuario")]
-		public int SP_InsertarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(15)")] string telefono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaNacimiento", DbType="Date")] System.Nullable<System.DateTime> fechaNacimiento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Admin", DbType="Bit")] System.Nullable<bool> admin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(255)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Vehiculo", DbType="Bit")] System.Nullable<bool> vehiculo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, apellidos, telefono, correo, fechaNacimiento, admin, password, vehiculo, iDRETURN, eRRORID, eRRORDESCRIPCION);
-			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(8)));
-			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(9)));
-			eRRORDESCRIPCION = ((string)(result.GetParameterValue(10)));
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BorrarAsistencia")]
 		public int SP_BorrarAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdAsistencia", DbType="Int")] System.Nullable<int> idAsistencia, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> idError, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] ref string errorDescripcion)
 		{
@@ -422,6 +412,16 @@ namespace EventPlannerCR_AccesoDatos
 			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(12)));
 			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(13)));
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(14)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarUsuario")]
+		public int SP_InsertarUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombre", DbType="NVarChar(100)")] string nombre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(100)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="GUIDCorreo", DbType="NVarChar(15)")] string gUIDCorreo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FechaNacimiento", DbType="Date")] System.Nullable<System.DateTime> fechaNacimiento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(255)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nombre, apellidos, correo, gUIDCorreo, fechaNacimiento, password, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(7)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(8)));
 			return ((int)(result.ReturnValue));
 		}
 	}
