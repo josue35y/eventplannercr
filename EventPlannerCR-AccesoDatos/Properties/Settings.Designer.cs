@@ -49,11 +49,22 @@ namespace EventPlannerCR_AccesoDatos.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;Persis" +
-            "t Security Info=True;User ID=master;Password=B6vcaiNQTAMhu;Encrypt=True;TrustSer" +
-            "verCertificate=True")]
+            "t Security Info=True;User ID=master;Encrypt=True;TrustServerCertificate=True")]
         public string EventPlannerConnectionString2 {
             get {
                 return ((string)(this["EventPlannerConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;Persis" +
+            "t Security Info=True;User ID=master;Password=B6vcaiNQTAMhu;Encrypt=True;TrustSer" +
+            "verCertificate=True")]
+        public string EventPlannerConnectionString3 {
+            get {
+                return ((string)(this["EventPlannerConnectionString3"]));
             }
         }
     }
