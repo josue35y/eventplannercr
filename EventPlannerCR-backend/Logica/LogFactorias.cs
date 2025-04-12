@@ -186,11 +186,15 @@ namespace EventPlannerCR_backend.Logica
             {
                 Deudor deudor = new Deudor
                 {
+                    idDeuda = item.IdDeuda,
+                    motivo = item.Motivo,
                     idPropietario = item.IDDEUDOR,
-                    NombrePropietario = item.NOMBREPROPIETARIO,
+                    nombrePropietario = item.NOMBREPROPIETARIO,
+                    telefonoPropietario = item.TELEFONOPROPIETARIO,
                     idDeudor = item.IDDEUDOR,
-                    NombreDeudor = item.NOMBREDEUDOR,
-                    Monto = item.MONTOPERSONAL,
+                    nombreDeudor = item.NOMBREDEUDOR,
+                    telefonoDeudor = item.TELEFONODEUDOR,
+                    monto = item.MONTOPERSONAL,
                     FechaCreacion = item.FechaCreacion
                 };
                 ListaDeudas.Add(deudor);
@@ -224,6 +228,7 @@ namespace EventPlannerCR_backend.Logica
                     Motivo = item.Motivo,
                     Total = (decimal)item.Total,
                     FechaCreacion = item.FechaCreacion,
+                    estado = item.EstadoDeuda
                 };
                 ListaDeudas.Add(Deuda);
             }
@@ -252,11 +257,15 @@ namespace EventPlannerCR_backend.Logica
             {
                 Deudor Deudor = new Deudor
                 {
+                    idDeuda = item.IdDeuda,
+                    motivo = item.Motivo,
                     idPropietario = item.IDPROPIETARIO,
-                    NombrePropietario = item.NOMBREPROPIETARIO,
+                    nombrePropietario = item.NOMBREPROPIETARIO,
+                    telefonoPropietario = item.TELEFONOPROPIETARIO,
                     idDeudor = item.IDDEUDOR,
-                    NombreDeudor = item.NOMBREDEUDOR,
-                    Monto = item.MONTOPERSONAL,
+                    nombreDeudor = item.NOMBREDEUDOR,
+                    telefonoDeudor = item.TELEFONODEUDOR,
+                    monto = item.MONTOPERSONAL,
                     FechaCreacion = item.FechaCreacion
                 };
                 ListaDeudas.Add(Deudor);
@@ -276,6 +285,7 @@ namespace EventPlannerCR_backend.Logica
             return ListaPagos;
         }
 
+        #region Factoria
         private List<Pagos> FactoryBuscarPagos(List<SP_BuscarPagosPendientesResult> tc)
         {
             List<Pagos> ListaPagos = new List<Pagos>();
@@ -285,6 +295,8 @@ namespace EventPlannerCR_backend.Logica
                 Deuda deuda = new Deuda
                 {
                     idDeuda = item.IdDeuda,
+                    Motivo = item.Motivo,
+                    FechaCreacion = item.FechaCreacion
                 };
                 Usuario usuario = new Usuario
                 {
@@ -305,5 +317,7 @@ namespace EventPlannerCR_backend.Logica
 
             return ListaPagos;
         }
+        
+        #endregion
     }
 }

@@ -26,8 +26,9 @@ namespace EventPlannerCR_AccesoDatos.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;User I" +
-            "D=master")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;Persis" +
+            "t Security Info=True;User ID=master;Password=B6vcaiNQTAMhu;Encrypt=True;TrustSer" +
+            "verCertificate=True")]
         public string EventPlannerConnectionString {
             get {
                 return ((string)(this["EventPlannerConnectionString"]));

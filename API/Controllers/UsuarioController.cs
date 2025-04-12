@@ -46,11 +46,14 @@ namespace API.Controllers
         {
             return new LogUsuario().ActualizarUsuario(req);
         }
-
-
-
+        
         // controlar los errores si el api no responde.
-
-        //obtener
+        
+        [HttpGet]
+        [Route("api/usuario/RevisarTelefono")]
+        public ResRevisarTelefono RevisarTelefono(ReqRevisarTelefono req)
+        {
+            return new LogUsuario().RevisarTelefono(req);
+        }
     }
 }

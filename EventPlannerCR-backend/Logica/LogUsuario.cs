@@ -7,6 +7,7 @@ using EventPlannerCR_backend.Entidades;
 using EventPlannerCR_AccesoDatos;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace EventPlannerCR_backend.Logica
 {
@@ -517,6 +518,74 @@ namespace EventPlannerCR_backend.Logica
             }
 
             //Retorno de la respuesta
+            return res;
+        }
+
+        public ResRevisarTelefono RevisarTelefono(ReqRevisarTelefono req)
+        {
+            ResRevisarTelefono res = new ResRevisarTelefono
+            {
+                error = new List<Error>()
+            };
+
+            if (req != null)
+            {
+                if (req.idUsuario == null || req.idUsuario <= 0)
+                {
+                    Error error = new Error
+                    {
+                        ErrorCode = enumErrores.requestIncompleto,
+                        Message = "Telefono nulo o no válido"
+                    };
+                    res.error.Add(error);
+                    res.resultado = false;
+                    return res;
+                }
+
+                try
+                {
+                    bool? verif = null;
+                    using (ConexionLinqDataContext linqDataContext = new ConexionLinqDataContext())
+                    {
+                        linqDataContext.SP_RevisarValidacionTelefono(req.idUsuario, ref verif);
+                    }
+
+                    if (verif == true)
+                    {
+                        res.resultado = true;
+                        res.verificacion = true;
+                    }
+                    else
+                    {
+                        res.resultado = true;
+                        res.verificacion = false;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Error error = new Error
+                    {
+                        ErrorCode = enumErrores.excepcionLogica,
+                        Message = "Ha ocurrido un error " + e.Message
+                    };
+                    res.error.Add(error);
+                    res.resultado = false;
+                    return res;
+                }
+            }
+            else
+            {
+                Error error = new Error
+                {
+                    ErrorCode = enumErrores.requestNulo,
+                    Message = "Req Null"
+                };
+                res.error.Add(error);
+                res.resultado = false;
+                return res;
+            }
+            
             return res;
         }
     }

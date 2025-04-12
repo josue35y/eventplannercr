@@ -118,6 +118,7 @@
     <Compile Include="Entidades\Request\ReqInsertarEvento.cs" />
     <Compile Include="Entidades\Request\ReqBuscarDeudaUsuario.cs" />
     <Compile Include="Entidades\Request\ReqActualizarPagoDeudor.cs" />
+    <Compile Include="Entidades\Request\ReqRevisarTelefono.cs" />
     <Compile Include="Entidades\Response\ResActualizarEvento.cs" />
     <Compile Include="Entidades\Response\ResActualizarPagoDeudor.cs" />
     <Compile Include="Entidades\Response\ResActualizarPagoDueno.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResRevisarTelefono.cs" />
     <Compile Include="Logica\LogDeudas.cs" />
     <Compile Include="Logica\LogFactorias.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
