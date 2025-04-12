@@ -33,7 +33,7 @@ namespace EventPlannerCR_AccesoDatos
     #endregion
 		
 		public ConexionLinqDataContext() : 
-				base(global::EventPlannerCR_AccesoDatos.Properties.Settings.Default.EventPlannerConnectionString, mappingSource)
+				base(global::EventPlannerCR_AccesoDatos.Properties.Settings.Default.EventPlannerConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -394,6 +394,16 @@ namespace EventPlannerCR_AccesoDatos
 			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(12)));
 			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(13)));
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(14)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_ActualizarImagenEvento")]
+		public int SP_ActualizarImagenEvento([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] System.Nullable<int> idEvento, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Banner", DbType="NVarChar(MAX)")] string banner, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idEvento, banner, iDRETURN, eRRORID, eRRORDESCRIPCION);
+			iDRETURN = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(4)));
 			return ((int)(result.ReturnValue));
 		}
 	}
