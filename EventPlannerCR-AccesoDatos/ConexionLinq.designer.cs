@@ -33,7 +33,7 @@ namespace EventPlannerCR_AccesoDatos
     #endregion
 		
 		public ConexionLinqDataContext() : 
-				base(global::EventPlannerCR_AccesoDatos.Properties.Settings.Default.EventPlannerConnectionString, mappingSource)
+				base(global::EventPlannerCR_AccesoDatos.Properties.Settings.Default.EventPlannerConnectionString3, mappingSource)
 		{
 			OnCreated();
 		}
@@ -322,13 +322,6 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarDeudasDueño")]
-		public ISingleResult<SP_BuscarDeudasDueñoResult> SP_BuscarDeudasDueño([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDUSUARIO);
-			return ((ISingleResult<SP_BuscarDeudasDueñoResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_InsertarDeuda")]
 		public int SP_InsertarDeuda([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MONTO", DbType="Decimal(10,2)")] System.Nullable<decimal> mONTO, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DESCRIPCION", DbType="NVarChar(MAX)")] string dESCRIPCION, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
 		{
@@ -356,20 +349,6 @@ namespace EventPlannerCR_AccesoDatos
 			return ((ISingleResult<SP_EventosCercanosResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarDeuda")]
-		public ISingleResult<SP_BuscarDeudaResult> SP_BuscarDeuda([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDDEUDA", DbType="Int")] System.Nullable<int> iDDEUDA)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDDEUDA);
-			return ((ISingleResult<SP_BuscarDeudaResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarDeudasPorUsuario")]
-		public ISingleResult<SP_BuscarDeudasPorUsuarioResult> SP_BuscarDeudasPorUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDUSUARIO);
-			return ((ISingleResult<SP_BuscarDeudasPorUsuarioResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_Actualizar_Pago_Deudor")]
 		public int SP_Actualizar_Pago_Deudor([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDDEUDA", DbType="Int")] System.Nullable<int> iDDEUDA, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDRETURN", DbType="Int")] ref System.Nullable<int> iDRETURN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
 		{
@@ -390,11 +369,40 @@ namespace EventPlannerCR_AccesoDatos
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarDeuda")]
+		public ISingleResult<SP_BuscarDeudaResult> SP_BuscarDeuda([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDDEUDA", DbType="Int")] System.Nullable<int> iDDEUDA)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDDEUDA);
+			return ((ISingleResult<SP_BuscarDeudaResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarDeudasDueño")]
+		public ISingleResult<SP_BuscarDeudasDueñoResult> SP_BuscarDeudasDueño([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDUSUARIO);
+			return ((ISingleResult<SP_BuscarDeudasDueñoResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarDeudasPorUsuario")]
+		public ISingleResult<SP_BuscarDeudasPorUsuarioResult> SP_BuscarDeudasPorUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDUSUARIO);
+			return ((ISingleResult<SP_BuscarDeudasPorUsuarioResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BuscarPagosPendientes")]
 		public ISingleResult<SP_BuscarPagosPendientesResult> SP_BuscarPagosPendientes([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDUSUARIO);
 			return ((ISingleResult<SP_BuscarPagosPendientesResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_RevisarValidacionTelefono")]
+		public int SP_RevisarValidacionTelefono([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDUSUARIO", DbType="Int")] System.Nullable<int> iDUSUARIO, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="VERIFICACION", DbType="Bit")] ref System.Nullable<bool> vERIFICACION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDUSUARIO, vERIFICACION);
+			vERIFICACION = ((System.Nullable<bool>)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -2410,86 +2418,6 @@ namespace EventPlannerCR_AccesoDatos
 		}
 	}
 	
-	public partial class SP_BuscarDeudasDueñoResult
-	{
-		
-		private int _IdDeuda;
-		
-		private string _Motivo;
-		
-		private double _Total;
-		
-		private System.Nullable<System.DateTimeOffset> _FechaCreacion;
-		
-		public SP_BuscarDeudasDueñoResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDeuda", DbType="Int NOT NULL")]
-		public int IdDeuda
-		{
-			get
-			{
-				return this._IdDeuda;
-			}
-			set
-			{
-				if ((this._IdDeuda != value))
-				{
-					this._IdDeuda = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motivo", DbType="NVarChar(255)")]
-		public string Motivo
-		{
-			get
-			{
-				return this._Motivo;
-			}
-			set
-			{
-				if ((this._Motivo != value))
-				{
-					this._Motivo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float NOT NULL")]
-		public double Total
-		{
-			get
-			{
-				return this._Total;
-			}
-			set
-			{
-				if ((this._Total != value))
-				{
-					this._Total = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="DateTimeOffset")]
-		public System.Nullable<System.DateTimeOffset> FechaCreacion
-		{
-			get
-			{
-				return this._FechaCreacion;
-			}
-			set
-			{
-				if ((this._FechaCreacion != value))
-				{
-					this._FechaCreacion = value;
-				}
-			}
-		}
-	}
-	
 	public partial class SP_EventosCercanosResult
 	{
 		
@@ -2591,13 +2519,21 @@ namespace EventPlannerCR_AccesoDatos
 	public partial class SP_BuscarDeudaResult
 	{
 		
+		private int _IdDeuda;
+		
+		private string _Motivo;
+		
 		private int _IDPROPIETARIO;
 		
 		private string _NOMBREPROPIETARIO;
 		
+		private string _TELEFONOPROPIETARIO;
+		
 		private int _IDDEUDOR;
 		
 		private string _NOMBREDEUDOR;
+		
+		private string _TELEFONODEUDOR;
 		
 		private System.Nullable<double> _MONTOPERSONAL;
 		
@@ -2607,6 +2543,38 @@ namespace EventPlannerCR_AccesoDatos
 		
 		public SP_BuscarDeudaResult()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDeuda", DbType="Int NOT NULL")]
+		public int IdDeuda
+		{
+			get
+			{
+				return this._IdDeuda;
+			}
+			set
+			{
+				if ((this._IdDeuda != value))
+				{
+					this._IdDeuda = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motivo", DbType="NVarChar(255)")]
+		public string Motivo
+		{
+			get
+			{
+				return this._Motivo;
+			}
+			set
+			{
+				if ((this._Motivo != value))
+				{
+					this._Motivo = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDPROPIETARIO", DbType="Int NOT NULL")]
@@ -2641,6 +2609,22 @@ namespace EventPlannerCR_AccesoDatos
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONOPROPIETARIO", DbType="NVarChar(15)")]
+		public string TELEFONOPROPIETARIO
+		{
+			get
+			{
+				return this._TELEFONOPROPIETARIO;
+			}
+			set
+			{
+				if ((this._TELEFONOPROPIETARIO != value))
+				{
+					this._TELEFONOPROPIETARIO = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDEUDOR", DbType="Int NOT NULL")]
 		public int IDDEUDOR
 		{
@@ -2669,6 +2653,22 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._NOMBREDEUDOR != value))
 				{
 					this._NOMBREDEUDOR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONODEUDOR", DbType="NVarChar(15)")]
+		public string TELEFONODEUDOR
+		{
+			get
+			{
+				return this._TELEFONODEUDOR;
+			}
+			set
+			{
+				if ((this._TELEFONODEUDOR != value))
+				{
+					this._TELEFONODEUDOR = value;
 				}
 			}
 		}
@@ -2722,16 +2722,122 @@ namespace EventPlannerCR_AccesoDatos
 		}
 	}
 	
+	public partial class SP_BuscarDeudasDueñoResult
+	{
+		
+		private int _IdDeuda;
+		
+		private string _Motivo;
+		
+		private double _Total;
+		
+		private System.Nullable<System.DateTimeOffset> _FechaCreacion;
+		
+		private string _EstadoDeuda;
+		
+		public SP_BuscarDeudasDueñoResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDeuda", DbType="Int NOT NULL")]
+		public int IdDeuda
+		{
+			get
+			{
+				return this._IdDeuda;
+			}
+			set
+			{
+				if ((this._IdDeuda != value))
+				{
+					this._IdDeuda = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motivo", DbType="NVarChar(255)")]
+		public string Motivo
+		{
+			get
+			{
+				return this._Motivo;
+			}
+			set
+			{
+				if ((this._Motivo != value))
+				{
+					this._Motivo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float NOT NULL")]
+		public double Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this._Total = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="DateTimeOffset")]
+		public System.Nullable<System.DateTimeOffset> FechaCreacion
+		{
+			get
+			{
+				return this._FechaCreacion;
+			}
+			set
+			{
+				if ((this._FechaCreacion != value))
+				{
+					this._FechaCreacion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EstadoDeuda", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string EstadoDeuda
+		{
+			get
+			{
+				return this._EstadoDeuda;
+			}
+			set
+			{
+				if ((this._EstadoDeuda != value))
+				{
+					this._EstadoDeuda = value;
+				}
+			}
+		}
+	}
+	
 	public partial class SP_BuscarDeudasPorUsuarioResult
 	{
+		
+		private int _IdDeuda;
+		
+		private string _Motivo;
 		
 		private int _IDPROPIETARIO;
 		
 		private string _NOMBREPROPIETARIO;
 		
+		private string _TELEFONOPROPIETARIO;
+		
 		private int _IDDEUDOR;
 		
 		private string _NOMBREDEUDOR;
+		
+		private string _TELEFONODEUDOR;
 		
 		private System.Nullable<double> _MONTOPERSONAL;
 		
@@ -2741,6 +2847,38 @@ namespace EventPlannerCR_AccesoDatos
 		
 		public SP_BuscarDeudasPorUsuarioResult()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdDeuda", DbType="Int NOT NULL")]
+		public int IdDeuda
+		{
+			get
+			{
+				return this._IdDeuda;
+			}
+			set
+			{
+				if ((this._IdDeuda != value))
+				{
+					this._IdDeuda = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motivo", DbType="NVarChar(255)")]
+		public string Motivo
+		{
+			get
+			{
+				return this._Motivo;
+			}
+			set
+			{
+				if ((this._Motivo != value))
+				{
+					this._Motivo = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDPROPIETARIO", DbType="Int NOT NULL")]
@@ -2775,6 +2913,22 @@ namespace EventPlannerCR_AccesoDatos
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONOPROPIETARIO", DbType="NVarChar(15)")]
+		public string TELEFONOPROPIETARIO
+		{
+			get
+			{
+				return this._TELEFONOPROPIETARIO;
+			}
+			set
+			{
+				if ((this._TELEFONOPROPIETARIO != value))
+				{
+					this._TELEFONOPROPIETARIO = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDEUDOR", DbType="Int NOT NULL")]
 		public int IDDEUDOR
 		{
@@ -2803,6 +2957,22 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._NOMBREDEUDOR != value))
 				{
 					this._NOMBREDEUDOR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONODEUDOR", DbType="NVarChar(15)")]
+		public string TELEFONODEUDOR
+		{
+			get
+			{
+				return this._TELEFONODEUDOR;
+			}
+			set
+			{
+				if ((this._TELEFONODEUDOR != value))
+				{
+					this._TELEFONODEUDOR = value;
 				}
 			}
 		}
@@ -2863,6 +3033,8 @@ namespace EventPlannerCR_AccesoDatos
 		
 		private int _IdDeuda;
 		
+		private string _Motivo;
+		
 		private double _Monto;
 		
 		private bool _EstadoPago;
@@ -2872,6 +3044,8 @@ namespace EventPlannerCR_AccesoDatos
 		private int _IDPROPIETARIO;
 		
 		private string _NOMBREPROPIETARIO;
+		
+		private System.Nullable<System.DateTimeOffset> _FechaCreacion;
 		
 		public SP_BuscarPagosPendientesResult()
 		{
@@ -2905,6 +3079,22 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._IdDeuda != value))
 				{
 					this._IdDeuda = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Motivo", DbType="NVarChar(255)")]
+		public string Motivo
+		{
+			get
+			{
+				return this._Motivo;
+			}
+			set
+			{
+				if ((this._Motivo != value))
+				{
+					this._Motivo = value;
 				}
 			}
 		}
@@ -2985,6 +3175,22 @@ namespace EventPlannerCR_AccesoDatos
 				if ((this._NOMBREPROPIETARIO != value))
 				{
 					this._NOMBREPROPIETARIO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="DateTimeOffset")]
+		public System.Nullable<System.DateTimeOffset> FechaCreacion
+		{
+			get
+			{
+				return this._FechaCreacion;
+			}
+			set
+			{
+				if ((this._FechaCreacion != value))
+				{
+					this._FechaCreacion = value;
 				}
 			}
 		}

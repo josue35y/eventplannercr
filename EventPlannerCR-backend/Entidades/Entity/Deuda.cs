@@ -9,5 +9,6 @@ namespace EventPlannerCR_backend.Entidades
         public string Motivo { get; set; }
         public Decimal Total {  get; set; }
         public DateTimeOffset? FechaCreacion {  get; set; }
+        public String estado { get; set; }
     }
 }
