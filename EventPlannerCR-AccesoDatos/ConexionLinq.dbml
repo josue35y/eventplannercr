@@ -454,4 +454,24 @@
       <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SP_ActualizarImagenEvento" Method="SP_ActualizarImagenEvento">
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Banner" Parameter="banner" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_InsertarImagenEvento" Method="SP_InsertarImagenEvento">
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="FechaInicio" Parameter="fechaInicio" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FechaFin" Parameter="fechaFin" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Lugar" Parameter="lugar" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Banner" Parameter="banner" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
