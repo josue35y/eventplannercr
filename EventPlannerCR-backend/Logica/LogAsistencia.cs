@@ -38,7 +38,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                     if (req.Asistencia.Usuario.IdUsuario <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
+                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de Usuario faltante o invalido."));
                     }
                     if (req.Asistencia.Evento.IdEvento <= 0)
                     {
@@ -71,7 +71,7 @@ namespace EventPlannerCR_backend.Logica
                             if (idError == 4)
                             {
                                 res.resultado = false;
-                                res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "El usuario ya se encuentra inscrito en el evento."));
+                                res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "El Usuario ya se encuentra inscrito en el evento."));
                                 return res;
                             }
                             res.resultado = true;
@@ -114,7 +114,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     if (req.idUsuario <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
+                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de Usuario faltante o invalido."));
                     }
                     if (res.error.Any())
                     {
@@ -281,7 +281,7 @@ namespace EventPlannerCR_backend.Logica
                     {
                         if (req.Estado == false)
                         {
-                            //Si el usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
+                            //Si el Usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
                             req.idCarpool = null;
                         }
                         
@@ -342,7 +342,7 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req.Sesion.Usuario.Admin == false)
                 {
-                    res.error.Add(Error.generarError(enumErrores.noAutorizado, "El usuario no tiene permisos para realizar esta acción."));
+                    res.error.Add(Error.generarError(enumErrores.noAutorizado, "El Usuario no tiene permisos para realizar esta acción."));
                     res.resultado = false;
                     return res;
                 }

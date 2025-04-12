@@ -35,7 +35,7 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                //Validación del nombre del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación del nombre del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Nombre))
                 {
                     Error error = new Error();
@@ -62,7 +62,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                //Validación del apellido del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación del apellido del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Apellidos))
                 {
                     Error error = new Error();
@@ -91,7 +91,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                //Validación del correo del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación del correo del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Correo))
                 {
                     Error error = new Error();
@@ -120,7 +120,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                //Validación de la contraseña del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación de la contraseña del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Password))
                 {
                     Error error = new Error();
@@ -147,7 +147,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                //Validación de la fecha de nacimiento del nuevo Usuario para evitar nulos
                 if (req.Usuario.FechaNacimiento == null || req.Usuario.FechaNacimiento.Date == default)
                 {
                     Error error = new Error();
@@ -162,7 +162,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     res.resultado = false;
                 }
-                //Si no hubo errores se agrega el usuario a la base de datos
+                //Si no hubo errores se agrega el Usuario a la base de datos
                 else
                 {
 
@@ -172,12 +172,25 @@ namespace EventPlannerCR_backend.Logica
 
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-                        linq.SP_InsertarUsuarios(
+                        linq.SP_InsertarUsuario(
                             req.Usuario.Nombre, req.Usuario.Apellidos,
                             req.Usuario.Correo, req.Usuario.FechaNacimiento,
                             req.Usuario.Password, ref idBd, ref idError,
                             ref errorDescripcion);
                     }
+                    if (idBd > 0)
+                    {
+                        res.resultado = true;
+                    }
+                    else
+                    {
+                        res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "Error en base de datos."));
+                    }
+
+
+
+
+
 
                 }
             }
@@ -196,7 +209,7 @@ namespace EventPlannerCR_backend.Logica
             return res;
         }
 
-        //Método para buscar un usuario
+        //Método para buscar un Usuario
         public ResBuscarUsuario BuscarUsuario(ReqBuscarUsuario req)
         {
 
@@ -260,7 +273,7 @@ namespace EventPlannerCR_backend.Logica
                 int? idError = 0;
                 string errorDescripcion = null;
 
-                //Se busca el usuario en la base de datos
+                //Se busca el Usuario en la base de datos
                 using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
                     LogFactorias Factorias = new LogFactorias();
@@ -296,7 +309,6 @@ namespace EventPlannerCR_backend.Logica
 
             try
             {
-
                 using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
                     LogFactorias Factorias = new LogFactorias();
@@ -321,7 +333,7 @@ namespace EventPlannerCR_backend.Logica
             return res;
         }
 
-        //Elimina un usuario
+        //Elimina un Usuario
         public ResEliminarUsuario EliminarUsuario(ReqEliminarUsuario req) { 
         
             ResEliminarUsuario res = new ResEliminarUsuario();
@@ -360,7 +372,7 @@ namespace EventPlannerCR_backend.Logica
                 }
                 else 
                 {
-                    //al no haber errores, se procede a eliminar el usuario
+                    //al no haber errores, se procede a eliminar el Usuario
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
                         int? idBd = 0;
@@ -476,7 +488,7 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                ////Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                ////Validación de la fecha de nacimiento del nuevo Usuario para evitar nulos
                 //if (req.Usuario.FechaNacimiento == null)
                 //{
                 //    Error error = new Error();
@@ -491,7 +503,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     res.resultado = false;
                 }
-                //Si no hubo errores se agrega el usuario a la base de datos
+                //Si no hubo errores se agrega el Usuario a la base de datos
                 else
                 {
 

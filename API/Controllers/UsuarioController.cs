@@ -9,7 +9,7 @@ namespace API.Controllers
     {
         //Insertar Usuario
         [HttpPost]
-        [Route("api/usuario/InsertarUsuario")]
+        [Route("api/Usuario/InsertarUsuario")]
         public ResInsertarUsuario Insertar(ReqInsertarUsuario req)
         {
             return new LogUsuario().InsertarUsuario(req);
@@ -17,7 +17,7 @@ namespace API.Controllers
 
         //Lista de Usuario
         [HttpGet]
-        [Route("api/usuario/Lista_Usuarios")]
+        [Route("api/Usuario/Lista_Usuarios")]
         public ResListaUsuarios Lista_Usuarios(ReqListaUsuarios req)
         {
             return new LogUsuario().ListaUsuarios(req);
@@ -25,7 +25,7 @@ namespace API.Controllers
 
         //Buscar Usuario
         [HttpPost]
-        [Route("api/usuario/BuscarUsuario")]
+        [Route("api/Usuario/BuscarUsuario")]
         public ResBuscarUsuario BuscarUsuario(ReqBuscarUsuario req)
         {
             return new LogUsuario().BuscarUsuario(req);
@@ -33,7 +33,7 @@ namespace API.Controllers
 
         //Eliminar Usuario
         [HttpPost]
-        [Route("api/usuario/Eliminar")]
+        [Route("api/Usuario/Eliminar")]
         public ResEliminarUsuario Eliminar(ReqEliminarUsuario req)
         {
             return new LogUsuario().EliminarUsuario(req);
@@ -41,7 +41,7 @@ namespace API.Controllers
         
         //Actualizar Usuario
         [HttpPost]
-        [Route("api/usuario/Actualizar")]
+        [Route("api/Usuario/Actualizar")]
         public ResActualizarUsuario ActualizarUsuario(ReqActualizarUsuario req)
         {
             return new LogUsuario().ActualizarUsuario(req);

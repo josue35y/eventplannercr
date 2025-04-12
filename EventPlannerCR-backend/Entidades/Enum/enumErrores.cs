@@ -49,6 +49,7 @@ namespace EventPlannerCR_backend.Entidades
 
         urlInvlaida = 40,
         correoNoEnviado = 41,
+        LoginIncorrecto = 42,
 
     }
 }

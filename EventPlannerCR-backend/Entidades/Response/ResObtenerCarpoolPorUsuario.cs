@@ -17,7 +17,7 @@ namespace EventPlannerCR_backend.Entidades
 
             /// <summary>
             /// Nombre completo del dueño del carpool
-            /// sale de la tabla usuario, con el idUsuario
+            /// sale de la tabla Usuario, con el idUsuario
             /// </summary>
             /// 
             public String NombreCompletoDueno { get; set; }

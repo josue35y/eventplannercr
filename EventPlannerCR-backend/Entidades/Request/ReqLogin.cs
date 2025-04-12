@@ -8,9 +8,7 @@ namespace EventPlannerCR_backend.Entidades
 {
     public class ReqLogin
     {
-        public bool Rol { get; set; }
-        public String Usuario { get; set; }
-        public String Password { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }
 

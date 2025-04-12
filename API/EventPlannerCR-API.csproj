@@ -162,6 +162,7 @@
     <Compile Include="Controllers\CarpoolController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginSesionController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -240,6 +241,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Asistencia\" />
     <Folder Include="Views\Carpool\" />
+    <Folder Include="Views\LoginSesion\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>

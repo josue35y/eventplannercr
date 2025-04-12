@@ -1,9 +1,12 @@
-﻿using EventPlannerCR_backend.Entidades;
+﻿using EventPlannerCR_AccesoDatos;
+using EventPlannerCR_backend.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,77 +35,147 @@ namespace EventPlannerCR_backend.Logica
         //    }
         //}
 
-        public ResLogin login(ReqLogin req)
+
+
+        public ResLogin Login(ReqLogin req)
         {
             ResLogin res = new ResLogin();
             res.error = new List<Error>();
 
-
-
-
-
-
-            if (res.error.Count == 0) // Procede solo si no hay errores previos
+            if (!string.IsNullOrEmpty(req.Usuario.Correo) && !string.IsNullOrEmpty(req.Usuario.Password))
             {
+                int? UsuarioDB = 0;
+                string nombreBD = "";
+                string apellidosBD = "";
+                bool? admin = false;
+                int? idError = 0;
+                string errorDescripcion = "";
 
-                int? idReturn = 0;
-                int? idErrorId = 0;
-                string errorBD = "";
-                bool UsuarioValido = this.ConfirmarUsuarioNuevo(req.Usuario);
-                Guid guid = Guid.NewGuid();
-                String token = guid.ToString();
-
-                if (UsuarioValido)
+                using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                 {
-
-                    //using (ConexionLinqDataContext ConexionProyecto = new ConexionLinqDataContext())
-                    //{
-                    //    ConexionProyecto.SP_InsertarUsuario_josue(
-
-
-                    //            req.usuario.Nombre,
-                    //            req.usuario.Apellidos,
-                    //            req.usuario.Telefono,
-                    //            req.usuario.Correo,
-                    //            req.usuario.FechaNacimiento,
-                    //            req.usuario.Provincia,
-                    //            req.usuario.Canton,
-                    //            req.usuario.Distrito,
-                    //            req.usuario.Admin,
-                    //            req.usuario.Password,
-                    //            req.usuario.Vehiculo,
-                    //            guid.ToString(),
-                    //            estado,
-                    //            ref idBd,
-                    //            ref idError,
-                    //            ref errorDescripcion);
-                    //}
+                    linq.SP_LoginUsuario(
+                        req.Usuario.Correo,
+                        req.Usuario.Password,
+                        ref UsuarioDB,
+                        ref nombreBD,
+                        ref apellidosBD,
+                        ref admin,
+                        ref idError,
+                        ref errorDescripcion);
                 }
-                if (idReturn > 0)
+
+                if (UsuarioDB > 0)
                 {
-                    String url = "https://localhost:44316/Administrador/ValidarCuenta?token=" + token;
-
-
-
-                    if (EnviarCorreos(req.Usuario, url))
+                    res.Usuario = new Usuario
                     {
-                        res.resultado = true;
-                    }
-                    else
+                        IdUsuario = UsuarioDB.Value,
+                        Nombre = nombreBD,
+                        Apellidos = apellidosBD,
+                        Correo = req.Usuario.Correo,
+                        Password = req.Usuario.Password,
+                        Admin = admin ?? false
+                    };
+
+                    res.resultado = true;
+                    
+                    using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-                        res.resultado = false;
-                        res.error.Add(Error.generarError(enumErrores.errorConversion, "No se envío el correo"));
+                        int? idBd = 0;
+                        LogFactorias Factorias = new LogFactorias();
+                        List<SP_Buscar_UsuarioResult> tc = linq.SP_Buscar_Usuario(
+                            res.Usuario.IdUsuario,
+                            res.Usuario.Correo,
+                            res.Usuario.Nombre,
+                            res.Usuario.Apellidos,
+                            res.Usuario.Admin,
+                            ref idBd,
+                            ref idError,
+                            ref errorDescripcion).ToList();
+
+                        if (tc.Any())
+                        {
+                            res.Usuario = Factorias.Buscarusuario(tc).FirstOrDefault();
+                        }
                     }
                 }
                 else
                 {
-
                     res.resultado = false;
-                    res.error.Add(Error.generarError(enumErrores.excepcionLogica, errorBD));
+                    res.error.Add(Error.generarError(enumErrores.LoginIncorrecto, errorDescripcion));
                 }
             }
+            else
+            {
+                res.resultado = false;
+                res.error.Add(Error.generarError(enumErrores.LoginIncorrecto, "Faltan valores para iniciar sesión."));
+            }
+
             return res;
         }
+
+        public ResRegistrarUsuario RegistrarUsuario(ReqRegistrarUsuario req)
+        {
+            //Se inicializan el response y la logica de crud de usuario
+            ResRegistrarUsuario res = new ResRegistrarUsuario();
+            LogUsuario logUsuario = new LogUsuario();
+
+            //Se inserta el usuario en la base de datos.
+            logUsuario.InsertarUsuario(new ReqInsertarUsuario
+            { 
+                Usuario = req.Usuario 
+            });
+
+            // Aquí se busca el usuario recién insertado y se instancia como "UsuarioAConfirmar" 
+            ResBuscarUsuario ResBuscarUsuario = logUsuario.BuscarUsuario(new ReqBuscarUsuario
+            {
+                Usuario = new Usuario
+                {
+                    Correo = req.Usuario.Correo
+                }
+            });
+            ResBuscarUsuario.ListaUsuarios = ResBuscarUsuario.ListaUsuarios.Where(x => x.Correo == req.Usuario.Correo).ToList();
+            Usuario UsuarioAConfirmar = new Usuario();
+            foreach (var item in ResBuscarUsuario.ListaUsuarios)
+            {
+                UsuarioAConfirmar = item;
+            }
+
+            //Se genera el código de verificación y se asigna al usuario "UsuarioAConfirmar "
+            var random = new Random();
+            var code = random.Next(1000, 9999).ToString();
+            UsuarioAConfirmar.Cod_Ver_Cor = Convert.ToInt32(code);
+
+            //El codigo se guarda en la base de datos.
+            ResActualizarUsuario resActualizarUsuario = logUsuario.ActualizarUsuario(new ReqActualizarUsuario
+            {
+                Usuario = UsuarioAConfirmar
+            });
+
+            //Se genera la URL de verificación.
+            string url = $"https://localhost:44373/api/utilitarios/ConfirmarUsuario?cod={code}&correo={UsuarioAConfirmar.Correo}";
+
+            //Se envía el correo de verificación.
+            bool correoEnviado = EnviarCorreos(UsuarioAConfirmar.Correo, url);
+            if (!correoEnviado)
+            {
+                res.resultado = false;
+                res.error.Add(Error.generarError(enumErrores.correoNoEnviado, "Error al enviar el correo de verificación."));
+                return res;
+            }
+            else
+            {
+                res.resultado = true;
+            }
+
+            ConfirmarUsuarioNuevo(UsuarioAConfirmar.Correo);
+            res.Usuario = UsuarioAConfirmar;
+
+            return res;
+        }
+        
+
+
+
         public static bool EnviarCorreos(string destinatario, string url)
         {
 
@@ -246,28 +319,35 @@ namespace EventPlannerCR_backend.Logica
         }
         public bool ConfirmarUsuarioNuevo(String Usuario)
         {
-
             bool Confirmacion = true;
-            bool? EsEstudiante = false;
-            bool? EsProfesor = false;
-            int? IDReturn = 0;
-            int? IDError = 0;
-            String ErrorDescripcion = "";
-
-            //using (ConexionLinqDataContext ConexionProyecto = new ConexionLinqDataContext())
-            //{
-            //    ConexionProyecto.SP_VERIFICAR_ESTUDIANTE_NUEVO(
-            //        ref Usuario, 
-            //        ref EsEstudiante,
-            //        ref IDReturn, 
-            //        ref IDError, 
-            //        ref ErrorDescripcion);
-            //}
-            if (EsEstudiante.Value == true || EsProfesor.Value == true)
+            LogUsuario logUsuario = new LogUsuario();
+            ReqBuscarUsuario ReqBuscarUsuario = new ReqBuscarUsuario
             {
-                Confirmacion = false;
+                Usuario = new Usuario
+                {
+                    Correo = Usuario
+                }
+            };
+            ResBuscarUsuario ResBuscarUsuario = logUsuario.BuscarUsuario(ReqBuscarUsuario);
+            ResBuscarUsuario.ListaUsuarios = ResBuscarUsuario.ListaUsuarios.Where(x => x.Correo == Usuario).ToList();
+            Usuario UsuarioAConfirmar = new Usuario();
+            foreach (var item in ResBuscarUsuario.ListaUsuarios)
+            {
+                UsuarioAConfirmar = item;
             }
+
+            ReqActualizarUsuario ReqActualizarUsuario = new ReqActualizarUsuario
+            {
+                Usuario = UsuarioAConfirmar
+
+            };
+            ResActualizarUsuario resActualizarUsuario = logUsuario.ActualizarUsuario(ReqActualizarUsuario);
+
+
+
             return Confirmacion;
         }
+        
+
     }
 }

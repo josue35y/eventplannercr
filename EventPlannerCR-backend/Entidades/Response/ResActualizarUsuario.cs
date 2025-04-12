@@ -8,5 +8,6 @@ namespace EventPlannerCR_backend.Entidades
 {
     public class ResActualizarUsuario : ResBase
     {
+        public Usuario Usuario { get; set; }
     }
 }

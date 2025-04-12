@@ -84,7 +84,7 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                //Validación del nombre del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación del nombre del nuevo Usuario para evitar nulos o espacio en blanco
                 if (req != null && String.IsNullOrEmpty(req.Evento.Nombre))
                 {
                     Error error = new Error();
@@ -95,7 +95,7 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
                 
-                 //Validación de la fecha de inicio del nuevo usuario para evitar nulos o default (que pasa si es una fecha anterior al día de hoy)
+                 //Validación de la fecha de inicio del nuevo Usuario para evitar nulos o default (que pasa si es una fecha anterior al día de hoy)
                 if (req.Evento.FechaInicio == null || req.Evento.FechaInicio == default || 
                     req.Evento.FechaInicio < DateTime.Now.Date)
                 {
@@ -106,7 +106,7 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                //Validación de la fecha de nacimiento del nuevo usuario para evitar nulos
+                //Validación de la fecha de nacimiento del nuevo Usuario para evitar nulos
                 if (req.Evento.FechaFin == null || req.Evento.FechaFin == default 
                     || req.Evento.FechaFin <= DateTime.Now.Date)
                 {
@@ -117,7 +117,7 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                //Validación del correo del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación del correo del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Evento.Lugar))
                 {
                     Error error = new Error();
@@ -128,7 +128,7 @@ namespace EventPlannerCR_backend.Logica
                     res.error.Add(error);
                 }
 
-                //Validación del apellido del nuevo usuario para evitar nulos o espacio en blanco
+                //Validación del apellido del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Evento.Descripcion))
                 {
                     Error error = new Error();
@@ -144,7 +144,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     res.resultado = false;
                 }
-                //Si no hubo errores se agrega el usuario a la base de datos
+                //Si no hubo errores se agrega el Usuario a la base de datos
                 else
                 {
 

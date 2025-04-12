@@ -107,6 +107,7 @@
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarEvento.cs" />
     <Compile Include="Entidades\Request\ReqLogin.cs" />
+    <Compile Include="Entidades\Request\ReqRegistrarUsuario.cs" />
     <Compile Include="Entidades\Response\ResEditarCarpool.cs" />
     <Compile Include="Entidades\Response\ResEliminarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarEvento.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResRegistrarUsuario.cs" />
     <Compile Include="Logica\LogFactorias.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
     <Compile Include="Logica\LogBitacora.cs" />
