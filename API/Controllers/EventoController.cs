@@ -1,10 +1,5 @@
 ﻿using EventPlannerCR_backend.Entidades;
 using EventPlannerCR_backend.Logica;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers

@@ -17,6 +17,11 @@ namespace EventPlannerCR_backend.Logica
                 error = new List<Error>()
             };
 
+            Usuario usuario = new Usuario
+            {
+                IdUsuario = req.Deuda.Usuario.IdUsuario
+            };
+
             if (req != null)
             {
                 if (req.Deuda.Usuario.IdUsuario <= 0 || req.Deuda.Usuario.IdUsuario == null)
@@ -25,15 +30,6 @@ namespace EventPlannerCR_backend.Logica
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "Id Usuario Faltante"
-                    };
-                    res.error.Add(error);
-                }
-
-                {
-                    Error error = new Error
-                    {
-                        ErrorCode = enumErrores.idFaltante,
-                        Message = "Usuario Faltante"
                     };
                     res.error.Add(error);
                 }
@@ -74,6 +70,21 @@ namespace EventPlannerCR_backend.Logica
                     {
                         linq.SP_InsertarDeuda(req.Deuda.Usuario.IdUsuario, req.Deuda.Total, req.Deuda.Motivo,
                             ref idReturn, ref errorId, ref errorMessage);
+                    }
+
+                    if (idReturn != null && idReturn > 0)
+                    {
+                        res.resultado = true;
+                    }
+                    else
+                    {
+                        res.resultado = false;
+                        Error error = new Error
+                        {
+                            ErrorCode = enumErrores.datosNoEncontrados,
+                            Message = "No se encontraron datos"
+                        };
+                        res.error.Add(error);
                     }
                 }
                 catch (Exception e)
@@ -135,6 +146,21 @@ namespace EventPlannerCR_backend.Logica
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
                         linq.SP_BorrarDeuda(req.Deuda.idDeuda, ref idReturn, ref errorId, ref errorMessage);
+                    }
+
+                    if (errorId != null && errorId == 0)
+                    {
+                        res.resultado = true;
+                    }
+                    else
+                    {
+                        res.resultado = false;
+                        Error error = new Error
+                        {
+                            ErrorCode = enumErrores.datosNoEncontrados,
+                            Message = "No se encontraron datos"
+                        };
+                        res.error.Add(error);
                     }
                 }
                 catch (Exception e)
@@ -314,7 +340,7 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #endregion
-        
+
         #region BuscarDeudaPorUsuario
 
         public ResBuscarDeudaUsuario BuscarDeudaUsuario(ReqBuscarDeudaUsuario req)
@@ -345,7 +371,8 @@ namespace EventPlannerCR_backend.Logica
 
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-                        List<SP_BuscarDeudasPorUsuarioResult> tc = linq.SP_BuscarDeudasPorUsuario(req.idUsuario).ToList();
+                        List<SP_BuscarDeudasPorUsuarioResult> tc = linq.SP_BuscarDeudasPorUsuario(req.idUsuario)
+                            .ToList();
                         res.Deudas = Factorias.BuscarDeudaPorUsuario(tc);
                     }
                 }
@@ -372,6 +399,5 @@ namespace EventPlannerCR_backend.Logica
         }
 
         #endregion
-        
     }
 }

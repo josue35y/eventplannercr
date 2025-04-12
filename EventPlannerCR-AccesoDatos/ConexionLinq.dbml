@@ -352,22 +352,6 @@
     <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.SP_Actualizar_Pago_Deudor" Method="SP_Actualizar_Pago_Deudor">
-    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SP_Actualizar_Pago_Dueño" Method="SP_Actualizar_Pago_Dueño">
-    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
-    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.SP_BorrarDeuda" Method="SP_BorrarDeuda">
     <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
     <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
@@ -390,18 +374,6 @@
       <Column Name="Motivo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="FechaCreacion" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.SP_BuscarPagosPendientes" Method="SP_BuscarPagosPendientes">
-    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
-    <ElementType Name="SP_BuscarPagosPendientesResult">
-      <Column Name="IdPago" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdDeuda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Monto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="EstadoPago" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ConfirmacionPago" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
   <Function Name="dbo.SP_InsertarDeuda" Method="SP_InsertarDeuda">
@@ -452,6 +424,34 @@
       <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
       <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Actualizar_Pago_Deudor" Method="SP_Actualizar_Pago_Deudor">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Actualizar_Pago_Dueño" Method="SP_Actualizar_Pago_Dueño">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BuscarPagosPendientes" Method="SP_BuscarPagosPendientes">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarPagosPendientesResult">
+      <Column Name="IdPago" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdDeuda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Monto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EstadoPago" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ConfirmacionPago" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>
