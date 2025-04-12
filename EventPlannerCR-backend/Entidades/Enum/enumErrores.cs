@@ -45,5 +45,6 @@ namespace EventPlannerCR_backend.Entidades
         LugarFaltante = 26,
         FechaInicioEventoFaltante = 27,
         FechaFinalEventoFaltante = 28,
+        excepcionInsertarEvento = 29,
     }
 }

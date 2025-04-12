@@ -3,5 +3,6 @@
     public class ReqActualizarEvento : ReqBase
     {
         public Evento Evento { get; set; }
+        public byte[] Imagen { get; set; }
     }
 }

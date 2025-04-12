@@ -110,10 +110,43 @@ namespace EventPlannerCR_backend.Logica
                             req.Evento.Lugar, req.Evento.Provincia, req.Evento.Canton,
                             req.Evento.Distrito, (decimal)req.Evento.Latitud, (decimal)req.Evento.Longitud,
                             ref idBd, ref idError, ref errorDescripcion);
+
+                        if (idBd < 0)
+                        {
+
+                            Error error = new Error();
+                            error.ErrorCode = enumErrores.excepcionInsertarEvento;
+                            error.Message = "Error al insertar Evento";
+                            res.error.Add(error);
+                            res.resultado = false;
+                        }
+                        else { 
+                            res.resultado = true;
+                        }
                     }
 
-                    res.resultado = true;
+                    if (req.Imagen != null) {
 
+                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        {
+                            linq.SP_InsertarImagenEvento(req.Evento.IdEvento, req.Evento.Nombre, req.Evento.FechaInicio, req.Evento.FechaFin, req.Evento.Lugar,
+                                req.Evento.Imagen, ref idBd, ref idError, ref errorDescripcion);
+
+                            if (idBd < 0)
+                            {
+
+                                Error error = new Error();
+                                error.ErrorCode = enumErrores.excepcionInsertarEvento;
+                                error.Message = "Error al insertar Imagen";
+                                res.error.Add(error);
+                                res.resultado = false;
+                            }
+                            else
+                            {
+                                res.resultado = true;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -236,6 +269,30 @@ namespace EventPlannerCR_backend.Logica
                             ref errorDescripcion);
 
                         res.resultado = true;
+                    }
+
+                    if (req.Imagen != null)
+                    {
+                        req.Evento.Imagen = Convert.ToBase64String(req.Imagen);
+
+                        using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+                        {
+                            linq.SP_ActualizarImagenEvento(req.Evento.IdEvento, req.Evento.Imagen, ref idBd, ref idError, ref errorDescripcion);
+
+                            if (idBd < 0)
+                            {
+
+                                Error error = new Error();
+                                error.ErrorCode = enumErrores.excepcionInsertarEvento;
+                                error.Message = "Error al insertar Imagen";
+                                res.error.Add(error);
+                                res.resultado = false;
+                            }
+                            else
+                            {
+                                res.resultado = true;
+                            }
+                        }
                     }
                 }
                 

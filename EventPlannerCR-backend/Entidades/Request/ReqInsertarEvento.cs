@@ -9,5 +9,6 @@ namespace EventPlannerCR_backend.Entidades
     public class ReqInsertarEvento
     {
         public Evento Evento { get; set; }
+        public byte[] Imagen { get; set; }
     }
 }
