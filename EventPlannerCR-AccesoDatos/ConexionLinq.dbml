@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EventPlanner" Class="ConexionLinqDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;User ID=master" SettingsObjectName="EventPlannerCR_AccesoDatos.Properties.Settings" SettingsPropertyName="EventPlannerConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=eventplanner.database.windows.net;Initial Catalog=EventPlanner;Persist Security Info=True;User ID=master;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="EventPlannerCR_AccesoDatos.Properties.Settings" SettingsPropertyName="EventPlannerConnectionString" Provider="System.Data.SqlClient" />
   <Function Name="dbo.SP_Actualizar_Clima" Method="SP_Actualizar_Clima">
     <Parameter Name="IDEVENTO" Parameter="iDEVENTO" Type="System.Int32" DbType="Int" />
     <Parameter Name="CLIMA" Parameter="cLIMA" Type="System.String" DbType="NVarChar(MAX)" />
@@ -180,6 +180,17 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SP_InsertarUsuarios" Method="SP_InsertarUsuarios">
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="FechaNacimiento" Parameter="fechaNacimiento" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.SP_Buscar_Usuario" Method="SP_Buscar_Usuario">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
@@ -247,6 +258,91 @@
       <Column Name="VEHICULO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SP_Lista_Eventos" Method="SP_Lista_Eventos">
+    <ElementType Name="SP_Lista_EventosResult">
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FechaFin" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Lugar" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Clima" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="lat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="lon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Canton" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distrito" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Buscar_Evento" Method="SP_Buscar_Evento">
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Lugar" Parameter="lugar" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <ElementType Name="SP_Buscar_EventoResult">
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FechaFin" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Lugar" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Clima" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="lat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="lon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Canton" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distrito" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_ActualizarEvento" Method="SP_ActualizarEvento">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="FechaInicio" Parameter="fechaInicio" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FechaFin" Parameter="fechaFin" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Lugar" Parameter="lugar" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Clima" Parameter="clima" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Latitud" Parameter="latitud" Type="System.Double" DbType="Float" />
+    <Parameter Name="Longitud" Parameter="longitud" Type="System.Double" DbType="Float" />
+    <Parameter Name="Provincia" Parameter="provincia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Canton" Parameter="canton" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Distrito" Parameter="distrito" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Eliminar_Evento" Method="SP_Eliminar_Evento">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="errorDescripcion" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BorrarDeuda" Method="SP_BorrarDeuda">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BorrarGrupoDeCobro" Method="SP_BorrarGrupoDeCobro">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_InsertarGrupoDeCobro" Method="SP_InsertarGrupoDeCobro">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.SP_EventosCercanos" Method="SP_EventosCercanos">
     <ElementType Name="SP_EventosCercanosResult">
       <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -256,15 +352,128 @@
       <Column Name="DiasParaEvento" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SP_LoginUsuario" Method="SP_LoginUsuario">
-    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="ID_USUARIO" Parameter="iD_USUARIO" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="NOMBRE" Parameter="nOMBRE" Type="System.String" DbType="NVarChar(100)" Direction="InOut" />
-    <Parameter Name="APELLIDOS" Parameter="aPELLIDOS" Type="System.String" DbType="NVarChar(100)" Direction="InOut" />
-    <Parameter Name="ADMIN" Parameter="aDMIN" Type="System.Boolean" DbType="Bit" Direction="InOut" />
+  <Function Name="dbo.SP_BuscarPagosPendientes" Method="SP_BuscarPagosPendientes">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarPagosPendientesResult">
+      <Column Name="IdPago" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdDeuda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Motivo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Monto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EstadoPago" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ConfirmacionPago" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_ActualizarImagenEvento" Method="SP_ActualizarImagenEvento">
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Banner" Parameter="banner" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_ActualizarUsuario" Method="SP_ActualizarUsuario">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="TelefonoVerificado" Parameter="telefonoVerificado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CodVerTel" Parameter="codVerTel" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="CorreoVerificado" Parameter="correoVerificado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CodVerCor" Parameter="codVerCor" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Admin" Parameter="admin" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="Vehiculo" Parameter="vehiculo" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Actualizar_Pago_Deudor" Method="SP_Actualizar_Pago_Deudor">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_Actualizar_Pago_Dueño" Method="SP_Actualizar_Pago_Dueño">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BuscarDeuda" Method="SP_BuscarDeuda">
+    <Parameter Name="IDDEUDA" Parameter="iDDEUDA" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarDeudaResult">
+      <Column Name="IdDeuda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Motivo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONOPROPIETARIO" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="IDDEUDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREDEUDOR" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONODEUDOR" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_BuscarDeudasDueño" Method="SP_BuscarDeudasDueño">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarDeudasDueñoResult">
+      <Column Name="IdDeuda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Motivo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+      <Column Name="EstadoDeuda" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_BuscarDeudasPorUsuario" Method="SP_BuscarDeudasPorUsuario">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_BuscarDeudasPorUsuarioResult">
+      <Column Name="IdDeuda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Motivo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IDPROPIETARIO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREPROPIETARIO" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONOPROPIETARIO" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="IDDEUDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NOMBREDEUDOR" Type="System.String" DbType="NVarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONODEUDOR" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="MONTOPERSONAL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EstadoPago" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_InsertarUsuario" Method="SP_InsertarUsuario">
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="GUIDCorreo" Parameter="gUIDCorreo" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="FechaNacimiento" Parameter="fechaNacimiento" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_InsertarDeuda" Method="SP_InsertarDeuda">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MONTO" Parameter="mONTO" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="DESCRIPCION" Parameter="dESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_RevisarValidacionTelefono" Method="SP_RevisarValidacionTelefono">
+    <Parameter Name="IDUSUARIO" Parameter="iDUSUARIO" Type="System.Int32" DbType="Int" />
+    <Parameter Name="VERIFICACION" Parameter="vERIFICACION" Type="System.Boolean" DbType="Bit" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.SP_VerificarCuenta" Method="SP_VerificarCuenta">
@@ -289,31 +498,13 @@
       <Column Name="VEHICULO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SP_InsertarUsuario" Method="SP_InsertarUsuario">
-    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="GUIDCorreo" Parameter="gUIDCorreo" Type="System.String" DbType="NVarChar(15)" />
-    <Parameter Name="FechaNacimiento" Parameter="fechaNacimiento" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SP_ActualizarUsuario" Method="SP_ActualizarUsuario">
-    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(15)" />
-    <Parameter Name="TelefonoVerificado" Parameter="telefonoVerificado" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CodVerTel" Parameter="codVerTel" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="CorreoVerificado" Parameter="correoVerificado" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CodVerCor" Parameter="codVerCor" Type="System.String" DbType="NVarChar(15)" />
-    <Parameter Name="Admin" Parameter="admin" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="Vehiculo" Parameter="vehiculo" Type="System.Boolean" DbType="Bit" />
+  <Function Name="dbo.SP_InsertarImagenEvento" Method="SP_InsertarImagenEvento">
+    <Parameter Name="IdEvento" Parameter="idEvento" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre" Parameter="nombre" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="FechaInicio" Parameter="fechaInicio" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FechaFin" Parameter="fechaFin" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Lugar" Parameter="lugar" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Banner" Parameter="banner" Type="System.String" DbType="NVarChar(MAX)" />
     <Parameter Name="IDRETURN" Parameter="iDRETURN" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
