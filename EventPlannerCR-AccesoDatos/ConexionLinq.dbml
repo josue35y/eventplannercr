@@ -510,4 +510,15 @@
     <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SP_LoginUsuario" Method="SP_LoginUsuario">
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="ID_USUARIO" Parameter="iD_USUARIO" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="NOMBRE" Parameter="nOMBRE" Type="System.String" DbType="NVarChar(100)" Direction="InOut" />
+    <Parameter Name="APELLIDOS" Parameter="aPELLIDOS" Type="System.String" DbType="NVarChar(100)" Direction="InOut" />
+    <Parameter Name="ADMIN" Parameter="aDMIN" Type="System.Boolean" DbType="Bit" Direction="InOut" />
+    <Parameter Name="ERRORID" Parameter="eRRORID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ERRORDESCRIPCION" Parameter="eRRORDESCRIPCION" Type="System.String" DbType="NVarChar(MAX)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

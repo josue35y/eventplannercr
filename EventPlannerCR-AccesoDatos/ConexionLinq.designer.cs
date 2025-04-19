@@ -433,6 +433,19 @@ namespace EventPlannerCR_AccesoDatos
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(8)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_LoginUsuario")]
+		public int SP_LoginUsuario([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Correo", DbType="NVarChar(100)")] string correo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(255)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID_USUARIO", DbType="Int")] ref System.Nullable<int> iD_USUARIO, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NOMBRE", DbType="NVarChar(100)")] ref string nOMBRE, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="APELLIDOS", DbType="NVarChar(100)")] ref string aPELLIDOS, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ADMIN", DbType="Bit")] ref System.Nullable<bool> aDMIN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORID", DbType="Int")] ref System.Nullable<int> eRRORID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ERRORDESCRIPCION", DbType="NVarChar(MAX)")] ref string eRRORDESCRIPCION)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), correo, password, iD_USUARIO, nOMBRE, aPELLIDOS, aDMIN, eRRORID, eRRORDESCRIPCION);
+			iD_USUARIO = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			nOMBRE = ((string)(result.GetParameterValue(3)));
+			aPELLIDOS = ((string)(result.GetParameterValue(4)));
+			aDMIN = ((System.Nullable<bool>)(result.GetParameterValue(5)));
+			eRRORID = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			eRRORDESCRIPCION = ((string)(result.GetParameterValue(7)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_BuscarAsistenciaPorEventoResult
