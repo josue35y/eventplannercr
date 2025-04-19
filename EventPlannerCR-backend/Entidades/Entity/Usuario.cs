@@ -16,7 +16,7 @@ namespace EventPlannerCR_backend.Entidades
         public int? Cod_Ver_Tel {  get; set; }
         public String Correo { get; set; }
         public bool? Correo_Verificado { get; set; }
-        public int? Cod_Ver_Cor { get; set; }
+        public string Cod_Ver_Cor { get; set; }
         public bool? Admin {  get; set; }
         public String Password { get; set; }
         public DateTime FechaNacimiento { get; set; }

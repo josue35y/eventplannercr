@@ -17,28 +17,6 @@ namespace EventPlannerCR_backend.Logica
 {
     public class LogUtilitarios
     {
-        //public async Task<byte[]> ConvertirImagenBytes(FileResult pickedImage)
-        //{
-        //    try
-        //    {
-        //        using (var image = await Image.LoadAsync(ruta))
-        //        {
-        //            using (var ms = new MemoryStream())
-        //            {
-        //                await image.SaveAsPngAsync(ms);
-        //                byte[] imageBytes = ms.ToArray();
-        //                return Convert.ToBase64String(imageBytes);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al convertir la imagen a Base64: " + ex.Message);
-        //    }
-        //}
-
-
-
         public ResLogin Login(ReqLogin req)
         {
             ResLogin res = new ResLogin();
@@ -153,7 +131,7 @@ namespace EventPlannerCR_backend.Logica
             //Se genera el código de verificación y se asigna al usuario "UsuarioAConfirmar "
             var random = new Random();
             var code = random.Next(1000, 9999).ToString();
-            UsuarioAConfirmar.Cod_Ver_Cor = Convert.ToInt32(code);
+            UsuarioAConfirmar.Cod_Ver_Cor = code;
 
             //El codigo se guarda en la base de datos.
             ResActualizarUsuario resActualizarUsuario = logUsuario.ActualizarUsuario(new ReqActualizarUsuario
@@ -184,74 +162,6 @@ namespace EventPlannerCR_backend.Logica
 
         public ResVerificarCuenta VerificarCuenta(ReqVerificarCuenta req)
         {
-
-            //ResVerificarCuenta res = new ResVerificarCuenta();
-            //string connectionString = "Server=localhost;Database=TuBaseDatos;User Id=sa;Password=tuPassword;";
-            //using (SqlConnection conn = new SqlConnection(connectionString))
-            //{
-            //    conn.Open();
-            //    using (SqlCommand cmd = new SqlCommand("SP_VerificarCuenta", conn))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        cmd.Parameters.AddWithValue("@Correo", req.Correo);
-            //        cmd.Parameters.AddWithValue("@Codigo", req.Codigo);
-            //        // Salidas
-            //        SqlParameter pIdError = new SqlParameter("@idError", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            //        SqlParameter pDescError = new SqlParameter("@errorDescripcion", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
-            //        cmd.Parameters.Add(pIdError);
-            //        cmd.Parameters.Add(pDescError);
-            //        using (SqlDataReader reader = cmd.ExecuteReader())
-            //        {
-            //            if (reader.Read())
-            //            {
-            //                // 🧱 Usamos una factoría para construir el objeto
-            //                var spResult = new SP_VerificarCuentaResult
-            //                {
-            //                    ID_USUARIO = reader.GetInt32(reader.GetOrdinal("ID_USUARIO")),
-            //                    NOMBRE = reader.GetString(reader.GetOrdinal("NOMBRE")),
-            //                    APELLIDOS = reader.GetString(reader.GetOrdinal("APELLIDOS")),
-            //                    TELEFONO = reader.IsDBNull(reader.GetOrdinal("TELEFONO")) ? null : reader.GetString(reader.GetOrdinal("TELEFONO")),
-            //                    TELEFONO_VERIFICADO = reader.GetBoolean(reader.GetOrdinal("TELEFONO_VERIFICADO")),
-            //                    COD_VER_TEL = reader.IsDBNull(reader.GetOrdinal("COD_VER_TEL")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("COD_VER_TEL")),
-            //                    CORREO = reader.GetString(reader.GetOrdinal("CORREO")),
-            //                    CORREO_VERIFICADO = reader.GetBoolean(reader.GetOrdinal("CORREO_VERIFICADO")),
-            //                    COD_VER_COR = reader.GetString(reader.GetOrdinal("COD_VER_COR")),
-            //                    FECHANACIMIENTO = reader.GetDateTime(reader.GetOrdinal("FECHANACIMIENTO")),
-            //                    ADMIN = reader.IsDBNull(reader.GetOrdinal("ADMIN")) ? false : reader.GetBoolean(reader.GetOrdinal("ADMIN")),
-            //                    PASSWORD = reader.GetString(reader.GetOrdinal("PASSWORD")),
-            //                    FECHAREGISTRO = reader.GetDateTime(reader.GetOrdinal("FECHAREGISTRO")),
-            //                    VEHICULO = reader.IsDBNull(reader.GetOrdinal("VEHICULO")) ? false : reader.GetBoolean(reader.GetOrdinal("VEHICULO"))
-            //                };
-            //                var usuario = UsuarioFactory(spResult);
-            //                // Verificamos que coincida el correo por seguridad
-            //                if (usuario.Correo.Equals(req.Correo, StringComparison.OrdinalIgnoreCase))
-            //                {
-            //                    ConfirmarUsuarioNuevo(req.Correo);
-            //                    res.Resultado = true;
-            //                }
-            //                else
-            //                {
-            //                    res.Resultado = false;
-            //                    res.Error.Add(Error.generarError(enumErrores.CorreoInvalido, "El correo recibido no coincide con el del sistema."));
-            //                }
-            //            }
-            //            else
-            //            {
-            //                res.Resultado = false;
-            //                res.Error.Add(Error.generarError(enumErrores.AtributoInvalido, "No se encontró un usuario válido con ese código."));
-            //            }
-            //        }
-            //        // Manejo de errores desde SQL
-            //        int errorId = (int)(pIdError.Value ?? 0);
-            //        string errorMsg = (string)(pDescError.Value ?? "Error desconocido");
-            //        if (errorId != 0)
-            //        {
-            //            res.Resultado = false;
-            //            res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorMsg));
-            //        }
-            //    }
-            //}
-
 
             ResVerificarCuenta res = new ResVerificarCuenta();
             res.Error = new List<Error>();
@@ -305,7 +215,6 @@ namespace EventPlannerCR_backend.Logica
             }
             return res;
         }
-
 
         public static bool EnviarCorreos(string destinatario, string url)
         {

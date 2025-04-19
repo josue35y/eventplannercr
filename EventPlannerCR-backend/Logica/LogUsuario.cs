@@ -165,7 +165,7 @@ namespace EventPlannerCR_backend.Logica
                 //Si no hubo errores se agrega el Usuario a la base de datos
                 else
                 {
-
+                    string Codigo = "0000";
                     int? idBd = 0;
                     int? idError = 0;
                     string errorDescripcion = null;
@@ -174,7 +174,7 @@ namespace EventPlannerCR_backend.Logica
                     {
                         linq.SP_InsertarUsuario(
                             req.Usuario.Nombre, req.Usuario.Apellidos,
-                            req.Usuario.Correo, req.Usuario.FechaNacimiento,
+                            req.Usuario.Correo, Codigo, req.Usuario.FechaNacimiento,
                             req.Usuario.Password, ref idBd, ref idError,
                             ref errorDescripcion);
                     }
