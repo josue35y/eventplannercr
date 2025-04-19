@@ -12,40 +12,40 @@ namespace EventPlannerCR_backend.Logica
         {
             ResInsertarGrupoCobro res = new ResInsertarGrupoCobro
             {
-                error = new List<Error>()
+                Error = new List<Error>()
             };
 
             if (req != null)
             {
                 if (req.IdUsuario == null || req.IdUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "El id de usuario es nulo o menor a 0."
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
                 if (req.IdDeuda == null || req.IdDeuda <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "El id de deuda es nulo o menor a 0."
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "El objeto de solicitud es inválido."
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -63,39 +63,39 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idBd == 200)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.resultado = false;
-                        Error error = new Error
+                        res.Resultado = false;
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.datosNoEncontrados,
                             Message = "No se insertó el grupo de cobro."
                         };
-                        res.error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
                 catch (Exception e)
                 {
-                    Error error = new Error()
+                    Error Error = new Error()
                     {
                         ErrorCode = enumErrores.excepcionLogica,
                         Message = "Error interno: " + e.Message
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "El objeto de solicitud es nulo."
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -106,34 +106,34 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBorrarGrupoCobro res = new ResBorrarGrupoCobro
             {
-                error = new List<Error>()
+                Error = new List<Error>()
             };
 
             if (req != null)
             {
                 if (req.idDeuda == null || req.idDeuda <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "El id de deuda es nulo o menor a 0."
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
                 if (req.idUsuario == null || req.idUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "El id de usuario es nulo o menor a 0."
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -151,41 +151,41 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idBd > 0)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.resultado = false;
-                        Error error = new Error
+                        res.Resultado = false;
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.datosNoEncontrados,
                             Message = "No se borró el grupo de cobro."
                         };
-                        res.error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
                 catch (Exception e)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.excepcionLogica,
                         Message = "Error interno: " + e.Message
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
                 
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "El objeto de solicitud es nulo."
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 

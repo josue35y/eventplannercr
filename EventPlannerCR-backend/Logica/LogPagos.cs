@@ -12,34 +12,34 @@ namespace EventPlannerCR_backend.Logica
         {
             ResActualizarPagoDeudor res = new ResActualizarPagoDeudor
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
             };
 
             if (req != null)
             {
                 if (req.idDeuda == null || req.idDeuda <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "El idDeuda es nulo o menor a 0"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
                 if (req.idUsuario == null || req.idUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "El idUsuario es nulo o menor a 0"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -57,40 +57,40 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idBD == 200)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        Error error = new Error
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.excepcionBaseDatos,
                             Message = "Error al actualizar el pago del deudor: " + errorMessage
                         };
-                        res.error.Add(error);
-                        res.resultado = false;
+                        res.Error.Add(Error);
+                        res.Resultado = false;
                     }
                 }
                 catch (Exception e)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.excepcionLogica,
                         Message = "Error al actualizar el pago del deudor: " + e.Message
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "El request es nulo"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -101,34 +101,34 @@ namespace EventPlannerCR_backend.Logica
         {
             ResActualizarPagoDueno res = new ResActualizarPagoDueno
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
             };
             
             if (req != null)
             {
                 if (req.idDeuda == null || req.idDeuda <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "El idDeuda es nulo o menor a 0"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
                 if (req.idUsuario == null || req.idUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "El idUsuario es nulo o menor a 0"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -146,40 +146,40 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idBD == 200)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        Error error = new Error
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.excepcionBaseDatos,
                             Message = "Error al actualizar el pago del dueño: " + errorMessage
                         };
-                        res.error.Add(error);
-                        res.resultado = false;
+                        res.Error.Add(Error);
+                        res.Resultado = false;
                     }
                 }
                 catch (Exception e)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.excepcionLogica,
                         Message = "Error al actualizar el pago del dueño: " + e.Message
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "El request es nulo"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -190,7 +190,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBuscarPagosPendientes res = new ResBuscarPagosPendientes
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
                 PagosPendientes = new List<Pagos>()
             };
 
@@ -198,13 +198,13 @@ namespace EventPlannerCR_backend.Logica
             {
                 if (req.idUsuario == null || req.idUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "El idUsuario es nulo o menor a 0"
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -219,42 +219,42 @@ namespace EventPlannerCR_backend.Logica
 
                     if (res.PagosPendientes.Any())
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        Error error = new Error
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.excepcionBaseDatos,
                             Message = "No se encontraron pagos pendientes"
                         };
-                        res.error.Add(error);
-                        res.resultado = false;
+                        res.Error.Add(Error);
+                        res.Resultado = false;
                         return res;
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.excepcionLogica,
                         Message = "Error al buscar los pagos pendientes: " + e.Message
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "El request es nulo"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 

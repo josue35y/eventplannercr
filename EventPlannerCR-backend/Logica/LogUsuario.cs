@@ -29,22 +29,22 @@ namespace EventPlannerCR_backend.Logica
                 //validación del request
                 if (req == null)
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
-                    error.ErrorCode = enumErrores.requestNulo;
-                    error.Message = "Req Null";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.requestNulo;
+                    Error.Message = "Req Null";
+                    res.Error.Add(Error);
                 }
 
                 //Validación del nombre del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Nombre))
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
                     //Acumula la respuesta de Error
-                    error.ErrorCode = enumErrores.nombreFaltante;
-                    error.Message = "Nombre nulo o no válido";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.nombreFaltante;
+                    Error.Message = "Nombre nulo o no válido";
+                    res.Error.Add(Error);
                 }
                 else
                 {
@@ -55,23 +55,23 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.NombreInvalido;
-                        error.Message = "Hay un carácter no válido en el nombre";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.NombreInvalido;
+                        Error.Message = "Hay un carácter no válido en el nombre";
+                        res.Error.Add(Error);
                     }
                 }
 
                 //Validación del apellido del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Apellidos))
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
                     //Acumula la respuesta de Error
-                    error.ErrorCode = enumErrores.apellidoFaltante;
-                    error.Message = "Apellidos nulo o no válido";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.apellidoFaltante;
+                    Error.Message = "Apellidos nulo o no válido";
+                    res.Error.Add(Error);
                 }
                 else
                 {
@@ -84,23 +84,23 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.ApellidoInvalido;
-                        error.Message = "Hay un carácter no válido en el apellido";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.ApellidoInvalido;
+                        Error.Message = "Hay un carácter no válido en el apellido";
+                        res.Error.Add(Error);
                     }
                 }
 
                 //Validación del correo del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Correo))
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
                     //Acumula la respuesta de Error
-                    error.ErrorCode = enumErrores.correoFaltante;
-                    error.Message = "Correo nulo o no válido";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.correoFaltante;
+                    Error.Message = "Correo nulo o no válido";
+                    res.Error.Add(Error);
                 }
 
                 //Validación de formato de correo
@@ -113,22 +113,22 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.CorreoInvalido;
-                        error.Message = "Formato de correo no válido";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.CorreoInvalido;
+                        Error.Message = "Formato de correo no válido";
+                        res.Error.Add(Error);
                     }
                 }
 
                 //Validación de la contraseña del nuevo Usuario para evitar nulos o espacio en blanco
                 if (String.IsNullOrEmpty(req.Usuario.Password))
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
-                    error.ErrorCode = enumErrores.passwordFaltante;
-                    error.Message = "Password nulo o no válido";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.passwordFaltante;
+                    Error.Message = "Password nulo o no válido";
+                    res.Error.Add(Error);
                 }
                 else
                 {
@@ -138,24 +138,24 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.passwordInvalido;
-                        error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
+                        Error.ErrorCode = enumErrores.passwordInvalido;
+                        Error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
                             "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
                             "4-Al menos una minúscula";
-                        res.Error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
 
                 //Validación de la fecha de nacimiento del nuevo Usuario para evitar nulos
                 if (req.Usuario.FechaNacimiento == null || req.Usuario.FechaNacimiento.Date == default)
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
-                    error.ErrorCode = enumErrores.FechaNacimientoFaltante;
-                    error.Message = "Fecha nula";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.FechaNacimientoFaltante;
+                    Error.Message = "Fecha nula";
+                    res.Error.Add(Error);
                 }
 
                 //Se valida si hubo errores en todas las validaciones
@@ -199,11 +199,11 @@ namespace EventPlannerCR_backend.Logica
             //Manejo de excepciones
             catch (Exception ex)
             {
-                Error error = new Error();
+                Error Error = new Error();
 
-                error.ErrorCode = enumErrores.excepcionLogica;
-                error.Message = ex.ToString();
-                res.Error.Add(error);
+                Error.ErrorCode = enumErrores.excepcionLogica;
+                Error.Message = ex.ToString();
+                res.Error.Add(Error);
             }
 
             //Retorno de la respuesta
@@ -223,10 +223,10 @@ namespace EventPlannerCR_backend.Logica
                 //Validación del request 
                 if (req == null)
                 {
-                    Error error = new Error();
-                    error.ErrorCode = enumErrores.requestNulo;
-                    error.Message = "Req Null";
-                    res.Error.Add(error);
+                    Error Error = new Error();
+                    Error.ErrorCode = enumErrores.requestNulo;
+                    Error.Message = "Req Null";
+                    res.Error.Add(Error);
                 }
 
                 if (!String.IsNullOrEmpty(req.Usuario.Nombre)) {
@@ -238,11 +238,11 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (!match)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.NombreInvalido;
-                        error.Message = "Hay un carácter no válido en el nombre";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.NombreInvalido;
+                        Error.Message = "Hay un carácter no válido en el nombre";
+                        res.Error.Add(Error);
                     }
                 }
 
@@ -256,11 +256,11 @@ namespace EventPlannerCR_backend.Logica
 
                     if (!match)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.ApellidoInvalido;
-                        error.Message = "Hay un carácter no válido en el apellido";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.ApellidoInvalido;
+                        Error.Message = "Hay un carácter no válido en el apellido";
+                        res.Error.Add(Error);
                     }
                 }
 
@@ -290,11 +290,11 @@ namespace EventPlannerCR_backend.Logica
             }
             catch (Exception ex)
             {
-                Error error = new Error();
+                Error Error = new Error();
 
-                error.ErrorCode = enumErrores.excepcionLogica;
-                error.Message = ex.ToString();
-                res.Error.Add(error);
+                Error.ErrorCode = enumErrores.excepcionLogica;
+                Error.Message = ex.ToString();
+                res.Error.Add(Error);
             }
 
             return res;
@@ -324,11 +324,11 @@ namespace EventPlannerCR_backend.Logica
             catch (Exception ex)
             {
 
-                Error error = new Error();
+                Error Error = new Error();
 
-                error.ErrorCode = enumErrores.excepcionListaUsuarios;
-                error.Message = ex.ToString();
-                res.Error.Add(error);
+                Error.ErrorCode = enumErrores.excepcionListaUsuarios;
+                Error.Message = ex.ToString();
+                res.Error.Add(Error);
             }
 
             return res;
@@ -345,10 +345,10 @@ namespace EventPlannerCR_backend.Logica
                 //Validación del request 
                 if (req == null)
                 {
-                    Error error = new Error();
-                    error.ErrorCode = enumErrores.requestNulo;
-                    error.Message = "Req Null";
-                    res.Error.Add(error);
+                    Error Error = new Error();
+                    Error.ErrorCode = enumErrores.requestNulo;
+                    Error.Message = "Req Null";
+                    res.Error.Add(Error);
                 }
 
                 //Validacion del formato de correo
@@ -358,11 +358,11 @@ namespace EventPlannerCR_backend.Logica
                 //Si no cumple con el patrón, se acumula el Error
                 if (match == false)
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
-                    error.ErrorCode = enumErrores.CorreoInvalido;
-                    error.Message = "Formato de correo no válido";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.CorreoInvalido;
+                    Error.Message = "Formato de correo no válido";
+                    res.Error.Add(Error);
                 }
 
                 // verifico si hubo errores en todas las validaciones
@@ -389,10 +389,10 @@ namespace EventPlannerCR_backend.Logica
             }
             catch (Exception ex)
             {
-                Error error = new Error();
-                error.ErrorCode = enumErrores.excepcionEliminarUsuario;
-                error.Message = ex.ToString();
-                res.Error.Add(error);
+                Error Error = new Error();
+                Error.ErrorCode = enumErrores.excepcionEliminarUsuario;
+                Error.Message = ex.ToString();
+                res.Error.Add(Error);
             }
 
             return res;
@@ -411,11 +411,11 @@ namespace EventPlannerCR_backend.Logica
                 //validación del request
                 if (req == null)
                 {
-                    Error error = new Error();
+                    Error Error = new Error();
 
-                    error.ErrorCode = enumErrores.requestNulo;
-                    error.Message = "Req Null";
-                    res.Error.Add(error);
+                    Error.ErrorCode = enumErrores.requestNulo;
+                    Error.Message = "Req Null";
+                    res.Error.Add(Error);
                 }
 
 
@@ -429,11 +429,11 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.NombreInvalido;
-                        error.Message = "Hay un carácter no válido en el nombre";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.NombreInvalido;
+                        Error.Message = "Hay un carácter no válido en el nombre";
+                        res.Error.Add(Error);
                     }
 
                 }
@@ -448,11 +448,11 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.ApellidoInvalido;
-                        error.Message = "Hay un carácter no válido en el apellido";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.ApellidoInvalido;
+                        Error.Message = "Hay un carácter no válido en el apellido";
+                        res.Error.Add(Error);
                     }
                 }
 
@@ -466,11 +466,11 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.CorreoInvalido;
-                        error.Message = "Formato de correo no válido";
-                        res.Error.Add(error);
+                        Error.ErrorCode = enumErrores.CorreoInvalido;
+                        Error.Message = "Formato de correo no válido";
+                        res.Error.Add(Error);
                     }
                 }
 
@@ -483,13 +483,13 @@ namespace EventPlannerCR_backend.Logica
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
                     {
-                        Error error = new Error();
+                        Error Error = new Error();
 
-                        error.ErrorCode = enumErrores.passwordInvalido;
-                        error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
+                        Error.ErrorCode = enumErrores.passwordInvalido;
+                        Error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
                             "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
                             "4-Al menos una minúscula";
-                        res.Error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
 
@@ -522,11 +522,11 @@ namespace EventPlannerCR_backend.Logica
             //Manejo de excepciones
             catch (Exception ex)
             {
-                Error error = new Error();
+                Error Error = new Error();
 
-                error.ErrorCode = enumErrores.excepcionLogica;
-                error.Message = ex.ToString();
-                res.Error.Add(error);
+                Error.ErrorCode = enumErrores.excepcionLogica;
+                Error.Message = ex.ToString();
+                res.Error.Add(Error);
             }
 
             //Retorno de la respuesta
@@ -537,20 +537,20 @@ namespace EventPlannerCR_backend.Logica
         {
             ResRevisarTelefono res = new ResRevisarTelefono
             {
-                error = new List<Error>()
+                Error = new List<Error>()
             };
 
             if (req != null)
             {
                 if (req.idUsuario == null || req.idUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.requestIncompleto,
                         Message = "Telefono nulo o no válido"
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -564,37 +564,37 @@ namespace EventPlannerCR_backend.Logica
 
                     if (verif == true)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                         res.verificacion = true;
                     }
                     else
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                         res.verificacion = false;
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.excepcionLogica,
-                        Message = "Ha ocurrido un error " + e.Message
+                        Message = "Ha ocurrido un Error " + e.Message
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "Req Null"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
             

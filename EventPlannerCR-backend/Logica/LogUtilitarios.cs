@@ -74,7 +74,7 @@ namespace EventPlannerCR_backend.Logica
 
                         if (tc.Any())
                         {
-                            res.Usuario = Factorias.Buscarusuario(tc).FirstOrDefault();
+                            res.Usuario = Factorias.BuscarUsuario(tc).FirstOrDefault();
                         }
                     }
                 }

@@ -14,7 +14,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResInsertarDeuda res = new ResInsertarDeuda
             {
-                error = new List<Error>()
+                Error = new List<Error>()
             };
 
             Usuario usuario = new Usuario
@@ -26,37 +26,37 @@ namespace EventPlannerCR_backend.Logica
             {
                 if (req.Deuda.Usuario.IdUsuario <= 0 || req.Deuda.Usuario.IdUsuario == null)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "Id Usuario Faltante"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
                 if (String.IsNullOrEmpty(req.Deuda.Motivo))
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.DescripcionFaltante,
                         Message = "Motivo Faltante"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
                 if (req.Deuda.Total <= 0 || req.Deuda.Total == null)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.DescripcionFaltante,
                         Message = "Monto total Faltante"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -74,35 +74,35 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idReturn != null && idReturn > 0)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.resultado = false;
-                        Error error = new Error
+                        res.Resultado = false;
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.datosNoEncontrados,
                             Message = "No se encontraron datos"
                         };
-                        res.error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
                 catch (Exception e)
                 {
-                    res.resultado = false;
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorMessage + " " + e.Message));
+                    res.Resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorMessage + " " + e.Message));
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "Req Null"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -117,23 +117,23 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBorrarDeuda res = new ResBorrarDeuda
             {
-                error = new List<Error>()
+                Error = new List<Error>()
             };
             if (req != null)
             {
                 if (req.Deuda.idDeuda <= 0 || req.Deuda.idDeuda == null)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "Id Deuda Faltante"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -150,35 +150,35 @@ namespace EventPlannerCR_backend.Logica
 
                     if (errorId != null && errorId == 0)
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.resultado = false;
-                        Error error = new Error
+                        res.Resultado = false;
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.datosNoEncontrados,
                             Message = "No se encontraron datos"
                         };
-                        res.error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
                 catch (Exception e)
                 {
-                    res.resultado = false;
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorMessage + " " + e.Message));
+                    res.Resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorMessage + " " + e.Message));
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "Req Null"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -194,7 +194,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBuscarDeuda res = new ResBuscarDeuda
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
                 Deudor = new List<Deudor>()
             };
 
@@ -202,17 +202,17 @@ namespace EventPlannerCR_backend.Logica
             {
                 if (req.Deuda.idDeuda <= 0 || req.Deuda.idDeuda == null)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "Id Deudor Faltante"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -227,35 +227,35 @@ namespace EventPlannerCR_backend.Logica
 
                     if (res.Deudor.Any())
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.resultado = false;
-                        Error error = new Error
+                        res.Resultado = false;
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.datosNoEncontrados,
                             Message = "No se encontraron datos"
                         };
-                        res.error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
                 catch (Exception e)
                 {
-                    res.resultado = false;
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, e.Message));
+                    res.Resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, e.Message));
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "Req Null"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -270,7 +270,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBuscarDeudaDueno res = new ResBuscarDeudaDueno
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
                 Deuda = new List<Deuda>()
             };
 
@@ -278,17 +278,17 @@ namespace EventPlannerCR_backend.Logica
             {
                 if (req.idUsuario <= 0 || req.idUsuario == null)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "Id Dueño Faltante"
                     };
-                    res.error.Add(error);
+                    res.Error.Add(Error);
                 }
 
-                if (res.error.Any())
+                if (res.Error.Any())
                 {
-                    res.resultado = false;
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -304,35 +304,35 @@ namespace EventPlannerCR_backend.Logica
 
                     if (res.Deuda.Any())
                     {
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                     else
                     {
-                        res.resultado = false;
-                        Error error = new Error
+                        res.Resultado = false;
+                        Error Error = new Error
                         {
                             ErrorCode = enumErrores.datosNoEncontrados,
                             Message = "No se encontraron datos"
                         };
-                        res.error.Add(error);
+                        res.Error.Add(Error);
                     }
                 }
                 catch (Exception e)
                 {
-                    res.resultado = false;
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, e.Message));
+                    res.Resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, e.Message));
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "Req Null"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
@@ -347,7 +347,7 @@ namespace EventPlannerCR_backend.Logica
         {
             ResBuscarDeudaUsuario res = new ResBuscarDeudaUsuario
             {
-                error = new List<Error>(),
+                Error = new List<Error>(),
                 Deudas = new List<Deudor>()
             };
 
@@ -355,13 +355,13 @@ namespace EventPlannerCR_backend.Logica
             {
                 if (req.idUsuario == null || req.idUsuario <= 0)
                 {
-                    Error error = new Error
+                    Error Error = new Error
                     {
                         ErrorCode = enumErrores.idFaltante,
                         Message = "Id Usuario Faltante"
                     };
-                    res.error.Add(error);
-                    res.resultado = false;
+                    res.Error.Add(Error);
+                    res.Resultado = false;
                     return res;
                 }
 
@@ -378,20 +378,20 @@ namespace EventPlannerCR_backend.Logica
                 }
                 catch (Exception e)
                 {
-                    res.resultado = false;
-                    res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, e.Message));
+                    res.Resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, e.Message));
                     return res;
                 }
             }
             else
             {
-                Error error = new Error
+                Error Error = new Error
                 {
                     ErrorCode = enumErrores.requestNulo,
                     Message = "Req Null"
                 };
-                res.error.Add(error);
-                res.resultado = false;
+                res.Error.Add(Error);
+                res.Resultado = false;
                 return res;
             }
 
