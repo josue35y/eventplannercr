@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ResBase
+    public class ResLogin : ResBase
     {
-        public bool Resultado { get; set; }
-        public List<Error> Error { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

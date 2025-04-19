@@ -13,14 +13,14 @@ namespace EventPlannerCR_backend.Logica
         {
             
             ResInsertarAsistencia res = new ResInsertarAsistencia();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
             Error error = new Error();
 
             try
             {
                 if (req == null)
                 {
-                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.Error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
                 }
                 else
                 {
@@ -38,19 +38,19 @@ namespace EventPlannerCR_backend.Logica
                     }
                     if (req.Asistencia.Usuario.IdUsuario <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
+                        res.Error.Add(Error.generarError(enumErrores.idFaltante, "ID de Usuario faltante o invalido."));
                     }
                     if (req.Asistencia.Evento.IdEvento <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante o invalido."));
+                        res.Error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante o invalido."));
                     }
                     int? idBD = 0;
                     int? idError = 0;
                     string errorDescripcion = null;
                     bool status = true;
-                    if (res.error.Any())
+                    if (res.Error.Any())
                     {
-                        res.resultado = false;
+                        res.Resultado = false;
                         return res;
                     }
                     else
@@ -70,16 +70,16 @@ namespace EventPlannerCR_backend.Logica
                         {
                             if (idError == 4)
                             {
-                                res.resultado = false;
-                                res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "El usuario ya se encuentra inscrito en el evento."));
+                                res.Resultado = false;
+                                res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "El Usuario ya se encuentra inscrito en el evento."));
                                 return res;
                             }
-                            res.resultado = true;
+                            res.Resultado = true;
                         }
                         else
                         {
-                            res.resultado = false;
-                            res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorDescripcion));
+                            res.Resultado = false;
+                            res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, errorDescripcion));
                             return res;
                         }
                     }
@@ -87,7 +87,7 @@ namespace EventPlannerCR_backend.Logica
             }
             catch (Exception ex)
             {
-                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+                res.Error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
             }         
             return res;
         }
@@ -97,7 +97,7 @@ namespace EventPlannerCR_backend.Logica
         public ResBuscarAsistenciaUsuario BuscarAsistenciaUsuario(ReqBuscarAsistenciaUsuario req)
         {
             ResBuscarAsistenciaUsuario res = new ResBuscarAsistenciaUsuario();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             try
             {
@@ -108,17 +108,17 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req == null)
                 {
-                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.Error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
                 }
                 else
                 {
                     if (req.idUsuario <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de usuario faltante o invalido."));
+                        res.Error.Add(Error.generarError(enumErrores.idFaltante, "ID de Usuario faltante o invalido."));
                     }
-                    if (res.error.Any())
+                    if (res.Error.Any())
                     {
-                        res.resultado = false;
+                        res.Resultado = false;
                         return res;
                     }
                     else
@@ -133,14 +133,14 @@ namespace EventPlannerCR_backend.Logica
                         }
                         if (listaAsistenciaUsuarioBD == null || !listaAsistenciaUsuarioBD.Any())
                         {
-                            res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
-                            res.resultado = false;
+                            res.Error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
+                            res.Resultado = false;
                             return res;
                         }
                         if (ErrorId != null && ErrorId > 0)
                         {
-                            res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
-                            res.resultado = false;
+                            res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
+                            res.Resultado = false;
                             return res;
                         }
                         else
@@ -154,27 +154,27 @@ namespace EventPlannerCR_backend.Logica
                                }
                                catch (Exception innerEx)
                                {
-                                   res.error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
+                                   res.Error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
                                    return null;
                                }
                            })
                            .Where(a => a != null)
                            .ToList();
                         }
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+                res.Error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
             }
             return res;
         }
         public ResBuscarAsistenciaEvento BuscarAsistenciaEvento(ReqBuscarAsistenciaEvento req)
         {
             ResBuscarAsistenciaEvento res = new ResBuscarAsistenciaEvento();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             try
             {
@@ -185,17 +185,17 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req == null)
                 {
-                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.Error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
                 }
                 else
                 {
                     if (req.idEvento <= 0)
                     {
-                        res.error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante o invalido."));
+                        res.Error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante o invalido."));
                     }
-                    if (res.error.Any())
+                    if (res.Error.Any())
                     {
-                        res.resultado = false;
+                        res.Resultado = false;
                         return res;
                     }
                     else
@@ -210,14 +210,14 @@ namespace EventPlannerCR_backend.Logica
                         }
                         if (listaAsistenciaEventoBD == null || !listaAsistenciaEventoBD.Any())
                         {
-                            res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
-                            res.resultado = false;
+                            res.Error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron asistencias."));
+                            res.Resultado = false;
                             return res;
                         }
                         if (ErrorId != null && ErrorId > 0)
                         {
-                            res.error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
-                            res.resultado = false;
+                            res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, ErrorDescripcion));
+                            res.Resultado = false;
                             return res;
                         }
                         else
@@ -231,20 +231,20 @@ namespace EventPlannerCR_backend.Logica
                                }
                                catch (Exception innerEx)
                                {
-                                   res.error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
+                                   res.Error.Add(Error.generarError(enumErrores.errorConversion, $"Error al convertir asistencia: {innerEx.Message}"));
                                    return null;
                                }
                            })
                            .Where(a => a != null)
                            .ToList();
                         }
-                        res.resultado = true;
+                        res.Resultado = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+                res.Error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
             }
             return res;
         }
@@ -255,7 +255,7 @@ namespace EventPlannerCR_backend.Logica
         {
 
             ResEditarAsistencia res = new ResEditarAsistencia();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
 
             try
             {
@@ -264,16 +264,16 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req == null)
                 {
-                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
-                    res.resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.Resultado = false;
                     return res;
                 }
                 else 
                 {
                     if (req.idAsistencia <= 0 || req.idAsistencia == null)
                     {
-                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
-                        res.resultado = false;
+                        res.Error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
+                        res.Resultado = false;
                         res.idAsistencia = req.idAsistencia;
                         return res;
                     }
@@ -281,14 +281,14 @@ namespace EventPlannerCR_backend.Logica
                     {
                         if (req.Estado == false)
                         {
-                            //Si el usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
+                            //Si el Usuario no asistirá al evento, se le asigna un valor nulo a la carpool.
                             req.idCarpool = null;
                         }
                         
                         if (req.Estado == null)
                         {
-                            res.error.Add(Error.generarError(enumErrores.requestIncompleto, "El valor de estado es requerido."));
-                            res.resultado = false;
+                            res.Error.Add(Error.generarError(enumErrores.requestIncompleto, "El valor de estado es requerido."));
+                            res.Resultado = false;
                             res.idAsistencia = req.idAsistencia;
                             return res;
                         }
@@ -308,12 +308,12 @@ namespace EventPlannerCR_backend.Logica
                             }
                             if (AsistenciaBD != null)
                             {
-                                res.resultado = true;
+                                res.Resultado = true;
                                 res = FactoryEditarAsistencia(AsistenciaBD);
                             }
                             else
                             {
-                                res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
+                                res.Error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
                             }
                         }
                     }                                  
@@ -321,7 +321,7 @@ namespace EventPlannerCR_backend.Logica
             }
             catch(Exception ex)
             {
-                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+                res.Error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
             }
             return res;
         }
@@ -332,7 +332,7 @@ namespace EventPlannerCR_backend.Logica
         {
 
             ResBorrarAsistencia res = new ResBorrarAsistencia();
-            res.error = new List<Error>();
+            res.Error = new List<Error>();
             _ = new Error();
 
             try
@@ -342,23 +342,23 @@ namespace EventPlannerCR_backend.Logica
 
                 if (req.Sesion.Usuario.Admin == false)
                 {
-                    res.error.Add(Error.generarError(enumErrores.noAutorizado, "El usuario no tiene permisos para realizar esta acción."));
-                    res.resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.noAutorizado, "El Usuario no tiene permisos para realizar esta acción."));
+                    res.Resultado = false;
                     return res;
                 }
 		
                 if (req == null)
                 {
-                    res.error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
-                    res.resultado = false;
+                    res.Error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                    res.Resultado = false;
                     return res;
                 }
                 else 
                 {
                     if (req.idAsistencia <= 0 || req.idAsistencia == null)
                     {
-                        res.error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
-                        res.resultado = false;
+                        res.Error.Add(Error.generarError(enumErrores.requestIncompleto, "Asistencia nula."));
+                        res.Resultado = false;
                         return res;
                     }
                     else
@@ -373,18 +373,18 @@ namespace EventPlannerCR_backend.Logica
                         }
                         if (ErrorId == null || ErrorId == 0)
                         {
-                            res.resultado = true;
+                            res.Resultado = true;
                         }
                         else
                         {
-                            res.error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
+                            res.Error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
                         } 
                     }                                  
                 }
             }
             catch(Exception ex)
             {
-                res.error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+                res.Error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
             }
             return res;
         }

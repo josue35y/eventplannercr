@@ -116,6 +116,9 @@
     <Compile Include="Entidades\Request\ReqObtenerCarpoolPorUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarUsuario.cs" />
     <Compile Include="Entidades\Request\ReqInsertarEvento.cs" />
+    <Compile Include="Entidades\Request\ReqLogin.cs" />
+    <Compile Include="Entidades\Request\ReqRegistrarUsuario.cs" />
+    <Compile Include="Entidades\Request\ReqVerificarCuenta.cs" />
     <Compile Include="Entidades\Request\ReqBuscarDeudaUsuario.cs" />
     <Compile Include="Entidades\Request\ReqActualizarPagoDeudor.cs" />
     <Compile Include="Entidades\Request\ReqRevisarTelefono.cs" />
@@ -138,12 +141,14 @@
     <Compile Include="Entidades\Response\ResInsertarGrupoCobro.cs" />
     <Compile Include="Entidades\Response\ResListaEventos.cs" />
     <Compile Include="Entidades\Response\ResListaUsuarios.cs" />
+    <Compile Include="Entidades\Response\ResLogin.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorEvento.cs" />
     <Compile Include="Entidades\Response\ResBase.cs" />
     <Compile Include="Entidades\Response\ResBorrarAsistencia.cs" />
     <Compile Include="Entidades\Response\ResBuscarAsistenciaEvento.cs" />
     <Compile Include="Entidades\Response\ResBuscarAsistenciaUsuario.cs" />
     <Compile Include="Entidades\Response\ResEditarAsistencia.cs" />
+    <Compile Include="Entidades\Response\ResEventosCercanos.cs" />
     <Compile Include="Entidades\Response\ResInsertarAsistencia.cs" />
     <Compile Include="Entidades\Response\ResInsertarCarpool.cs" />
     <Compile Include="Entidades\Response\ResObtenerCarpoolPorUsuario.cs" />
@@ -152,6 +157,8 @@
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
     <Compile Include="Entidades\Response\ResRevisarTelefono.cs" />
     <Compile Include="Logica\LogDeudas.cs" />
+    <Compile Include="Entidades\Response\ResRegistrarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResVerificarCuenta.cs" />
     <Compile Include="Logica\LogFactorias.cs" />
     <Compile Include="Logica\LogAsistencia.cs" />
     <Compile Include="Logica\LogBitacora.cs" />

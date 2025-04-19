@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ResBase
+    public class ReqVerificarCuenta
     {
-        public bool Resultado { get; set; }
-        public List<Error> Error { get; set; }
+        public string Codigo {  get; set; }
+        public string Correo { get; set; }
     }
 }

@@ -65,6 +65,7 @@ namespace EventPlannerCR_backend.Logica
                 Usuario usuario = new Usuario();
 
                 // Asignar propiedades
+                usuario.IdUsuario = item.ID_USUARIO;
                 usuario.Nombre = item.NOMBRE;
                 usuario.Apellidos = item.APELLIDOS;
                 usuario.Correo = item.CORREO;

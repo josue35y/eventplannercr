@@ -164,6 +164,7 @@
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\GrupoCobroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginSesionController.cs" />
     <Compile Include="Controllers\PagosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -244,6 +245,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Asistencia\" />
     <Folder Include="Views\Carpool\" />
+    <Folder Include="Views\LoginSesion\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
