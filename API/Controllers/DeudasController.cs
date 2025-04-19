@@ -20,21 +20,21 @@ namespace API.Controllers
             return new LogDeudas().Borrar(req);
         }
         
-        [HttpGet]
+        [HttpPost]
         [Route("api/deuda/Buscar")]
         public ResBuscarDeuda BuscarDeuda(ReqBuscarDeuda req)
         {
             return new LogDeudas().Buscar(req);
         }
         
-        [HttpGet]
+        [HttpPost]
         [Route("api/deuda/BuscarDueno")]
         public ResBuscarDeudaDueno BuscarDeudaDueno(ReqBuscarDeudaDueno req)
         {
             return new LogDeudas().BuscarDueno(req);
         }
         
-        [HttpGet]
+        [HttpPost]
         [Route("api/deuda/BuscarDeudaUsuario")]
         public ResBuscarDeudaUsuario BuscarDeudaUsuario(ReqBuscarDeudaUsuario req)
         {

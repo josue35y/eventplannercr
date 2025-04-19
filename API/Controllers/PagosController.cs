@@ -20,7 +20,7 @@ namespace API.Controllers
             return new LogPagos().ActualizarPagoDueno(req);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/pagos/buscarPorUsuario")]
         public ResBuscarPagosPendientes PagosPendientes(ReqBuscarPagosPendientes req)
         {
