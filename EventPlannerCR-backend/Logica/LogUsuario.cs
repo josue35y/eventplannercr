@@ -13,11 +13,9 @@ namespace EventPlannerCR_backend.Logica
 {
     public class LogUsuario
     {
-
         //Metodo para insertar Usuario
         public ResInsertarUsuario InsertarUsuario(ReqInsertarUsuario req)
         {
-
             //Creacion de instancias generales del método
             ResInsertarUsuario res = new ResInsertarUsuario();
             res.Error = new List<Error>();
@@ -25,7 +23,6 @@ namespace EventPlannerCR_backend.Logica
             //inicio de manejo de excepciones
             try
             {
-
                 //validación del request
                 if (req == null)
                 {
@@ -48,7 +45,6 @@ namespace EventPlannerCR_backend.Logica
                 }
                 else
                 {
-
                     //Validación de caracteres especiales en el nombre
                     String patron = @"^[\p{L}\s'-]+$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
@@ -75,7 +71,6 @@ namespace EventPlannerCR_backend.Logica
                 }
                 else
                 {
-
                     //Validación de caracteres especiales en el apellido
                     String patron = @"^[\p{L}\s'-]+$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
@@ -142,8 +137,8 @@ namespace EventPlannerCR_backend.Logica
 
                         Error.ErrorCode = enumErrores.passwordInvalido;
                         Error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
-                            "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
-                            "4-Al menos una minúscula";
+                                        "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
+                                        "4-Al menos una minúscula";
                         res.Error.Add(Error);
                     }
                 }
@@ -173,12 +168,11 @@ namespace EventPlannerCR_backend.Logica
 
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-                        linq.SP_InsertarUsuarios(
-                            req.Usuario.Nombre, req.Usuario.Apellidos,
-                            req.Usuario.Correo, req.Usuario.Cod_Ver_Cor,
-                            req.Usuario.FechaNacimiento, req.Usuario.Password, 
+                        linq.SP_InsertarUsuarios(req.Usuario.Nombre, req.Usuario.Apellidos,
+                            req.Usuario.Correo, req.Usuario.FechaNacimiento, req.Usuario.Password,
                             ref idBd, ref idError, ref errorDescripcion);
                     }
+
                     if (idBd > 0)
                     {
                         res.Resultado = true;
@@ -187,12 +181,6 @@ namespace EventPlannerCR_backend.Logica
                     {
                         res.Error.Add(Error.generarError(enumErrores.excepcionBaseDatos, "Error en base de datos."));
                     }
-
-
-
-
-
-
                 }
             }
 
@@ -213,7 +201,6 @@ namespace EventPlannerCR_backend.Logica
         //Método para buscar un Usuario
         public ResBuscarUsuario BuscarUsuario(ReqBuscarUsuario req)
         {
-
             ResBuscarUsuario res = new ResBuscarUsuario();
             res.Error = new List<Error>();
             res.ListaUsuarios = new List<Usuario>();
@@ -229,8 +216,8 @@ namespace EventPlannerCR_backend.Logica
                     res.Error.Add(Error);
                 }
 
-                if (!String.IsNullOrEmpty(req.Usuario.Nombre)) {
-
+                if (!String.IsNullOrEmpty(req.Usuario.Nombre))
+                {
                     req.Usuario.Nombre = req.Usuario.Nombre.ToLower();
                     //Validación de caracteres especiales en el nombre
                     String patron = "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
@@ -246,8 +233,8 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                if (!String.IsNullOrEmpty(req.Usuario.Apellidos)) {
-
+                if (!String.IsNullOrEmpty(req.Usuario.Apellidos))
+                {
                     req.Usuario.Apellidos = req.Usuario.Apellidos.ToLower();
                     //Validación de caracteres especiales en el nombre
                     String patron = "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
@@ -264,8 +251,8 @@ namespace EventPlannerCR_backend.Logica
                     }
                 }
 
-                if (res.Error.Any()) {
-
+                if (res.Error.Any())
+                {
                     res.Resultado = false;
                     return res;
                 }
@@ -279,9 +266,9 @@ namespace EventPlannerCR_backend.Logica
                 {
                     LogFactorias Factorias = new LogFactorias();
 
-                    List<SP_Buscar_UsuarioResult> tc = linq.SP_Buscar_Usuario(req.Usuario.IdUsuario, 
+                    List<SP_Buscar_UsuarioResult> tc = linq.SP_Buscar_Usuario(req.Usuario.IdUsuario,
                         req.Usuario.Correo, req.Usuario.Nombre, req.Usuario.Apellidos
-                        , req.Usuario.Admin, ref idBd, ref idError,ref errorDescripcion).ToList();
+                        , req.Usuario.Admin, ref idBd, ref idError, ref errorDescripcion).ToList();
 
                     res.ListaUsuarios = Factorias.BuscarUsuario(tc);
 
@@ -303,7 +290,6 @@ namespace EventPlannerCR_backend.Logica
         //Retornar toda la lista de usuarios
         public ResListaUsuarios ListaUsuarios(ReqListaUsuarios req)
         {
-
             ResListaUsuarios res = new ResListaUsuarios();
             res.ListaUsuarios = new List<Usuario>();
             res.Error = new List<Error>();
@@ -314,7 +300,7 @@ namespace EventPlannerCR_backend.Logica
                 {
                     LogFactorias Factorias = new LogFactorias();
 
-                    List <SP_Lista_UsuariosResult> tc = linq.SP_Lista_Usuarios().ToList();
+                    List<SP_Lista_UsuariosResult> tc = linq.SP_Lista_Usuarios().ToList();
 
                     res.ListaUsuarios = Factorias.ListaUsuarios(tc);
 
@@ -323,7 +309,6 @@ namespace EventPlannerCR_backend.Logica
             }
             catch (Exception ex)
             {
-
                 Error Error = new Error();
 
                 Error.ErrorCode = enumErrores.excepcionListaUsuarios;
@@ -335,13 +320,13 @@ namespace EventPlannerCR_backend.Logica
         }
 
         //Elimina un Usuario
-        public ResEliminarUsuario EliminarUsuario(ReqEliminarUsuario req) { 
-        
+        public ResEliminarUsuario EliminarUsuario(ReqEliminarUsuario req)
+        {
             ResEliminarUsuario res = new ResEliminarUsuario();
             res.Error = new List<Error>();
 
-            try {
-
+            try
+            {
                 //Validación del request 
                 if (req == null)
                 {
@@ -371,7 +356,7 @@ namespace EventPlannerCR_backend.Logica
                     res.Resultado = false;
                     return res;
                 }
-                else 
+                else
                 {
                     //al no haber errores, se procede a eliminar el Usuario
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
@@ -379,13 +364,12 @@ namespace EventPlannerCR_backend.Logica
                         int? idBd = 0;
                         int? idError = 0;
                         string errorDescripcion = null;
-                        linq.SP_Eliminar_Usuario(req.Usuario.IdUsuario, req.Usuario.Correo.ToLower(), 
+                        linq.SP_Eliminar_Usuario(req.Usuario.IdUsuario, req.Usuario.Correo.ToLower(),
                             ref idBd, ref idError, ref errorDescripcion);
                     }
 
                     res.Resultado = true;
                 }
-
             }
             catch (Exception ex)
             {
@@ -407,7 +391,6 @@ namespace EventPlannerCR_backend.Logica
             //inicio de manejo de excepciones
             try
             {
-
                 //validación del request
                 if (req == null)
                 {
@@ -419,10 +402,8 @@ namespace EventPlannerCR_backend.Logica
                 }
 
 
-
                 if (!String.IsNullOrEmpty(req.Usuario.Nombre))
                 {
-
                     //Validación de caracteres especiales en el nombre
                     String patron = @"^([\p{L}\s'-]*|\s*)$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Nombre, patron);
@@ -435,12 +416,10 @@ namespace EventPlannerCR_backend.Logica
                         Error.Message = "Hay un carácter no válido en el nombre";
                         res.Error.Add(Error);
                     }
-
                 }
 
                 if (!String.IsNullOrEmpty(req.Usuario.Apellidos))
                 {
-
                     //Validación de caracteres especiales en el apellido
                     String patron = @"^([\p{L}\s'-]*|\s*)$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Apellidos, patron);
@@ -458,7 +437,6 @@ namespace EventPlannerCR_backend.Logica
 
                 if (!String.IsNullOrEmpty(req.Usuario.Correo))
                 {
-
                     //Validacion del formato de correo
                     String patron = @"^$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Correo, patron);
@@ -476,9 +454,9 @@ namespace EventPlannerCR_backend.Logica
 
                 if (!String.IsNullOrEmpty(req.Usuario.Password))
                 {
-
                     //Validacion de la contraseña
-                    String patron = @"^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
+                    String patron =
+                        @"^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\/|,.<>/?])(?=.{8,}).*$";
                     bool match = System.Text.RegularExpressions.Regex.IsMatch(req.Usuario.Password, patron);
                     //Si no cumple con el patrón, se acumula el Error
                     if (match == false)
@@ -487,8 +465,8 @@ namespace EventPlannerCR_backend.Logica
 
                         Error.ErrorCode = enumErrores.passwordInvalido;
                         Error.Message = "La contraseña no cumple con alguna de las siguientes características: \n" +
-                            "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
-                            "4-Al menos una minúscula";
+                                        "1- Mínimo 8 caracteres" + "2- Al menos un simbolo 3- Al menos una mayúscula " +
+                                        "4-Al menos una minúscula";
                         res.Error.Add(Error);
                     }
                 }
@@ -501,21 +479,18 @@ namespace EventPlannerCR_backend.Logica
                 //Si no hubo errores se agrega el Usuario a la base de datos
                 else
                 {
-
                     int? idBd = 0;
                     int? idError = 0;
                     string errorDescripcion = null;
 
                     using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
                     {
-
                         linq.SP_ActualizarUsuario(req.Usuario.IdUsuario, req.Usuario.Nombre, req.Usuario.Apellidos,
                             req.Usuario.Telefono, req.Usuario.Telefono_Verificado, req.Usuario.Cod_Ver_Tel,
                             req.Usuario.Correo, req.Usuario.Correo_Verificado, req.Usuario.Cod_Ver_Cor,
                             req.Usuario.Admin, req.Usuario.Password, req.Usuario.Vehiculo, ref idBd, ref idError,
                             ref errorDescripcion);
                     }
-
                 }
             }
 
@@ -572,7 +547,6 @@ namespace EventPlannerCR_backend.Logica
                         res.Resultado = true;
                         res.verificacion = false;
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -597,7 +571,7 @@ namespace EventPlannerCR_backend.Logica
                 res.Resultado = false;
                 return res;
             }
-            
+
             return res;
         }
     }
