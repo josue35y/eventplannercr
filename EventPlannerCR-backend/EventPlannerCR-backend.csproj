@@ -85,6 +85,7 @@
     <Compile Include="Entidades\Entity\Usuario.cs" />
     <Compile Include="Entidades\Enum\enumEstadoSesion.cs" />
     <Compile Include="Entidades\Enum\enumErrores.cs" />
+    <Compile Include="Entidades\Request\ReqObtenerIdEventoDesdeAsistencia.cs" />
     <Compile Include="Entidades\Request\ReqActualizarEvento.cs" />
     <Compile Include="Entidades\Request\ReqAgregarEvento.cs" />
     <Compile Include="Entidades\Request\ReqBuscarEvento.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Entidades\Response\ResActualizarUsuario.cs" />
     <Compile Include="Entidades\Response\ResBuscarUsuario.cs" />
     <Compile Include="Entidades\Response\ResInsertarUsuario.cs" />
+    <Compile Include="Entidades\Response\ResObtenerIdEventoDesdeAsistencia.cs" />
     <Compile Include="Entidades\Response\ResRegistrarUsuario.cs" />
     <Compile Include="Entidades\Response\ResVerificarCuenta.cs" />
     <Compile Include="Logica\LogFactorias.cs" />

@@ -2,6 +2,8 @@
 using EventPlannerCR_backend.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 
 namespace EventPlannerCR_backend.Logica
@@ -248,6 +250,69 @@ namespace EventPlannerCR_backend.Logica
             }
             return res;
         }
+
+
+        public ResObtenerIdEventoDesdeAsistencia ObtenerIdEventoDesdeAsistencia(ReqObtenerIdEventoDesdeAsistencia req)
+        {
+            ResObtenerIdEventoDesdeAsistencia res = new ResObtenerIdEventoDesdeAsistencia();
+            res.Error = new List<Error>();
+            try
+            {
+                int? ErrorId = 0;
+                string ErrorDescripcion = null;
+                if (req == null)
+                {
+                    res.Error.Add(Error.generarError(enumErrores.requestNulo, "Req nulo."));
+                }
+                else
+                {
+                    if (req.IdAsistencia <= 0 || req.IdAsistencia == null)
+                    {
+                        res.Error.Add(Error.generarError(enumErrores.requestIncompleto, "ID de asistencia faltante o invalido."));
+                    }
+                    if (res.Error.Any())
+                    {
+                        res.Resultado = false;
+                        return res;
+                    }
+                    else
+                    {
+                        res.IdEvento = ObtenerIdEventoDesdeAsistencia(req.IdAsistencia);
+                        if (res.IdEvento <= 0)
+                        {
+                            res.Error.Add(Error.generarError(enumErrores.datosNoEncontrados, "No se encontraron datos para la asistencia editada."));
+                            res.Resultado = false;
+                            return res;
+                        }
+                        else
+                        {
+                            res.Resultado = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Error.Add(Error.generarError(enumErrores.excepcionLogica, ex.ToString()));
+            }
+            return res;
+        }
+
+
+        public int ObtenerIdEventoDesdeAsistencia(int idAsistencia)
+        {
+            int? idEvento = 0;
+
+            using (ConexionLinqDataContext linq = new ConexionLinqDataContext())
+            {
+                linq.SP_ObtenerEventoDesdeAsistencia(
+                     idAsistencia,
+                     ref idEvento);
+            }
+
+            return (int)idEvento;
+        }
+
         #endregion
 
         #region EDITAR
