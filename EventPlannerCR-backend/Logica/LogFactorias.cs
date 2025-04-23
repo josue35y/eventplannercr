@@ -65,6 +65,7 @@ namespace EventPlannerCR_backend.Logica
                 Usuario usuario = new Usuario();
 
                 // Asignar propiedades
+                usuario.IdUsuario = item.ID_USUARIO;
                 usuario.Nombre = item.NOMBRE;
                 usuario.Apellidos = item.APELLIDOS;
                 usuario.Correo = item.CORREO;
@@ -100,20 +101,23 @@ namespace EventPlannerCR_backend.Logica
             foreach (var item in tc)
             {
                 // Crear un nuevo objeto para cada elemento
-                Evento evento = new Evento();
-
-                // Asignar propiedades
-                evento.Nombre = item.Nombre;
-                evento.FechaInicio = item.FechaInicio;
-                evento.FechaFin = item.FechaFin;
-                evento.Lugar = item.Lugar;
-                evento.Descripcion = item.Descripcion;
-                evento.Clima = item.Clima;
-                evento.Latitud = item.lat;
-                evento.Longitud = item.lon;
-                evento.Provincia = item.Provincia;
-                evento.Canton = item.Canton;
-                evento.Distrito = item.Distrito;
+                Evento evento = new Evento
+                {
+                    // Asignar propiedades
+                    Nombre = item.Nombre,
+                    FechaInicio = item.FechaInicio,
+                    FechaFin = item.FechaFin,
+                    Lugar = item.Lugar,
+                    Descripcion = item.Descripcion,
+                    Clima = item.Clima,
+                    Latitud = item.lat,
+                    Longitud = item.lon,
+                    Provincia = item.Provincia,
+                    Canton = item.Canton,
+                    Distrito = item.Distrito,
+                    IdEvento = item.IdEvento,
+                    Imagen = item.Banner
+                };
 
                 // Añadir a la lista
                 ListaEventos.Add(evento);
