@@ -92,6 +92,5 @@ namespace EventPlannerCR_backend.Logica
             }         
             return res;
         }
-
     }
 }
