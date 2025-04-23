@@ -19,12 +19,17 @@ namespace EventPlannerCR_backend.Logica
             Error error = new Error(); 
             try
             {
+
                 if (req == null)
                 {
                     res.Error.Add(Error.generarError(enumErrores.requestNulo, "El request es nulo."));
                 }
                 else
                 {
+                    if (req.Carpool == null)
+                    {
+                        res.Error.Add(Error.generarError(enumErrores.requestIncompleto, "La información del carpool está incompleta o es nula."));
+                    }
                     if (req.Carpool.Evento == null || req.Carpool.Evento.IdEvento == null || req.Carpool.Evento.IdEvento <= 0)
                     {
                         res.Error.Add(Error.generarError(enumErrores.idFaltante, "ID de evento faltante, incorrecto o nulo."));
@@ -64,7 +69,7 @@ namespace EventPlannerCR_backend.Logica
                                 req.Carpool.Provincia,
                                 req.Carpool.Canton,
                                 req.Carpool.Distrito,
-                                req.Usuario.IdUsuario,
+                                req.Carpool.idUsuario,
                                 req.Carpool.NotasCarpool,
                                 ref idBD,
                                 ref idError,

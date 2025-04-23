@@ -28,6 +28,16 @@ namespace API.Controllers
             return new LogAsistencia().BuscarAsistenciaEvento(req);
         }
 
+
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/asistencia/buscarevento_asistencia")]
+        public ResObtenerIdEventoDesdeAsistencia BuscarEventoAsistencia(ReqObtenerIdEventoDesdeAsistencia req)
+        {
+            return new LogAsistencia().ObtenerIdEventoDesdeAsistencia(req);
+        }
+
+
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("api/asistencia/editar")]
         public ResEditarAsistencia Modificar(ReqEditarAsistencia req)

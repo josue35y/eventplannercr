@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EventPlannerCR_backend.Entidades
 {
-    public class ReqInsertarCarpool : ReqBase
+    public class ResObtenerIdEventoDesdeAsistencia : ResBase
     {
-        public Carpool Carpool { get; set; }
+        public int IdEvento { get; set; }   
     }
 }

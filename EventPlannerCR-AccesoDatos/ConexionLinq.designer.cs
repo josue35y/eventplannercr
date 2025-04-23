@@ -446,6 +446,14 @@ namespace EventPlannerCR_AccesoDatos
 			eRRORDESCRIPCION = ((string)(result.GetParameterValue(7)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_ObtenerEventoDesdeAsistencia")]
+		public int SP_ObtenerEventoDesdeAsistencia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdAsistencia", DbType="Int")] System.Nullable<int> idAsistencia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdEvento", DbType="Int")] ref System.Nullable<int> idEvento)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idAsistencia, idEvento);
+			idEvento = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	public partial class SP_BuscarAsistenciaPorEventoResult
