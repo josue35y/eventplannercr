@@ -191,6 +191,7 @@ namespace EventPlannerCR_backend.Logica
                 Deudor deudor = new Deudor
                 {
                     idDeuda = item.IdDeuda,
+                    Motivo = item.Motivo,
                     motivo = item.Motivo,
                     idPropietario = item.IDDEUDOR,
                     nombrePropietario = item.NOMBREPROPIETARIO,
@@ -199,7 +200,8 @@ namespace EventPlannerCR_backend.Logica
                     nombreDeudor = item.NOMBREDEUDOR,
                     telefonoDeudor = item.TELEFONODEUDOR,
                     monto = item.MONTOPERSONAL,
-                    FechaCreacion = item.FechaCreacion
+                    FechaCreacion = item.FechaCreacion,
+                    estado = item.EstadoPago
                 };
                 ListaDeudas.Add(deudor);
             }
@@ -262,6 +264,7 @@ namespace EventPlannerCR_backend.Logica
                 Deudor Deudor = new Deudor
                 {
                     idDeuda = item.IdDeuda,
+                    Motivo = item.Motivo,
                     motivo = item.Motivo,
                     idPropietario = item.IDPROPIETARIO,
                     nombrePropietario = item.NOMBREPROPIETARIO,
@@ -270,7 +273,8 @@ namespace EventPlannerCR_backend.Logica
                     nombreDeudor = item.NOMBREDEUDOR,
                     telefonoDeudor = item.TELEFONODEUDOR,
                     monto = item.MONTOPERSONAL,
-                    FechaCreacion = item.FechaCreacion
+                    FechaCreacion = item.FechaCreacion,
+                    estado = item.EstadoPago
                 };
                 ListaDeudas.Add(Deudor);
             }
