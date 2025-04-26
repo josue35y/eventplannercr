@@ -16,7 +16,7 @@ namespace API.Controllers
         }
 
         //Lista de Usuario
-        [HttpGet]
+        [HttpPost]
         [Route("api/Usuario/Lista_Usuarios")]
         public ResListaUsuarios Lista_Usuarios(ReqListaUsuarios req)
         {
@@ -49,7 +49,7 @@ namespace API.Controllers
         
         // controlar los errores si el api no responde.
         
-        [HttpGet]
+        [HttpPost]
         [Route("api/usuario/RevisarTelefono")]
         public ResRevisarTelefono RevisarTelefono(ReqRevisarTelefono req)
         {

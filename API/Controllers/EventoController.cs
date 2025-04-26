@@ -17,7 +17,7 @@ namespace API.Controllers
 
 
         //Lista de eventos
-        [HttpGet]
+        [HttpPost]
         [Route("api/evento/Lista_Eventos")]
         public ResListaEventos Lista_Eventos(ReqListaEventos req)
         {
