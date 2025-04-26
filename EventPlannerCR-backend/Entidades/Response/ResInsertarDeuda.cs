@@ -2,6 +2,6 @@
 {
     public class ResInsertarDeuda : ResBase
     {
-        
+        public int? idDeuda {get; set;}
     }
 }

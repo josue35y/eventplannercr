@@ -74,6 +74,7 @@ namespace EventPlannerCR_backend.Logica
 
                     if (idReturn != null && idReturn > 0)
                     {
+                        res.idDeuda = idReturn;
                         res.Resultado = true;
                     }
                     else
